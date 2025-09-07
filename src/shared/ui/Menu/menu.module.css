@@ -1,0 +1,19 @@
+.menu {
+    width: 270px;
+    height: 100vh;
+    background-color: #fafbfc;
+    padding: 15px;
+}
+
+.logo {
+    color: #435370;
+    font-size: 56px;
+    font-weight: bold;
+}
+
+.list {
+    margin-top: 75px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

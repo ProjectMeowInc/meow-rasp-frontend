@@ -1,0 +1,17 @@
+.date {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 300px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #344464;
+    top: 20px;
+    right: 10px;
+}
+
+.dateIcon {
+    transform: rotateY(180deg);
+}

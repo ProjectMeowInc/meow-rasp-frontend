@@ -1,0 +1,51 @@
+.page {
+    padding: 20px;
+}
+
+.caption {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+}
+
+.dayColumn {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dayTitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.slotCard {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.slotHeader {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.slotBody {
+    min-height: 40px;
+    margin-bottom: 6px;
+}
+
+.placeholder {
+    color: #888;
+    font-size: 14px;
+}

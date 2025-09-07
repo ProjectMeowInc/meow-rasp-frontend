@@ -1,0 +1,16 @@
+.group {
+    padding: 10px;
+    background-color: #fafbfc;
+    color: #435370;
+    font-weight: 600;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.group:hover {
+    background-color: #f2f8fb;
+}

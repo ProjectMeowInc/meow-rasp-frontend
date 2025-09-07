@@ -1,0 +1,42 @@
+.lessonCardWrapper {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.lessonCardNumber {
+    color: #7f8a9e;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.lessonSubgroupCard {
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: #344464;
+    font-size: 14px;
+    min-height: 72.5px;
+}
+
+.lessonName {
+    font-weight: 700;
+    word-wrap: break-word;
+}
+
+.lessonClassroom {
+    margin-top: -5px;
+    font-size: 16px;
+    text-align: end;
+}
+
+.lessonCard {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

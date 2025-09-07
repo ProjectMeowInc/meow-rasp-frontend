@@ -1,0 +1,22 @@
+.actions {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit {
+    background: #ffcc00;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.delete {
+    background: #e60000;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}

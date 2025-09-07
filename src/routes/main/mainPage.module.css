@@ -1,0 +1,14 @@
+.wrapper {
+    display: flex;
+    width: 85vw;
+    height: 100vh;
+    user-select: none;
+}
+
+.schedule {
+    margin-left: 40px;
+    margin-top: 60px;
+    display: flex;
+    gap: 10px;
+    overflow: auto;
+}

@@ -1,0 +1,30 @@
+.dayCard {
+    min-width: 330px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f1f3f5;
+    align-items: center;
+    border-radius: 10px;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    position: relative;
+    scrollbar-width: none;
+    padding-bottom: 20px;
+}
+
+.date {
+    padding: 10px;
+    color: #7f8a9e;
+    font-weight: 700;
+    font-size: 20px;
+    background-color: #f1f3f5;
+    width: 100%;
+    z-index: 1;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

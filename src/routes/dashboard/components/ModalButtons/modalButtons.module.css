@@ -1,0 +1,66 @@
+.wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+    gap: 10px;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+    transition:
+        background 0.2s,
+        transform 0.1s;
+}
+
+.button:active {
+    transform: scale(0.96);
+}
+
+.icon {
+    font-size: 16px;
+    display: flex;
+}
+
+/* Варианты */
+.default {
+    background: #ccc;
+    color: #333;
+}
+
+.default:hover {
+    background: #bbb;
+}
+
+.success {
+    background: #28a745;
+    color: #fff;
+}
+
+.success:hover {
+    background: #218838;
+}
+
+.danger {
+    background: #dc3545;
+    color: #fff;
+}
+
+.danger:hover {
+    background: #c82333;
+}
+
+.primary {
+    background: #0066cc;
+    color: #fff;
+}
+
+.primary:hover {
+    background: #004c99;
+}
