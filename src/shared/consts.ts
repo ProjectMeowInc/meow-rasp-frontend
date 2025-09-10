@@ -13,3 +13,6 @@ export const CORPUSES_API = API_URL + "/v1/corpus/"
 
 // Classrooms
 export const CLASSROOMS_API = API_URL + "/v1/classroom/"
+
+// Disciplines
+export const DISCIPLINE_API = API_URL + "/v1/discipline/"

@@ -1,7 +1,9 @@
-import { GROUPS_API } from "@/shared/consts"
+import { DISCIPLINE_API, GROUPS_API } from "@/shared/consts"
 import { HttpClient } from "@/shared/helpers/HttpClient"
-import { useHttpDataLoading } from "@/shared/hooks/useDataLoading"
-import { DisciplineTypePayload } from "@/shared/models/responses"
+import { getErrorMessage, useHttpDataLoading } from "@/shared/hooks/useDataLoading"
+import { DisciplineTypePayload, ICreatedResponse } from "@/shared/models/responses"
+import { GetAllTeachersRequest, IGetTeachersResponse } from "@/shared/requests"
+import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
 
 interface IGetGroupDisciplinesResponse {
@@ -19,15 +21,28 @@ interface IGetGroupDisciplinesResponse {
 
 interface ICreateOrUpdateDisciplineRequest {
     title: string
-    teacher: string
+    disciplineType: DisciplineTypePayload
+    lessonsCount: number
+    teacherId: number
+    groupId: number
 }
 
-const useGroupDisciplineDashboard = (group_id: number) => {
-    const GetAllGroupDisciplines = new HttpClient().withMethodGet().withUrl(`${GROUPS_API}${group_id}/disciplines`)
+const useGroupDisciplineDashboard = (groupId: number) => {
+    const EmptyFormData: ICreateOrUpdateDisciplineRequest = {
+        title: "",
+        disciplineType: "shared",
+        lessonsCount: -1,
+        teacherId: -1,
+        groupId,
+    }
+    const GetAllGroupDisciplinesRequest = new HttpClient()
+        .withMethodGet()
+        .withUrl(`${GROUPS_API}${groupId}/disciplines`)
 
-    const { state } = useHttpDataLoading<IGetGroupDisciplinesResponse>(GetAllGroupDisciplines)
+    const { state, reload } = useHttpDataLoading<IGetGroupDisciplinesResponse>(GetAllGroupDisciplinesRequest)
+    const { state: teachersState } = useHttpDataLoading<IGetTeachersResponse>(GetAllTeachersRequest)
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [formData, setFormData] = useState<ICreateOrUpdateDisciplineRequest>({ title: "", teacher: "" })
+    const [formData, setFormData] = useState<ICreateOrUpdateDisciplineRequest>(EmptyFormData)
     const [editingId, setEditingId] = useState<number | null>(null)
 
     const submitHandler = async () => {
@@ -39,7 +54,7 @@ const useGroupDisciplineDashboard = (group_id: number) => {
     }
 
     const openCreateHandler = () => {
-        setFormData({ title: "", teacher: "" })
+        setFormData(EmptyFormData)
         setEditingId(null)
         setIsModalOpen(true)
     }
@@ -89,33 +104,32 @@ const useGroupDisciplineDashboard = (group_id: number) => {
     }
 
     const createDiscipline = async () => {
-        throw new Error("WIP")
-        // try {
-        //     const response = await new HttpClient()
-        //         .withUrl(GROUP_DISCIPLINES_API)
-        //         .withMethodPost()
-        //         .withAuthorization()
-        //         .withJsonBody(formData)
-        //         .send<ICreatedResponse>()
+        try {
+            const response = await new HttpClient()
+                .withUrl(DISCIPLINE_API)
+                .withMethodPost()
+                .withAuthorization()
+                .withJsonBody(formData)
+                .send<ICreatedResponse>()
 
-        //     closeModal()
+            closeModal()
 
-        //     if (response.hasError()) {
-        //         const err = response.getError()
-        //         AlertService.error(`Ошибка создания дисциплины: ${getErrorMessage(err)}`)
-        //     } else {
-        //         AlertService.success(`Создана дисциплина с Id = ${response.unwrap().createdId}`)
-        //     }
+            if (response.hasError()) {
+                const err = response.getError()
+                AlertService.error(`Ошибка создания дисциплины: ${getErrorMessage(err)}`)
+            } else {
+                AlertService.success(`Создана дисциплина с Id = ${response.unwrap().createdId}`)
+            }
 
-        //     await reload()
-        // } catch {
-        //     AlertService.error(`Ошибка создание дисциплины: UNKNOWN`)
-        // }
+            await reload()
+        } catch {
+            AlertService.error(`Ошибка создание дисциплины: UNKNOWN`)
+        }
     }
 
     const closeModal = () => {
         setIsModalOpen(false)
-        setFormData({ title: "", teacher: "" })
+        setFormData(EmptyFormData)
         setEditingId(null)
     }
 
@@ -125,6 +139,7 @@ const useGroupDisciplineDashboard = (group_id: number) => {
 
     return {
         state,
+        teachersState,
         isModalOpen,
         formData,
         setFormData,

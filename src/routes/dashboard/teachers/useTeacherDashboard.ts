@@ -2,27 +2,19 @@ import { TEACHERS_API } from "@/shared/consts"
 import { HttpClient } from "@/shared/helpers/HttpClient"
 import { getErrorMessage, LoadSuccessStateType, useHttpDataLoading } from "@/shared/hooks/useDataLoading"
 import { ICreatedResponse } from "@/shared/models/responses"
+import { GetAllTeachersRequest, IGetTeachersResponse } from "@/shared/requests"
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
-
-interface IGetTeachersResponse {
-    items: {
-        id: number
-        name: string
-    }[]
-}
 
 interface ICreateTeacherRequest {
     name: string
 }
 
-const GetAllTeachers = new HttpClient().withMethodGet().withUrl(TEACHERS_API)
-
 const useTeacherDashboard = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [formData, setFormData] = useState<ICreateTeacherRequest>({ name: "" })
     const [editingId, setEditingId] = useState<number | null>(null)
-    const { state, reload } = useHttpDataLoading<IGetTeachersResponse>(GetAllTeachers)
+    const { state, reload } = useHttpDataLoading<IGetTeachersResponse>(GetAllTeachersRequest)
 
     const submitHandler = async () => {
         if (editingId) {

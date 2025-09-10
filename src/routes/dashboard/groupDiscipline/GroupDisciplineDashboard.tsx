@@ -12,11 +12,13 @@ import Preloader from "@/shared/ui/Preloader/Preloader"
 import ErrorReloadMessage from "@/shared/ui/ErrorReloadMessage/ErrorReloadMessage"
 import DisciplineItem from "./components/DisciplineItem "
 import EmptyResultMessage from "@/shared/ui/EmptyResultMessage/EmptyResultMessage"
+import { AvailableDisciplineTypePayload, DisciplineTypePayload } from "@/shared/models/responses"
 
 const GroupDisciplineDashboard = () => {
     const params = useParams<{ id: string }>()
     const {
         state,
+        teachersState,
         isModalOpen,
         formData,
         setFormData,
@@ -32,6 +34,14 @@ const GroupDisciplineDashboard = () => {
     }
 
     if (state.isError) {
+        return <ErrorReloadMessage />
+    }
+
+    if (teachersState.isLoading) {
+        return <Preloader />
+    }
+
+    if (teachersState.isError) {
         return <ErrorReloadMessage />
     }
 
@@ -79,13 +89,51 @@ const GroupDisciplineDashboard = () => {
                 />
                 <ModalLabel
                     label="Преподаватель"
-                    type="text"
-                    value={formData.teacher}
+                    type="select"
+                    value={formData.teacherId.toString()}
+                    selectItems={teachersState.content.items.map((teacher) => ({
+                        placeholder: <strong>{teacher.name}</strong>,
+                        value: teacher.id,
+                    }))}
                     required
                     onChange={(val) =>
                         setFormData((prev) => ({
                             ...prev,
-                            teacher: val,
+                            teacherId: parseInt(val),
+                        }))
+                    }
+                />
+                <ModalLabel
+                    label="Количество занятий"
+                    type="select"
+                    value={formData.lessonsCount.toString()}
+                    // todo: replace
+                    selectItems={Array.from(Array(10).keys()).map((i) => ({
+                        value: i,
+                        placeholder: <strong>{i}</strong>,
+                    }))}
+                    required
+                    onChange={(val) =>
+                        setFormData((prev) => ({
+                            ...prev,
+                            lessonsCount: parseInt(val),
+                        }))
+                    }
+                />
+                <ModalLabel
+                    label="Тип дисциплины"
+                    type="select"
+                    value={formData.disciplineType}
+                    // todo: replace
+                    selectItems={AvailableDisciplineTypePayload.map((disciplineType) => ({
+                        value: disciplineType,
+                        placeholder: <strong>{disciplineType}</strong>,
+                    }))}
+                    required
+                    onChange={(val) =>
+                        setFormData((prev) => ({
+                            ...prev,
+                            disciplineType: val as DisciplineTypePayload,
                         }))
                     }
                 />
