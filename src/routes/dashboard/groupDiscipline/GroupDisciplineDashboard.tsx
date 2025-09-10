@@ -15,7 +15,8 @@ import EmptyResultMessage from "@/shared/ui/EmptyResultMessage/EmptyResultMessag
 
 const GroupDisciplineDashboard = () => {
     const params = useParams<{ id: string }>()
-    const { state,
+    const {
+        state,
         isModalOpen,
         formData,
         setFormData,
@@ -23,7 +24,8 @@ const GroupDisciplineDashboard = () => {
         openCreateHandler,
         openUpdateHandler,
         submitHandler,
-        deleteHandler } = useGroupDisciplineDashboard(parseInt(params.id))
+        deleteHandler,
+    } = useGroupDisciplineDashboard(parseInt(params.id))
 
     if (state.isLoading) {
         return <Preloader />
@@ -62,11 +64,7 @@ const GroupDisciplineDashboard = () => {
                 </EmptyItemsDisplay.Empty>
             </EmptyItemsDisplay>
 
-            <Modal
-                title="Добавить дисциплину"
-                isOpen={isModalOpen}
-                onClose={cancelHandler}
-            >
+            <Modal title="Добавить дисциплину" isOpen={isModalOpen} onClose={cancelHandler}>
                 <ModalLabel
                     label="Название дисциплины"
                     type="text"

@@ -23,9 +23,7 @@ interface ICreateOrUpdateDisciplineRequest {
 }
 
 const useGroupDisciplineDashboard = (group_id: number) => {
-    const GetAllGroupDisciplines = new HttpClient()
-        .withMethodGet()
-        .withUrl(`${GROUPS_API}${group_id}/disciplines`)
+    const GetAllGroupDisciplines = new HttpClient().withMethodGet().withUrl(`${GROUPS_API}${group_id}/disciplines`)
 
     const { state } = useHttpDataLoading<IGetGroupDisciplinesResponse>(GetAllGroupDisciplines)
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -50,7 +48,7 @@ const useGroupDisciplineDashboard = (group_id: number) => {
         throw new Error("WIP")
     }
 
-    const deleteHandler = async (_id: number) => {
+    const deleteHandler = async () => {
         throw new Error("WIP")
         // const response = await new HttpClient()
         //     .withUrl(`${GROUP_DISCIPLINES_API}${id}`)

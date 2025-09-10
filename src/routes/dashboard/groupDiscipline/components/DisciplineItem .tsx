@@ -5,7 +5,7 @@ import CardActions from "../../components/CardActions/CardActions"
 interface IDisciplineItemProps {
     id: number
     title: string
-    teacher: { id: number, name: string }
+    teacher: { id: number; name: string }
     onUpdate: (id: number) => void
     onDelete: (id: number) => void
 }
@@ -15,15 +15,13 @@ const DisciplineItem: React.FC<IDisciplineItemProps> = ({ id, title, teacher, on
         <div className={styles.item}>
             <div className={styles.itemHeader}>{title}</div>
             <div className={styles.itemBody}>
-                <p><strong>Преподаватель:</strong> {teacher.name}</p>
+                <p>
+                    <strong>Преподаватель:</strong> {teacher.name}
+                </p>
             </div>
-            <CardActions
-                id={id}
-                onUpdate={onUpdate}
-                onDelete={onDelete}
-            />
+            <CardActions id={id} onUpdate={onUpdate} onDelete={onDelete} />
         </div>
     )
 }
 
-export default DisciplineItem;
+export default DisciplineItem

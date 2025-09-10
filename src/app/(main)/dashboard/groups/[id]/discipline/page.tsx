@@ -1,3 +1,3 @@
-import GroupDisciplineDashboard from "@/routes/dashboard/groupDiscipline/GroupDisciplineDashboard";
+import GroupDisciplineDashboard from "@/routes/dashboard/groupDiscipline/GroupDisciplineDashboard"
 
-export default GroupDisciplineDashboard;
+export default GroupDisciplineDashboard
