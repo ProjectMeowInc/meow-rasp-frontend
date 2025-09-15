@@ -15,7 +15,7 @@ const SlotCard: FC<ISlotCardProps> = ({ slot, onEditClick }) => {
                 <p className={styles.placeholder}>Нет занятий</p>
             </div>
             <div className={styles.slotActions}>
-                <Button onClick={() => onEditClick(slot)}>✏ Добавить / Редактировать</Button>
+                <Button onClick={() => onEditClick(slot)}>Редактировать</Button>
             </div>
         </div >
     )
