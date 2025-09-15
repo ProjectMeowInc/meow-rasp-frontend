@@ -3,7 +3,7 @@ import { useFirstLoadingAsync } from "./useFirstLoading"
 import { HttpClient, SendError } from "../helpers/HttpClient"
 import { HttpError } from "../helpers/errors"
 
-type DataLoadingState<TRes> = LoadingStateType | LoadErrorStateType | LoadSuccessStateType<TRes>
+export type DataLoadingState<TRes> = LoadingStateType | LoadErrorStateType | LoadSuccessStateType<TRes>
 
 type LoadFnType<TRes> = () => Promise<TRes>
 
