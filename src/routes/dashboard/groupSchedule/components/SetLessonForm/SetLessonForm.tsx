@@ -9,6 +9,7 @@ import ClassroomSelect from "@/shared/ui/ClassroomSelect/ClassroomSelect"
 import SubgroupSelect, { SubgroupType } from "@/shared/ui/SubgroupSelect/SubgroupSelect"
 import ModalWrapper from "./ModalWrapper"
 import ErrorReloadMessage from "@/shared/ui/ErrorReloadMessage/ErrorReloadMessage"
+import Button from "@/shared/ui/Button/Button"
 
 interface SetLessonFormProps {
     groupId: number,
@@ -68,16 +69,12 @@ const SetLessonForm = ({
                         <SubgroupSelect />
 
                         <div className={styles.buttons}>
-                            <button type="submit" className={styles.submit}>
+                            <Button>
                                 Сохранить
-                            </button>
-                            <button
-                                type="button"
-                                className={styles.cancel}
-                                onClick={handleCancel}
-                            >
+                            </Button>
+                            <Button onClick={handleCancel}>
                                 Отмена
-                            </button>
+                            </Button>
                         </div>
                     </form>
                 )
