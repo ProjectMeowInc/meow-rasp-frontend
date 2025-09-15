@@ -7,7 +7,7 @@ import InlinePreloader from "@/shared/ui/InlinePreloader/InlinePreloader"
 import TeacherSelect from "@/shared/ui/TeacherSelect/TeacherSelect"
 import ClassroomSelect from "@/shared/ui/ClassroomSelect/ClassroomSelect"
 import SubgroupSelect, { SubgroupType } from "@/shared/ui/SubgroupSelect/SubgroupSelect"
-import ModalWrapper from "./ModalWrapper"
+import ModalWrapper from "../../../../../shared/ui/ModalWrapper/ModalWrapper"
 import ErrorReloadMessage from "@/shared/ui/ErrorReloadMessage/ErrorReloadMessage"
 import Button from "@/shared/ui/Button/Button"
 

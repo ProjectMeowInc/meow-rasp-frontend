@@ -1,6 +1,6 @@
 "use client"
 
-import styles from "./setLessonForm.module.css"
+import styles from "./modalWrapper.module.css"
 
 interface ModalWrapperProps {
     children: React.ReactNode
