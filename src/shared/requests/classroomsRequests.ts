@@ -1,6 +1,5 @@
-import { CLASSROOMS_API } from "../consts";
-import { HttpClient } from "../helpers/HttpClient";
-
+import { CLASSROOMS_API } from "../consts"
+import { HttpClient } from "../helpers/HttpClient"
 
 export interface IGetClassroomsResponse {
     items: {

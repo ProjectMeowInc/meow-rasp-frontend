@@ -15,37 +15,36 @@ export interface IGetGroupDisciplinesResponse {
     }[]
 }
 
-export const GetAllGroupDisciplinesRequest = (groupId: number) => new HttpClient()
-    .withMethodGet()
-    .withUrl(`${GROUPS_API}${groupId}/disciplines`)
-
+export const GetAllGroupDisciplinesRequest = (groupId: number) =>
+    new HttpClient().withMethodGet().withUrl(`${GROUPS_API}${groupId}/disciplines`)
 
 export interface IGetDateScheduleWithNumberResponse {
-    date: string,
+    date: string
     number: number
     items: {
-        id: number,
-        number: number,
+        id: number
+        number: number
         discipline: {
-            id: number,
+            id: number
             title: string
-        },
+        }
         teacher: {
-            id: number,
+            id: number
             name: string
         }
         classroom: {
-            id: number,
+            id: number
             title: string
             corpus: {
-                id: number,
+                id: number
                 title: string
-            },
-        },
+            }
+        }
     }[]
 }
 
-export const GetDateScheduleWithNumber = (groupId: number, date: string, number: number) => new HttpClient()
-    .withMethodGet()
-    // todo: add withParams()
-    .withUrl(`${GROUPS_API}${groupId}/schedule/${date}?number=${number}`)
+export const GetDateScheduleWithNumber = (groupId: number, date: string, number: number) =>
+    new HttpClient()
+        .withMethodGet()
+        // todo: add withParams()
+        .withUrl(`${GROUPS_API}${groupId}/schedule/${date}?number=${number}`)

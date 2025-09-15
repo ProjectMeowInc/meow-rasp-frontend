@@ -6,30 +6,25 @@ import styles from "./groupSchedule.module.css"
 import { useParams } from "next/navigation"
 
 const getCurrentWeekDates = () => {
-    const today = new Date();
-    const dayOfWeek = today.getDay();
-    const diff = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
-    const monday = new Date(today.setDate(diff));
+    const today = new Date()
+    const dayOfWeek = today.getDay()
+    const diff = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)
+    const monday = new Date(today.setDate(diff))
 
     return Array.from({ length: 6 }, (_, i) => {
-        const date = new Date(monday);
-        date.setDate(monday.getDate() + i);
-        return date.toISOString().split('T')[0]; // YYYY-MM-DD format
-    });
+        const date = new Date(monday)
+        date.setDate(monday.getDate() + i)
+        return date.toISOString().split("T")[0] // YYYY-MM-DD format
+    })
 }
 
-const days = getCurrentWeekDates();
+const days = getCurrentWeekDates()
 
 const GroupScheduleDashboard = () => {
     const { id: groupId } = useParams<{ id: string }>()
-    const {
-        state,
-        isFormOpen,
-        editingSlot,
-        openFormHandler,
-        closeFormHandler,
-        submitHandler
-    } = useGroupScheduleDashboard(parseInt(groupId))
+    const { isFormOpen, editingSlot, openFormHandler, closeFormHandler, submitHandler } = useGroupScheduleDashboard(
+        parseInt(groupId),
+    )
 
     return (
         <div className={styles.page}>
@@ -50,8 +45,9 @@ const GroupScheduleDashboard = () => {
                     groupId={parseInt(groupId)}
                     slot={{
                         date: editingSlot.date,
-                        number: editingSlot.number
-                    }} />
+                        number: editingSlot.number,
+                    }}
+                />
             )}
         </div>
     )

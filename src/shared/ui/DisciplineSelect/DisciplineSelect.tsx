@@ -11,7 +11,6 @@ interface IDisciplineSelectProps {
 }
 
 const DisciplineSelect: React.FC<IDisciplineSelectProps> = ({ disciplinesState }) => {
-
     if (disciplinesState.isLoading) {
         return <InlinePreloader />
     }
@@ -22,7 +21,7 @@ const DisciplineSelect: React.FC<IDisciplineSelectProps> = ({ disciplinesState }
 
     return (
         <Select placeholder="Выберите дисциплину">
-            {disciplinesState.content.items.map(discipline => (
+            {disciplinesState.content.items.map((discipline) => (
                 <SelectItem key={discipline.id} value={discipline.id.toString()}>
                     <strong>{discipline.title}</strong>
                 </SelectItem>

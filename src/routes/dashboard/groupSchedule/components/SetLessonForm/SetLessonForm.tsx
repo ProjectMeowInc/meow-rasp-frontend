@@ -12,73 +12,36 @@ import ErrorReloadMessage from "@/shared/ui/ErrorReloadMessage/ErrorReloadMessag
 import Button from "@/shared/ui/Button/Button"
 
 interface SetLessonFormProps {
-    groupId: number,
+    groupId: number
     slot: ISlot
-    onSubmit: (data: {
-        disciplineId: number
-        teacherId: number
-        classroomId: number
-        subgroup: SubgroupType
-    }) => void
+    onSubmit: (data: { disciplineId: number; teacherId: number; classroomId: number; subgroup: SubgroupType }) => void
     onCancel: () => void
 }
 
-const SetLessonForm = ({
-    slot,
-    groupId,
-    onSubmit,
-    onCancel,
-}: SetLessonFormProps) => {
-    const {
-        slotState,
-        disciplinesState,
-        teachersState,
-        classroomsState,
-        disciplineId,
-        setDisciplineId,
-        teacherId,
-        setTeacherId,
-        classroomId,
-        setClassroomId,
-        subgroup,
-        setSubgroup,
-        handleSubmit,
-        handleCancel,
-    } = useSetLessonForm({ slot, groupId, onSubmit, onCancel })
+const SetLessonForm = ({ slot, groupId, onSubmit, onCancel }: SetLessonFormProps) => {
+    const { slotState, disciplinesState, teachersState, classroomsState, handleSubmit, handleCancel } =
+        useSetLessonForm({ slot, groupId, onSubmit, onCancel })
 
     return (
         <ModalWrapper onClose={onCancel}>
+            {slotState.isLoading && <InlinePreloader size="md" />}
 
-            {slotState.isLoading && (
-                <InlinePreloader size="md" />
+            {!slotState.isLoading && slotState.isError && <ErrorReloadMessage />}
+
+            {!slotState.isLoading && !slotState.isError && (
+                <form className={styles.form} onSubmit={handleSubmit}>
+                    <DisciplineSelect disciplinesState={disciplinesState} />
+
+                    <TeacherSelect teachersState={teachersState} />
+                    <ClassroomSelect classroomsState={classroomsState} />
+                    <SubgroupSelect />
+
+                    <div className={styles.buttons}>
+                        <Button>Сохранить</Button>
+                        <Button onClick={handleCancel}>Отмена</Button>
+                    </div>
+                </form>
             )}
-
-            {
-                !slotState.isLoading && slotState.isError && (
-                    <ErrorReloadMessage />
-                )
-            }
-
-            {
-                !slotState.isLoading && !slotState.isError && (
-                    <form className={styles.form} onSubmit={handleSubmit}>
-                        <DisciplineSelect disciplinesState={disciplinesState} />
-
-                        <TeacherSelect teachersState={teachersState} />
-                        <ClassroomSelect classroomsState={classroomsState} />
-                        <SubgroupSelect />
-
-                        <div className={styles.buttons}>
-                            <Button>
-                                Сохранить
-                            </Button>
-                            <Button onClick={handleCancel}>
-                                Отмена
-                            </Button>
-                        </div>
-                    </form>
-                )
-            }
         </ModalWrapper>
     )
 }

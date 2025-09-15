@@ -1,9 +1,13 @@
 import { useHttpDataLoading } from "@/shared/hooks/useDataLoading"
 import { IGetClassroomsResponse, GetAllClassroomsRequest } from "@/shared/requests/classroomsRequests"
-import { GetAllGroupDisciplinesRequest, GetDateScheduleWithNumber, IGetDateScheduleWithNumberResponse, IGetGroupDisciplinesResponse } from "@/shared/requests/groupRequests"
+import {
+    GetAllGroupDisciplinesRequest,
+    GetDateScheduleWithNumber,
+    IGetDateScheduleWithNumberResponse,
+    IGetGroupDisciplinesResponse,
+} from "@/shared/requests/groupRequests"
 import { IGetTeachersResponse, GetAllTeachersRequest } from "@/shared/requests/teachersRequests"
 import { SubgroupType } from "@/shared/ui/SubgroupSelect/SubgroupSelect"
-import { group } from "console"
 import { useState } from "react"
 
 export interface LessonFormData {
@@ -27,8 +31,12 @@ interface UseSetLessonFormOptions {
 }
 
 const useSetLessonForm = ({ slot, groupId, initialData, onSubmit, onCancel }: UseSetLessonFormOptions) => {
-    const { state: slotState } = useHttpDataLoading<IGetDateScheduleWithNumberResponse>(GetDateScheduleWithNumber(groupId, slot.date, slot.number))
-    const { state: disciplinesState } = useHttpDataLoading<IGetGroupDisciplinesResponse>(GetAllGroupDisciplinesRequest(groupId))
+    const { state: slotState } = useHttpDataLoading<IGetDateScheduleWithNumberResponse>(
+        GetDateScheduleWithNumber(groupId, slot.date, slot.number),
+    )
+    const { state: disciplinesState } = useHttpDataLoading<IGetGroupDisciplinesResponse>(
+        GetAllGroupDisciplinesRequest(groupId),
+    )
     const { state: teachersState } = useHttpDataLoading<IGetTeachersResponse>(GetAllTeachersRequest)
     const { state: classroomsState } = useHttpDataLoading<IGetClassroomsResponse>(GetAllClassroomsRequest)
     const [disciplineId, setDisciplineId] = useState(initialData?.disciplineId ?? 0)

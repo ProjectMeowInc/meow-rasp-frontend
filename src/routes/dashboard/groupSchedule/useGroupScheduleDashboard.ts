@@ -1,6 +1,6 @@
 import { GROUPS_API } from "@/shared/consts"
 import { HttpClient } from "@/shared/helpers/HttpClient"
-import { getErrorMessage, LoadSuccessStateType, useHttpDataLoading } from "@/shared/hooks/useDataLoading"
+import { getErrorMessage } from "@/shared/hooks/useDataLoading"
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
 import { ISlot } from "./components/SetLessonForm/useSetLessonForm"
@@ -14,11 +14,7 @@ interface ISetLessonRequest {
     slot: number
 }
 
-const GetGroupSchedule = (groupId: number) =>
-    new HttpClient().withMethodGet().withUrl(`${GROUPS_API}${groupId}/schedule`)
-
 export const useGroupScheduleDashboard = (groupId: number) => {
-    const { state, reload } = useHttpDataLoading<ISlot[]>(GetGroupSchedule(groupId))
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [editingSlot, setEditingSlot] = useState<ISlot | null>(null)
 
@@ -44,7 +40,7 @@ export const useGroupScheduleDashboard = (groupId: number) => {
             const requestData: ISetLessonRequest = {
                 ...data,
                 date: editingSlot.date,
-                slot: editingSlot.number
+                slot: editingSlot.number,
             }
 
             const response = await new HttpClient()
@@ -70,11 +66,10 @@ export const useGroupScheduleDashboard = (groupId: number) => {
     }
 
     return {
-        state,
         isFormOpen,
         editingSlot,
         openFormHandler,
         closeFormHandler,
-        submitHandler
+        submitHandler,
     }
 }

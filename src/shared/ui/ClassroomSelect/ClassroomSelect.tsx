@@ -21,7 +21,7 @@ const ClassroomSelect: React.FC<IClassroomSelectProps> = ({ classroomsState }) =
 
     return (
         <Select placeholder="Выберите аудиторию">
-            {classroomsState.content.items.map(classroom => (
+            {classroomsState.content.items.map((classroom) => (
                 <SelectItem key={classroom.id} value={classroom.id.toString()}>
                     <strong>{classroom.title}</strong>
                 </SelectItem>
