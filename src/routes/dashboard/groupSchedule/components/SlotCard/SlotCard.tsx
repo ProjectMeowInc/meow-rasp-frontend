@@ -4,9 +4,10 @@ import { FC } from "react"
 
 interface ISlotCardProps {
     slot: number
+    onEditClick: (slot: number) => void
 }
 
-const SlotCard: FC<ISlotCardProps> = ({ slot }) => {
+const SlotCard: FC<ISlotCardProps> = ({ slot, onEditClick }) => {
     return (
         <div className={styles.slotCard}>
             <div className={styles.slotHeader}>Пара {slot}</div>
@@ -14,9 +15,9 @@ const SlotCard: FC<ISlotCardProps> = ({ slot }) => {
                 <p className={styles.placeholder}>Нет занятий</p>
             </div>
             <div className={styles.slotActions}>
-                <Button>✏ Добавить / Редактировать</Button>
+                <Button onClick={() => onEditClick(slot)}>✏ Добавить / Редактировать</Button>
             </div>
-        </div>
+        </div >
     )
 }
 

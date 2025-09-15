@@ -1,0 +1,20 @@
+"use client"
+
+import styles from "./setLessonForm.module.css"
+
+interface ModalWrapperProps {
+    children: React.ReactNode
+    onClose: () => void
+}
+
+const ModalWrapper = ({ children, onClose }: ModalWrapperProps) => {
+    return (
+        <div className={styles.modalOverlay} onClick={onClose}>
+            <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+                {children}
+            </div>
+        </div>
+    )
+}
+
+export default ModalWrapper

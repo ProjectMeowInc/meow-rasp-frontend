@@ -1,23 +1,11 @@
-import { DISCIPLINE_API, GROUPS_API } from "@/shared/consts"
+import { DISCIPLINE_API } from "@/shared/consts"
 import { HttpClient } from "@/shared/helpers/HttpClient"
 import { getErrorMessage, useHttpDataLoading } from "@/shared/hooks/useDataLoading"
 import { DisciplineTypePayload, ICreatedResponse } from "@/shared/models/responses"
-import { GetAllTeachersRequest, IGetTeachersResponse } from "@/shared/requests"
+import { IGetGroupDisciplinesResponse, GetAllGroupDisciplinesRequest } from "@/shared/requests/groupRequests"
+import { IGetTeachersResponse, GetAllTeachersRequest } from "@/shared/requests/teachersRequests"
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
-
-interface IGetGroupDisciplinesResponse {
-    items: {
-        id: number
-        title: string
-        lessonsCount: number
-        disciplineType: DisciplineTypePayload
-        teacher: {
-            id: number
-            name: string
-        }
-    }[]
-}
 
 interface ICreateOrUpdateDisciplineRequest {
     title: string
@@ -35,11 +23,8 @@ const useGroupDisciplineDashboard = (groupId: number) => {
         teacherId: -1,
         groupId,
     }
-    const GetAllGroupDisciplinesRequest = new HttpClient()
-        .withMethodGet()
-        .withUrl(`${GROUPS_API}${groupId}/disciplines`)
 
-    const { state, reload } = useHttpDataLoading<IGetGroupDisciplinesResponse>(GetAllGroupDisciplinesRequest)
+    const { state, reload } = useHttpDataLoading<IGetGroupDisciplinesResponse>(GetAllGroupDisciplinesRequest(groupId))
     const { state: teachersState } = useHttpDataLoading<IGetTeachersResponse>(GetAllTeachersRequest)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [formData, setFormData] = useState<ICreateOrUpdateDisciplineRequest>(EmptyFormData)
