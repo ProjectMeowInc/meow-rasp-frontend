@@ -72,6 +72,40 @@ export function useHttpDataLoading<TRes>(req: HttpClient) {
     return { state, reload }
 }
 
+export function useHttpDataLoadingWithMap<TReqRes, TRes>(req: HttpClient, mapFn: (val: TReqRes) => TRes) {
+    const [state, setState] = useState<DataLoadingState<TRes>>({
+        isLoading: true,
+    })
+
+    const reload = async () => {
+        setState({
+            isLoading: true,
+        })
+
+        const result = await req.send<TReqRes>()
+
+        if (result.hasError()) {
+            return setState({
+                isLoading: false,
+                isError: true,
+                error: getErrorMessage(result.getError()),
+            })
+        }
+
+        setState({
+            isLoading: false,
+            isError: false,
+            content: mapFn(result.unwrap()),
+        })
+    }
+
+    useFirstLoadingAsync(async () => {
+        await reload()
+    })
+
+    return { state, reload }
+}
+
 type LoadingStateType = {
     isLoading: true
 }
