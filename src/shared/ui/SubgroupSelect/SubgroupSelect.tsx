@@ -6,11 +6,12 @@ export type SubgroupType = "both" | "first" | "second"
 
 interface ISubgroupSelectProps {
     onChange?: (value: SubgroupType) => void
+    selectedSubgroup?: SubgroupType
 }
 
-const SubgroupSelect: React.FC<ISubgroupSelectProps> = ({ onChange }) => {
+const SubgroupSelect: React.FC<ISubgroupSelectProps> = ({ onChange, selectedSubgroup }) => {
     return (
-        <Select placeholder="Выберите подгруппу" onChange={(val) => onChange?.(val as SubgroupType)}>
+        <Select placeholder="Выберите подгруппу" value={selectedSubgroup} onChange={(val) => onChange?.(val as SubgroupType)}>
             <SelectItem value="both">Обе</SelectItem>
             <SelectItem value="first">1-я подгруппа</SelectItem>
             <SelectItem value="second">2-я подгруппа</SelectItem>

@@ -8,9 +8,10 @@ import React from "react"
 
 interface IDisciplineSelectProps {
     disciplinesState: DataLoadingState<IGetGroupDisciplinesResponse>
+    selectedDiscipline?: string
 }
 
-const DisciplineSelect: React.FC<IDisciplineSelectProps> = ({ disciplinesState }) => {
+const DisciplineSelect: React.FC<IDisciplineSelectProps> = ({ disciplinesState, selectedDiscipline }) => {
     if (disciplinesState.isLoading) {
         return <InlinePreloader />
     }
@@ -20,7 +21,7 @@ const DisciplineSelect: React.FC<IDisciplineSelectProps> = ({ disciplinesState }
     }
 
     return (
-        <Select placeholder="Выберите дисциплину">
+        <Select placeholder="Выберите дисциплину" value={selectedDiscipline}>
             {disciplinesState.content.items.map((discipline) => (
                 <SelectItem key={discipline.id} value={discipline.id.toString()}>
                     <strong>{discipline.title}</strong>

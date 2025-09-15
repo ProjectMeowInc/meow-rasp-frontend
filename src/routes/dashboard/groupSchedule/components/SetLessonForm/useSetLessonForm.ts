@@ -1,4 +1,4 @@
-import { useHttpDataLoading } from "@/shared/hooks/useDataLoading"
+import { useHttpDataLoading, useHttpDataLoadingWithMap } from "@/shared/hooks/useDataLoading"
 import { IGetClassroomsResponse, GetAllClassroomsRequest } from "@/shared/requests/classroomsRequests"
 import {
     GetAllGroupDisciplinesRequest,
@@ -31,9 +31,20 @@ interface UseSetLessonFormOptions {
 }
 
 const useSetLessonForm = ({ slot, groupId, initialData, onSubmit, onCancel }: UseSetLessonFormOptions) => {
-    const { state: slotState } = useHttpDataLoading<IGetDateScheduleWithNumberResponse>(
-        GetDateScheduleWithNumber(groupId, slot.date, slot.number),
-    )
+    const { state: slotState } = useHttpDataLoadingWithMap<IGetDateScheduleWithNumberResponse, { teacherId: number, disciplineId: number, classroomId: number, subgroup: SubgroupType } | undefined>(GetDateScheduleWithNumber(groupId, slot.date, slot.number), (res) => {
+        const schedule = res.items.find(sch => sch.number == slot.number)
+        if (!schedule) {
+            return
+        }
+
+        return {
+            teacherId: schedule.teacher.id,
+            disciplineId: schedule.discipline.id,
+            classroomId: schedule.classroom.id,
+            // todo: fix this
+            subgroup: "both"
+        }
+    })
     const { state: disciplinesState } = useHttpDataLoading<IGetGroupDisciplinesResponse>(
         GetAllGroupDisciplinesRequest(groupId),
     )

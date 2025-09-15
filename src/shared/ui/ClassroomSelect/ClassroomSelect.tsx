@@ -8,9 +8,10 @@ import React from "react"
 
 interface IClassroomSelectProps {
     classroomsState: DataLoadingState<IGetClassroomsResponse>
+    selectedClassroom?: string
 }
 
-const ClassroomSelect: React.FC<IClassroomSelectProps> = ({ classroomsState }) => {
+const ClassroomSelect: React.FC<IClassroomSelectProps> = ({ classroomsState, selectedClassroom }) => {
     if (classroomsState.isLoading) {
         return <InlinePreloader />
     }
@@ -20,7 +21,7 @@ const ClassroomSelect: React.FC<IClassroomSelectProps> = ({ classroomsState }) =
     }
 
     return (
-        <Select placeholder="Выберите аудиторию">
+        <Select placeholder="Выберите аудиторию" value={selectedClassroom}>
             {classroomsState.content.items.map((classroom) => (
                 <SelectItem key={classroom.id} value={classroom.id.toString()}>
                     <strong>{classroom.title}</strong>

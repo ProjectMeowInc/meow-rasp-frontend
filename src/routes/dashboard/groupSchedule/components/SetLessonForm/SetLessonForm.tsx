@@ -30,11 +30,10 @@ const SetLessonForm = ({ slot, groupId, onSubmit, onCancel }: SetLessonFormProps
 
             {!slotState.isLoading && !slotState.isError && (
                 <form className={styles.form} onSubmit={handleSubmit}>
-                    <DisciplineSelect disciplinesState={disciplinesState} />
-
-                    <TeacherSelect teachersState={teachersState} />
-                    <ClassroomSelect classroomsState={classroomsState} />
-                    <SubgroupSelect />
+                    <DisciplineSelect disciplinesState={disciplinesState} selectedDiscipline={slotState.content?.disciplineId.toString()} />
+                    <TeacherSelect teachersState={teachersState} selectedTeacher={slotState.content?.teacherId.toString()} />
+                    <ClassroomSelect classroomsState={classroomsState} selectedClassroom={slotState.content?.classroomId.toString()} />
+                    <SubgroupSelect selectedSubgroup={slotState.content?.subgroup} />
 
                     <div className={styles.buttons}>
                         <Button>Сохранить</Button>
