@@ -58,8 +58,6 @@ export const useGroupScheduleDashboard = (groupId: number) => {
             } else {
                 AlertService.success(`Занятие успешно установлено`)
             }
-
-            await reload()
         } catch {
             AlertService.error(`Ошибка установки занятия: UNKNOWN`)
         }

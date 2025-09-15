@@ -2,7 +2,7 @@ import { TEACHERS_API } from "@/shared/consts"
 import { HttpClient } from "@/shared/helpers/HttpClient"
 import { getErrorMessage, LoadSuccessStateType, useHttpDataLoading } from "@/shared/hooks/useDataLoading"
 import { ICreatedResponse } from "@/shared/models/responses"
-import { GetAllTeachersRequest, IGetTeachersResponse } from "@/shared/requests"
+import { GetAllTeachersRequest, IGetTeachersResponse } from "@/shared/requests/teachersRequests"
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
 

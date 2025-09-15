@@ -1,5 +1,5 @@
 import { DataLoadingState } from "@/shared/hooks/useDataLoading"
-import { IGetGroupDisciplinesResponse } from "@/shared/requests"
+import { IGetGroupDisciplinesResponse } from "@/shared/requests/groupRequests"
 import ErrorReloadMessage from "@/shared/ui/ErrorReloadMessage/ErrorReloadMessage"
 import InlinePreloader from "@/shared/ui/InlinePreloader/InlinePreloader"
 import Select from "@/shared/ui/Select/Select"
