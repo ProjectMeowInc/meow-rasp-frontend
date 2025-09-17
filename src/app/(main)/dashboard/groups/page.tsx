@@ -1,3 +1,3 @@
-import GroupDashborad from "@/routes/dashboard/groups/GroupDashboard"
+import GroupDashboard from "@/routes/dashboard/groups/GroupDashboard"
 
-export default GroupDashborad
+export default GroupDashboard
