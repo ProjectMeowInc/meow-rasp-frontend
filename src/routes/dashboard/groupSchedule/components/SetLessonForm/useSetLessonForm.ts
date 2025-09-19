@@ -1,3 +1,4 @@
+import { useAsyncEffect } from "@/shared/hooks/useAsyncEffect"
 import { useHttpDataLoading, useHttpDataLoadingWithMap } from "@/shared/hooks/useDataLoading"
 import { IGetClassroomsResponse, GetAllClassroomsRequest } from "@/shared/requests/classroomsRequests"
 import {
@@ -7,14 +8,15 @@ import {
     IGetGroupDisciplinesResponse,
 } from "@/shared/requests/groupRequests"
 import { IGetTeachersResponse, GetAllTeachersRequest } from "@/shared/requests/teachersRequests"
-import { SubgroupType } from "@/shared/ui/SubgroupSelect/SubgroupSelect"
+import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
+import { LessonType } from "../../useGroupScheduleDashboard"
 
 export interface LessonFormData {
     disciplineId: number
     teacherId: number
     classroomId: number
-    subgroup: SubgroupType
+    lessonType: LessonType
 }
 
 export interface ISlot {
@@ -31,8 +33,11 @@ interface UseSetLessonFormOptions {
 }
 
 const useSetLessonForm = ({ slot, groupId, initialData, onSubmit, onCancel }: UseSetLessonFormOptions) => {
-    const { state: slotState } = useHttpDataLoadingWithMap<IGetDateScheduleWithNumberResponse, { teacherId: number, disciplineId: number, classroomId: number, subgroup: SubgroupType } | undefined>(GetDateScheduleWithNumber(groupId, slot.date, slot.number), (res) => {
-        const schedule = res.items.find(sch => sch.number == slot.number)
+    const { state: slotState } = useHttpDataLoadingWithMap<
+        IGetDateScheduleWithNumberResponse,
+        { teacherId: number; disciplineId: number; classroomId: number; lessonType: LessonType } | undefined
+    >(GetDateScheduleWithNumber(groupId, slot.date, slot.number), (res) => {
+        const schedule = res.items.find((sch) => sch.number == slot.number)
         if (!schedule) {
             return
         }
@@ -41,8 +46,7 @@ const useSetLessonForm = ({ slot, groupId, initialData, onSubmit, onCancel }: Us
             teacherId: schedule.teacher.id,
             disciplineId: schedule.discipline.id,
             classroomId: schedule.classroom.id,
-            // todo: fix this
-            subgroup: "both"
+            lessonType: schedule.lessonType,
         }
     })
     const { state: disciplinesState } = useHttpDataLoading<IGetGroupDisciplinesResponse>(
@@ -50,15 +54,31 @@ const useSetLessonForm = ({ slot, groupId, initialData, onSubmit, onCancel }: Us
     )
     const { state: teachersState } = useHttpDataLoading<IGetTeachersResponse>(GetAllTeachersRequest)
     const { state: classroomsState } = useHttpDataLoading<IGetClassroomsResponse>(GetAllClassroomsRequest)
-    const [disciplineId, setDisciplineId] = useState(initialData?.disciplineId ?? 0)
-    const [teacherId, setTeacherId] = useState(initialData?.teacherId ?? 0)
-    const [classroomId, setClassroomId] = useState(initialData?.classroomId ?? 0)
-    const [subgroup, setSubgroup] = useState<SubgroupType>(initialData?.subgroup ?? "both")
+    const [disciplineId, setDisciplineId] = useState<number | undefined>(initialData?.disciplineId)
+    const [teacherId, setTeacherId] = useState<number | undefined>(initialData?.teacherId)
+    const [classroomId, setClassroomId] = useState<number | undefined>(initialData?.classroomId)
+    const [lessonType, setLessonType] = useState<LessonType | undefined>(initialData?.lessonType)
+
+    useAsyncEffect(async () => {
+        if (!slotState.isLoading && !slotState.isError) {
+            const state = slotState.content
+            // todo: add logs or error display?
+            if (!state) {
+                return
+            }
+            setDisciplineId(state.disciplineId)
+            setTeacherId(state.teacherId)
+            setClassroomId(state.classroomId)
+            setLessonType(state.lessonType)
+        }
+    }, [slotState])
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        if (!disciplineId || !teacherId || !classroomId) return
-        onSubmit({ disciplineId, teacherId, classroomId, subgroup })
+        if (!disciplineId || !teacherId || !classroomId || !lessonType) {
+            return AlertService.error("Все поля должны быть заполнены")
+        }
+        onSubmit({ disciplineId, teacherId, classroomId, lessonType })
     }
 
     const handleCancel = () => {
@@ -76,8 +96,8 @@ const useSetLessonForm = ({ slot, groupId, initialData, onSubmit, onCancel }: Us
         setTeacherId,
         classroomId,
         setClassroomId,
-        subgroup,
-        setSubgroup,
+        lessonType,
+        setLessonType,
         handleSubmit,
         handleCancel,
     }

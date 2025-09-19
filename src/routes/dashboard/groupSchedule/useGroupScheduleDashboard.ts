@@ -1,20 +1,29 @@
-import { GROUPS_API } from "@/shared/consts"
+import { LESSONS_API } from "@/shared/consts"
 import { HttpClient } from "@/shared/helpers/HttpClient"
 import { getErrorMessage } from "@/shared/hooks/useDataLoading"
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
 import { ISlot } from "./components/SetLessonForm/useSetLessonForm"
 
-interface ISetLessonRequest {
+export interface ICreateLessonPayload {
     disciplineId: number
     teacherId: number
     classroomId: number
-    subgroup: string
+    lessonType: LessonType
     date: string
-    slot: number
+    number: number
 }
 
-export const useGroupScheduleDashboard = (groupId: number) => {
+export type LessonType =
+    | {
+          type: "shared"
+      }
+    | {
+          type: "devided"
+          subgroup: number
+      }
+
+export const useGroupScheduleDashboard = () => {
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [editingSlot, setEditingSlot] = useState<ISlot | null>(null)
 
@@ -32,19 +41,19 @@ export const useGroupScheduleDashboard = (groupId: number) => {
         disciplineId: number
         teacherId: number
         classroomId: number
-        subgroup: string
+        lessonType: LessonType
     }) => {
         if (!editingSlot) return
 
         try {
-            const requestData: ISetLessonRequest = {
+            const requestData: ICreateLessonPayload = {
                 ...data,
                 date: editingSlot.date,
-                slot: editingSlot.number,
+                number: editingSlot.number,
             }
 
             const response = await new HttpClient()
-                .withUrl(`${GROUPS_API}${groupId}/schedule/lesson`)
+                .withUrl(LESSONS_API)
                 .withMethodPost()
                 .withAuthorization()
                 .withJsonBody(requestData)
