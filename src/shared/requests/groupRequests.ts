@@ -1,3 +1,4 @@
+import { LessonType } from "@/routes/dashboard/groupSchedule/useGroupScheduleDashboard"
 import { GROUPS_API } from "../consts"
 import { HttpClient } from "../helpers/HttpClient"
 import { DisciplineTypePayload } from "../models/responses"
@@ -24,6 +25,7 @@ export interface IGetDateScheduleWithNumberResponse {
     items: {
         id: number
         number: number
+        lessonType: LessonType
         discipline: {
             id: number
             title: string
