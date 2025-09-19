@@ -1,4 +1,4 @@
-import { useEffetcAsync } from "@/shared/hooks/useAsyncEffect"
+import { useEffectAsync } from "@/shared/hooks/useEffectAsync"
 import { useHttpDataLoading, useHttpDataLoadingWithMap } from "@/shared/hooks/useDataLoading"
 import { IGetClassroomsResponse, GetAllClassroomsRequest } from "@/shared/requests/classroomsRequests"
 import {
@@ -59,7 +59,7 @@ const useSetLessonForm = ({ slot, groupId, initialData, onSubmit, onCancel }: Us
     const [classroomId, setClassroomId] = useState<number | undefined>(initialData?.classroomId)
     const [lessonType, setLessonType] = useState<LessonType | undefined>(initialData?.lessonType)
 
-    useEffetcAsync(async () => {
+    useEffectAsync(async () => {
         if (!slotState.isLoading && !slotState.isError) {
             const state = slotState.content
             // todo: add logs or error display?
