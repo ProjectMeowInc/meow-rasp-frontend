@@ -62,7 +62,11 @@ const GroupDashboard = () => {
                 </EmptyItemsDisplay.Empty>
             </EmptyItemsDisplay>
 
-            <Modal title={editingId ? "Редактировать группу" : "Добавить группу"} isOpen={isModalOpen} onClose={cancelHandler}>
+            <Modal
+                title={editingId ? "Редактировать группу" : "Добавить группу"}
+                isOpen={isModalOpen}
+                onClose={cancelHandler}
+            >
                 <ModalLabel
                     label="Название группы"
                     type="text"
