@@ -1,22 +1,41 @@
+import { LessonType } from "@/routes/dashboard/groupSchedule/useGroupScheduleDashboard"
 import Select from "@/shared/ui/Select/Select"
 import SelectItem from "@/shared/ui/Select/SelectItem"
 import React from "react"
 
-export type SubgroupType = "both" | "first" | "second"
-
 interface ISubgroupSelectProps {
-    onChange?: (value: SubgroupType) => void
-    selectedSubgroup?: SubgroupType
+    onChange?: (value: LessonType) => void
+    selectedSubgroup?: LessonType
 }
 
 const SubgroupSelect: React.FC<ISubgroupSelectProps> = ({ onChange, selectedSubgroup }) => {
+    const changeHandler = (val: string) => {
+        if (val.startsWith("shared")) {
+            onChange?.({ type: "shared" })
+        } else {
+            onChange?.({ type: "devided", subgroup: parseInt(val.split("-")[1]) })
+        }
+    }
+
     return (
-        <Select placeholder="Выберите подгруппу" value={selectedSubgroup} onChange={(val) => onChange?.(val as SubgroupType)}>
-            <SelectItem value="both">Обе</SelectItem>
-            <SelectItem value="first">1-я подгруппа</SelectItem>
-            <SelectItem value="second">2-я подгруппа</SelectItem>
+        <Select placeholder="Выберите подгруппу" value={lessonTypeToValue(selectedSubgroup)} onChange={changeHandler}>
+            <SelectItem value={lessonTypeToValue({ type: "shared" })}>Обе</SelectItem>
+            <SelectItem value={lessonTypeToValue({ type: "devided", subgroup: 1 })}>1-я подгруппа</SelectItem>
+            <SelectItem value={lessonTypeToValue({ type: "devided", subgroup: 2 })}>2-я подгруппа</SelectItem>
         </Select>
     )
+}
+
+function lessonTypeToValue(lessonType?: LessonType): string {
+    if (!lessonType) {
+        return "shared"
+    }
+    switch (lessonType.type) {
+        case "shared":
+            return "shared"
+        case "devided":
+            return `devided-${lessonType.subgroup}`
+    }
 }
 
 export default SubgroupSelect
