@@ -22,9 +22,7 @@ const days = getCurrentWeekDates()
 
 const GroupScheduleDashboard = () => {
     const { id: groupId } = useParams<{ id: string }>()
-    const { isFormOpen, editingSlot, openFormHandler, closeFormHandler, submitHandler } = useGroupScheduleDashboard(
-        parseInt(groupId),
-    )
+    const { isFormOpen, editingSlot, openFormHandler, closeFormHandler, submitHandler } = useGroupScheduleDashboard()
 
     return (
         <div className={styles.page}>
