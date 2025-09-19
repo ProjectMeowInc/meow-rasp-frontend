@@ -4,6 +4,8 @@ import { getErrorMessage } from "@/shared/hooks/useDataLoading"
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
 import { ISlot } from "./components/SetLessonForm/useSetLessonForm"
+import { GetGroupSchedule, IGetGroupScheduleResponse } from "@/shared/requests/groupRequests"
+import { useHttpDataLoading, DataLoadingState } from "@/shared/hooks/useDataLoading"
 
 export interface ICreateLessonPayload {
     disciplineId: number
@@ -23,9 +25,13 @@ export type LessonType =
           subgroup: number
       }
 
-export const useGroupScheduleDashboard = () => {
+export const useGroupScheduleDashboard = (groupId: number, startDate: string, endDate: string) => {
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [editingSlot, setEditingSlot] = useState<ISlot | null>(null)
+
+    const { state: scheduleState, reload: reloadSchedule } = useHttpDataLoading<IGetGroupScheduleResponse>(
+        GetGroupSchedule(groupId, startDate, endDate),
+    )
 
     const openFormHandler = (slot: ISlot) => {
         setEditingSlot(slot)
@@ -75,8 +81,11 @@ export const useGroupScheduleDashboard = () => {
     return {
         isFormOpen,
         editingSlot,
+        scheduleState,
+        isLoading: scheduleState.isLoading,
         openFormHandler,
         closeFormHandler,
         submitHandler,
+        refetchSchedule: reloadSchedule,
     }
 }

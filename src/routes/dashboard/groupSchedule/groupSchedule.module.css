@@ -64,6 +64,15 @@
     cursor: pointer;
 }
 
+.slotBody p {
+    margin: 4px 0;
+    font-size: 13px;
+}
+
+.slotBody p strong {
+    color: #4a5568;
+}
+
 .slotCard:hover {
     background: #edf2f7;
     border-color: #cbd5e0;
