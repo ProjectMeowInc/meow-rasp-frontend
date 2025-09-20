@@ -16,6 +16,7 @@ export class HttpClient {
     private headers: Record<string, string> = {}
     private method: HttpMethod = "GET"
     private body: BodyType = null
+    private params: Record<string, string> = {}
 
     private authorizationSettings: AuthorizationSettingsType = { require: false }
 
@@ -25,12 +26,7 @@ export class HttpClient {
     }
 
     withParam(key: string, value: string): this {
-        if (this.url.includes("?")) {
-            this.url += `${key}=${value}`
-        }
-
-        this.url += `?${key}=${value}`
-
+        this.params[key] = value
         return this
     }
 
@@ -74,6 +70,14 @@ export class HttpClient {
 
     public async send<T>(): Promise<Result<T, HttpError | AppError | Error>> {
         try {
+            if (Object.keys(this.params).length !== 0) {
+                this.url.concat("?")
+
+                for (const [key, value] of Object.entries(this.params)) {
+                    this.url.concat(`${key}=${value}&`)
+                }
+            }
+
             const response = await fetch(this.url, {
                 method: this.method,
                 headers: this.headers,
