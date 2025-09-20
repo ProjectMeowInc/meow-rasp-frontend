@@ -17,10 +17,20 @@ export class HttpClient {
     private method: HttpMethod = "GET"
     private body: BodyType = null
 
-    private authorizationSettigs: AuthorizationSettingsType = { require: false }
+    private authorizationSettings: AuthorizationSettingsType = { require: false }
 
     withUrl(url: string): this {
         this.url = url
+        return this
+    }
+
+    withParam(key: string, value: string): this {
+        if (this.url.includes("?")) {
+            this.url += `${key}=${value}`
+        }
+
+        this.url += `?${key}=${value}`
+
         return this
     }
 
@@ -50,7 +60,7 @@ export class HttpClient {
     }
 
     withAuthorization(): this {
-        this.authorizationSettigs = {
+        this.authorizationSettings = {
             require: true,
         }
         return this
