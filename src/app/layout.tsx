@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import { Raleway } from "next/font/google"
+import ToastContainerClientWrapper from "@/shared/layout/ToastContainerClientWrapper"
 
 export const metadata: Metadata = {
     title: "Расписание СМПК",
@@ -21,7 +22,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ru">
-            <body className={raleway.className}>{children}</body>
+            <body className={raleway.className}>
+                <ToastContainerClientWrapper />
+                {children}
+            </body>
         </html>
     )
 }
