@@ -81,4 +81,5 @@ export interface IGetGroupScheduleResponse {
 export const GetGroupSchedule = (groupId: number, startDate: string, endDate: string) =>
     new HttpClient()
         .withMethodGet()
+        // todo: withParams()
         .withUrl(`${GROUPS_API}${groupId}/schedule?start_date=${startDate}&end_date=${endDate}`)

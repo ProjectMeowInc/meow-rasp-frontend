@@ -12,10 +12,7 @@ export function getDateRange(start: Date, end: Date): Date[] {
 
     // Copy for immutable input params
     const current = new Date(start)
-    current.setHours(0, 0, 0, 0)
-
     const last = new Date(end)
-    last.setHours(0, 0, 0, 0)
 
     while (current <= last) {
         dates.push(new Date(current))
