@@ -48,8 +48,8 @@ export interface IGetDateScheduleWithNumberResponse {
 export const GetDateScheduleWithNumber = (groupId: number, date: string, number: number) =>
     new HttpClient()
         .withMethodGet()
-        // todo: add withParams()
-        .withUrl(`${GROUPS_API}${groupId}/schedule/${date}?number=${number}`)
+        .withUrl(`${GROUPS_API}${groupId}/schedule/${date}`)
+        .withParam("number", number.toString())
 
 export interface IGetGroupScheduleResponse {
     items: Record<
@@ -81,5 +81,6 @@ export interface IGetGroupScheduleResponse {
 export const GetGroupSchedule = (groupId: number, startDate: string, endDate: string) =>
     new HttpClient()
         .withMethodGet()
-        // todo: withParams()
-        .withUrl(`${GROUPS_API}${groupId}/schedule?start_date=${startDate}&end_date=${endDate}`)
+        .withUrl(`${GROUPS_API}${groupId}/schedule`)
+        .withParam("start_date", startDate)
+        .withParam("end_date", endDate)
