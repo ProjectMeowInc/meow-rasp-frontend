@@ -51,13 +51,13 @@ const DayColumn: FC<IDayColumnProps> = ({ date, onSlotCardEdit, scheduleData }) 
             <h2 className={styles.dayTitle}>{getDayName(date)}</h2>
             <p className={styles.dateSubtitle}>{formatDate(date)}</p>
             {slots.map((slot) => {
-                const lesson = scheduleData.find((l) => l.number === slot)
+                const lessons = scheduleData.filter((l) => l.number === slot)
                 return (
                     <SlotCard
                         key={slot}
                         slot={slot}
                         onEditClick={(slot) => onSlotCardEdit(date, slot)}
-                        lesson={lesson}
+                        lessons={lessons}
                     />
                 )
             })}

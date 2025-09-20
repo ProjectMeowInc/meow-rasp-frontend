@@ -1,9 +1,8 @@
 export function getISOWeekMonday(date: Date = new Date()): Date {
     // getDay return 0 for Sunday. We transform it to monday
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getDay
-    const today = new Date()
-    const adjustDay = today.getDay() === 0 ? 6 : today.getDay() - 1
-    const monday = new Date(today.setDate(today.getDate() - adjustDay + 1))
+    const adjustDay = date.getDay() === 0 ? 6 : date.getDay() - 1
+    const monday = new Date(date.setDate(date.getDate() - adjustDay + 1))
     monday.setHours(0, 0, 0, 0)
     return monday
 }
@@ -12,7 +11,7 @@ export function getDateRange(start: Date, end: Date): Date[] {
     const dates: Date[] = []
 
     // Copy for immutable input params
-    let current = new Date(start)
+    const current = new Date(start)
     current.setHours(0, 0, 0, 0)
 
     const last = new Date(end)

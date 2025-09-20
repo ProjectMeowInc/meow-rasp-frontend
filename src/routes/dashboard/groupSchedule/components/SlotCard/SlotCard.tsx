@@ -6,7 +6,7 @@ import styles from "../../groupSchedule.module.css"
 interface ISlotCardProps {
     slot: number
     onEditClick: (slot: number) => void
-    lesson?: {
+    lessons?: {
         id: number
         lessonType: LessonType
         number: number
@@ -26,34 +26,40 @@ interface ISlotCardProps {
             id: number
             name: string
         }
-    }
+    }[]
 }
 
-const SlotCard: FC<ISlotCardProps> = ({ slot, onEditClick, lesson }) => {
+const SlotCard: FC<ISlotCardProps> = ({ slot, onEditClick, lessons }) => {
     return (
         <div className={styles.slotCard}>
             <div className={styles.slotHeader}>Пара {slot}</div>
             <div className={styles.slotBody}>
-                {lesson ? (
-                    <>
-                        <p>
-                            <strong>Предмет:</strong> {lesson.discipline.title}
-                        </p>
-                        <p>
-                            <strong>Преподаватель:</strong> {lesson.teacher.name}
-                        </p>
-                        <p>
-                            <strong>Аудитория:</strong> {lesson.classroom.title}
-                        </p>
-                        <p>
-                            <strong>Корпус:</strong> {lesson.classroom.corpus.title}
-                        </p>
-                        {lesson.lessonType.type === "devided" && (
+                {lessons && lessons.length > 0 ? (
+                    lessons.map((lesson) => (
+                        <div
+                            key={lesson.id}
+                            className={styles.lessonItem}
+                            data-subgroup={lesson.lessonType.type === "devided" ? lesson.lessonType.subgroup : "shared"}
+                        >
                             <p>
-                                <strong>Подгруппа:</strong> {lesson.lessonType.subgroup}
+                                <strong>Предмет:</strong> {lesson.discipline.title}
                             </p>
-                        )}
-                    </>
+                            <p>
+                                <strong>Преподаватель:</strong> {lesson.teacher.name}
+                            </p>
+                            <p>
+                                <strong>Аудитория:</strong> {lesson.classroom.title}
+                            </p>
+                            <p>
+                                <strong>Корпус:</strong> {lesson.classroom.corpus.title}
+                            </p>
+                            {lesson.lessonType.type === "devided" && (
+                                <p>
+                                    <strong>Подгруппа:</strong> {lesson.lessonType.subgroup}
+                                </p>
+                            )}
+                        </div>
+                    ))
                 ) : (
                     <p className={styles.placeholder}>Нет занятий</p>
                 )}

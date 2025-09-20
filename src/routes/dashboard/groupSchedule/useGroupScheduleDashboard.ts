@@ -5,7 +5,7 @@ import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
 import { ISlot } from "./components/SetLessonForm/useSetLessonForm"
 import { GetGroupSchedule, IGetGroupScheduleResponse } from "@/shared/requests/groupRequests"
-import { useHttpDataLoading, DataLoadingState } from "@/shared/hooks/useDataLoading"
+import { useHttpDataLoading } from "@/shared/hooks/useDataLoading"
 
 export interface ICreateLessonPayload {
     disciplineId: number

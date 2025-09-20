@@ -79,6 +79,26 @@
     transform: scale(1.02);
 }
 
+.lessonItem {
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    border-left: 3px solid #007bff;
+}
+
+.lessonItem:last-child {
+    margin-bottom: 0;
+}
+
+.lessonItem[data-subgroup="1"] {
+    border-left-color: #28a745;
+}
+
+.lessonItem[data-subgroup="2"] {
+    border-left-color: #dc3545;
+}
+
 .slotHeader {
     font-weight: 600;
     margin-bottom: 8px;
