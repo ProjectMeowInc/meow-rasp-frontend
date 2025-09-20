@@ -70,12 +70,14 @@ export class HttpClient {
 
     public async send<T>(): Promise<Result<T, HttpError | AppError | Error>> {
         try {
-            if (Object.keys(this.params).length !== 0) {
-                this.url.concat("?")
+            if (Object.keys(this.params).length > 0) {
+                let params = "?"
 
                 for (const [key, value] of Object.entries(this.params)) {
-                    this.url.concat(`${key}=${value}&`)
+                    params += `${key}=${value}&`
                 }
+
+                this.url += params
             }
 
             const response = await fetch(this.url, {
