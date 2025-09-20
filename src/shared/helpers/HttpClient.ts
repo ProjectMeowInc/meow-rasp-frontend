@@ -16,11 +16,17 @@ export class HttpClient {
     private headers: Record<string, string> = {}
     private method: HttpMethod = "GET"
     private body: BodyType = null
+    private params: Record<string, string> = {}
 
-    private authorizationSettigs: AuthorizationSettingsType = { require: false }
+    private authorizationSettings: AuthorizationSettingsType = { require: false }
 
     withUrl(url: string): this {
         this.url = url
+        return this
+    }
+
+    withParam(key: string, value: string): this {
+        this.params[key] = value
         return this
     }
 
@@ -50,7 +56,7 @@ export class HttpClient {
     }
 
     withAuthorization(): this {
-        this.authorizationSettigs = {
+        this.authorizationSettings = {
             require: true,
         }
         return this
@@ -64,6 +70,16 @@ export class HttpClient {
 
     public async send<T>(): Promise<Result<T, HttpError | AppError | Error>> {
         try {
+            if (Object.keys(this.params).length > 0) {
+                let params = "?"
+
+                for (const [key, value] of Object.entries(this.params)) {
+                    params += `${key}=${value}&`
+                }
+
+                this.url += params
+            }
+
             const response = await fetch(this.url, {
                 method: this.method,
                 headers: this.headers,
