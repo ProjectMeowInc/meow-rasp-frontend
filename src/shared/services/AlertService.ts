@@ -12,7 +12,7 @@ export class AlertService {
             progress: undefined,
             theme: "light",
             transition: Bounce,
-        });
+        })
     }
     static error(message: string): void {
         toast.error(message, {
@@ -25,6 +25,6 @@ export class AlertService {
             progress: undefined,
             theme: "light",
             transition: Bounce,
-        });
+        })
     }
 }

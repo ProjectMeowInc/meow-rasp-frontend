@@ -3,10 +3,10 @@
 import React, { PropsWithChildren } from "react"
 import { ToastContainer } from "react-toastify"
 
-const RootClientLayout: React.FC<PropsWithChildren> = ({children}) => {
+const RootClientLayout: React.FC<PropsWithChildren> = ({ children }) => {
     return (
         <div>
-            <ToastContainer/>
+            <ToastContainer />
             {children}
         </div>
     )
