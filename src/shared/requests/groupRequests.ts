@@ -1,7 +1,6 @@
-import { LessonType } from "@/routes/dashboard/groupSchedule/useGroupScheduleDashboard"
 import { GROUPS_API } from "../consts"
 import { HttpClient } from "../helpers/HttpClient"
-import { DisciplineTypePayload } from "../models/responses"
+import { DisciplineTypePayload, LessonWithRelated } from "../models/responses"
 
 export interface IGetGroupDisciplinesResponse {
     items: {
@@ -22,27 +21,7 @@ export const GetAllGroupDisciplinesRequest = (groupId: number) =>
 export interface IGetDateScheduleWithNumberResponse {
     date: string
     number: number
-    items: {
-        id: number
-        number: number
-        lessonType: LessonType
-        discipline: {
-            id: number
-            title: string
-        }
-        teacher: {
-            id: number
-            name: string
-        }
-        classroom: {
-            id: number
-            title: string
-            corpus: {
-                id: number
-                title: string
-            }
-        }
-    }[]
+    items: LessonWithRelated[]
 }
 
 export const GetDateScheduleWithNumberRequest = (groupId: number, date: string, number: number) =>
@@ -52,30 +31,7 @@ export const GetDateScheduleWithNumberRequest = (groupId: number, date: string, 
         .withParam("number", number.toString())
 
 export interface IGetGroupScheduleResponse {
-    items: Record<
-        string,
-        {
-            id: number
-            lessonType: LessonType
-            number: number
-            classroom: {
-                corpus: {
-                    id: number
-                    title: string
-                }
-                id: number
-                title: string
-            }
-            discipline: {
-                id: number
-                title: string
-            }
-            teacher: {
-                id: number
-                name: string
-            }
-        }[]
-    >
+    items: Record<string, LessonWithRelated[]>
 }
 
 export const GetGroupScheduleRequest = (groupId: number, startDate: string, endDate: string) =>
