@@ -5,7 +5,7 @@ import styles from "../../groupSchedule.module.css"
 
 interface ISlotCardProps {
     slot: number
-    onEditClick: (slot: number) => void
+    onEditClick: (slot: number, lessonId?: number) => void
     lessons?: {
         id: number
         lessonType: LessonType
@@ -30,6 +30,27 @@ interface ISlotCardProps {
 }
 
 const SlotCard: FC<ISlotCardProps> = ({ slot, onEditClick, lessons }) => {
+    // Determine if we can add another lesson to this slot
+    const canAddLesson = () => {
+        if (!lessons || lessons.length === 0) {
+            return true // No lessons, can add
+        }
+
+        // if setup shared lesson
+        if (lessons.length === 1 && lessons[0].lessonType.type === "shared") {
+            return false
+        }
+
+        // if setup 2 lessons
+        if (lessons.length > 1) {
+            return false
+        }
+
+        return true
+    }
+
+    const shouldShowAddButton = canAddLesson()
+
     return (
         <div className={styles.slotCard}>
             <div className={styles.slotHeader}>Пара {slot}</div>
@@ -58,15 +79,20 @@ const SlotCard: FC<ISlotCardProps> = ({ slot, onEditClick, lessons }) => {
                                     <strong>Подгруппа:</strong> {lesson.lessonType.subgroup}
                                 </p>
                             )}
+                            <div className={styles.lessonActions}>
+                                <Button onClick={() => onEditClick(slot, lesson.id)}>Редактировать</Button>
+                            </div>
                         </div>
                     ))
                 ) : (
                     <p className={styles.placeholder}>Нет занятий</p>
                 )}
             </div>
-            <div className={styles.slotActions}>
-                <Button onClick={() => onEditClick(slot)}>Редактировать</Button>
-            </div>
+            {shouldShowAddButton && (
+                <div className={styles.slotActions}>
+                    <Button onClick={() => onEditClick(slot)}>Добавить занятие</Button>
+                </div>
+            )}
         </div>
     )
 }
