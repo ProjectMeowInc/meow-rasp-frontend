@@ -50,7 +50,7 @@ const useSetLessonForm = ({ slot, groupId, initialData, onSubmit, onCancel }: Us
         }
     })
     const { state: disciplinesState } = useHttpDataLoading<IGetGroupDisciplinesResponse>(
-        GetAllGroupDisciplinesRequest(groupId)
+        GetAllGroupDisciplinesRequest(groupId),
     )
     const { state: teachersState } = useHttpDataLoading<IGetTeachersResponse>(GetAllTeachersRequest)
     const { state: classroomsState } = useHttpDataLoading<IGetClassroomsResponse>(GetAllClassroomsRequest)

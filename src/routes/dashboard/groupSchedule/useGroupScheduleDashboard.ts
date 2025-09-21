@@ -30,7 +30,7 @@ export const useGroupScheduleDashboard = (groupId: number, startDate: string, en
     const [editingSlot, setEditingSlot] = useState<ISlot | null>(null)
 
     const { state: scheduleState, reload: reloadSchedule } = useHttpDataLoading<IGetGroupScheduleResponse>(
-        GetGroupScheduleRequest(groupId, startDate, endDate)
+        GetGroupScheduleRequest(groupId, startDate, endDate),
     )
 
     const openFormHandler = (slot: ISlot) => {

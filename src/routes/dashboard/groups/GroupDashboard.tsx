@@ -11,6 +11,7 @@ import { useGroupDashboard } from "./useGroupDashboard"
 import Preloader from "@/shared/ui/Preloader/Preloader"
 import ErrorReloadMessage from "@/shared/ui/ErrorReloadMessage/ErrorReloadMessage"
 import GroupItem from "./components/GroupItem"
+import GroupDisciplineDashboard from "@/routes/dashboard/groupDiscipline/GroupDisciplineDashboard"
 
 const GroupDashboard = () => {
     const {
@@ -18,12 +19,14 @@ const GroupDashboard = () => {
         isModalOpen,
         formData,
         editingId,
+        selectedGroupId,
         setFormData,
         cancelHandler,
         openUpdateHandler,
         openCreateHandler,
         deleteHandler,
         submitHandler,
+        setSelectedGroupId,
     } = useGroupDashboard()
 
     if (state.isLoading) {
@@ -36,31 +39,38 @@ const GroupDashboard = () => {
 
     return (
         <div className={styles.page}>
-            <Header
-                caption={"Управление группами"}
-                buttonCaption={"Добавить группу"}
-                onButtonClick={openCreateHandler}
-            />
+            <div className={styles.leftSide}>
+                <Header
+                    caption={"Управление группами"}
+                    buttonCaption={"Добавить группу"}
+                    onButtonClick={openCreateHandler}
+                />
 
-            <EmptyItemsDisplay items={state.content.items}>
-                <EmptyItemsDisplay.Contains>
-                    <div className={styles.grid}>
-                        {state.content.items.map((group) => (
-                            <GroupItem
-                                key={group.id}
-                                id={group.id}
-                                title={group.title}
-                                onUpdate={openUpdateHandler}
-                                onDelete={deleteHandler}
-                            />
-                        ))}
-                    </div>
-                </EmptyItemsDisplay.Contains>
+                <EmptyItemsDisplay items={state.content.items}>
+                    <EmptyItemsDisplay.Contains>
+                        <div className={styles.grid}>
+                            {state.content.items.map((group) => (
+                                <GroupItem
+                                    key={group.id}
+                                    id={group.id}
+                                    title={group.title}
+                                    onUpdate={openUpdateHandler}
+                                    onDelete={deleteHandler}
+                                    onClick={(id) => setSelectedGroupId(id)}
+                                />
+                            ))}
+                        </div>
+                    </EmptyItemsDisplay.Contains>
 
-                <EmptyItemsDisplay.Empty>
-                    <EmptyResultMessage />
-                </EmptyItemsDisplay.Empty>
-            </EmptyItemsDisplay>
+                    <EmptyItemsDisplay.Empty>
+                        <EmptyResultMessage />
+                    </EmptyItemsDisplay.Empty>
+                </EmptyItemsDisplay>
+            </div>
+
+            <div className={styles.rightSide}>
+                {selectedGroupId && <GroupDisciplineDashboard id={selectedGroupId} />}
+            </div>
 
             <Modal
                 title={editingId ? "Редактировать группу" : "Добавить группу"}

@@ -9,16 +9,16 @@ interface IGroupItemProps {
     title: string
     onUpdate: (id: number) => Promise<void>
     onDelete: (id: number) => Promise<void>
+    onClick: (id: number) => void
 }
 
-const GroupItem: FC<IGroupItemProps> = ({ id, title, onUpdate, onDelete }) => {
+const GroupItem: FC<IGroupItemProps> = ({ id, title, onUpdate, onDelete, onClick }) => {
     return (
-        <div className={styles.card}>
+        <div className={styles.card} onClick={() => onClick(id)}>
             <h2>
                 Группа <b>{title}</b>
             </h2>
-            <div onClick={() => (window.location.href = `/dashboard/groups/${id}/schedule`)}>Изменить расписание</div>
-            <div onClick={() => (window.location.href = `/dashboard/groups/${id}/discipline`)}>Изменить дисциплины</div>
+            <p onClick={() => (window.location.href = `/dashboard/groups/${id}/schedule`)}>Изменить расписание</p>
 
             <CardActions id={id} onUpdate={onUpdate} onDelete={onDelete} />
         </div>

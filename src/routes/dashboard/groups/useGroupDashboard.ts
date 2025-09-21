@@ -23,6 +23,7 @@ export const useGroupDashboard = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [formData, setFormData] = useState<ICreateOrUpdateGroupRequest>({ title: "" })
     const [editingId, setEditingId] = useState<number | null>(null)
+    const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null)
 
     const submitHandler = async () => {
         if (editingId) {
@@ -130,11 +131,13 @@ export const useGroupDashboard = () => {
         isModalOpen,
         formData,
         editingId,
+        selectedGroupId,
         setFormData,
         cancelHandler,
         openUpdateHandler,
         openCreateHandler,
         deleteHandler,
         submitHandler,
+        setSelectedGroupId,
     }
 }

@@ -6,16 +6,19 @@ import styles from "./groupDisciplineDashboard.module.css"
 import Modal from "../components/Modal/Modal"
 import ModalLabel from "../components/ModalLabel/ModalLabel"
 import ModalButtons from "../components/ModalButtons/ModalButtons"
-import { useParams } from "next/navigation"
 import useGroupDisciplineDashboard from "./useGroupDisciplineDashboard"
-import Preloader from "@/shared/ui/Preloader/Preloader"
 import ErrorReloadMessage from "@/shared/ui/ErrorReloadMessage/ErrorReloadMessage"
 import DisciplineItem from "./components/DisciplineItem "
 import EmptyResultMessage from "@/shared/ui/EmptyResultMessage/EmptyResultMessage"
 import { AvailableDisciplineTypePayload, DisciplineTypePayload } from "@/shared/models/responses"
+import React from "react"
+import InlinePreloader from "@/shared/ui/InlinePreloader/InlinePreloader"
 
-const GroupDisciplineDashboard = () => {
-    const params = useParams<{ id: string }>()
+interface IGroupDisciplineDashboard {
+    id: number
+}
+
+const GroupDisciplineDashboard: React.FC<IGroupDisciplineDashboard> = ({ id }) => {
     const {
         state,
         teachersState,
@@ -27,10 +30,14 @@ const GroupDisciplineDashboard = () => {
         openUpdateHandler,
         submitHandler,
         deleteHandler,
-    } = useGroupDisciplineDashboard(parseInt(params.id))
+    } = useGroupDisciplineDashboard(id)
 
     if (state.isLoading) {
-        return <Preloader />
+        return (
+            <div className={styles.inlineLoader}>
+                <InlinePreloader size={"lg"} />
+            </div>
+        )
     }
 
     if (state.isError) {
@@ -38,7 +45,7 @@ const GroupDisciplineDashboard = () => {
     }
 
     if (teachersState.isLoading) {
-        return <Preloader />
+        return <InlinePreloader />
     }
 
     if (teachersState.isError) {

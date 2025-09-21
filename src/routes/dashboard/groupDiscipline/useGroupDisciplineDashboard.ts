@@ -6,6 +6,7 @@ import { IGetGroupDisciplinesResponse, GetAllGroupDisciplinesRequest } from "@/s
 import { IGetTeachersResponse, GetAllTeachersRequest } from "@/shared/requests/teachersRequests"
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
+import { useEffectAsync } from "@/shared/hooks/useEffectAsync"
 
 interface ICreateOrUpdateDisciplineRequest {
     title: string
@@ -121,6 +122,10 @@ const useGroupDisciplineDashboard = (groupId: number) => {
     const cancelHandler = () => {
         closeModal()
     }
+
+    useEffectAsync(async () => {
+        await reload()
+    }, [groupId])
 
     return {
         state,
