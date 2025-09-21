@@ -45,7 +45,7 @@ export interface IGetDateScheduleWithNumberResponse {
     }[]
 }
 
-export const GetDateScheduleWithNumber = (groupId: number, date: string, number: number) =>
+export const GetDateScheduleWithNumberRequest = (groupId: number, date: string, number: number) =>
     new HttpClient()
         .withMethodGet()
         .withUrl(`${GROUPS_API}${groupId}/schedule/${date}`)
@@ -78,7 +78,7 @@ export interface IGetGroupScheduleResponse {
     >
 }
 
-export const GetGroupSchedule = (groupId: number, startDate: string, endDate: string) =>
+export const GetGroupScheduleRequest = (groupId: number, startDate: string, endDate: string) =>
     new HttpClient()
         .withMethodGet()
         .withUrl(`${GROUPS_API}${groupId}/schedule`)

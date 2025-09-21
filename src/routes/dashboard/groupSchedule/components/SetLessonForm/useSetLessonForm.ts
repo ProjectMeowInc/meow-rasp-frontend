@@ -3,7 +3,7 @@ import { useHttpDataLoading, useHttpDataLoadingWithMap } from "@/shared/hooks/us
 import { IGetClassroomsResponse, GetAllClassroomsRequest } from "@/shared/requests/classroomsRequests"
 import {
     GetAllGroupDisciplinesRequest,
-    GetDateScheduleWithNumber,
+    GetDateScheduleWithNumberRequest,
     IGetDateScheduleWithNumberResponse,
     IGetGroupDisciplinesResponse,
 } from "@/shared/requests/groupRequests"
@@ -36,7 +36,7 @@ const useSetLessonForm = ({ slot, groupId, initialData, onSubmit, onCancel }: Us
     const { state: slotState } = useHttpDataLoadingWithMap<
         IGetDateScheduleWithNumberResponse,
         { teacherId: number; disciplineId: number; classroomId: number; lessonType: LessonType } | undefined
-    >(GetDateScheduleWithNumber(groupId, slot.date, slot.number), (res) => {
+    >(GetDateScheduleWithNumberRequest(groupId, slot.date, slot.number), (res) => {
         const schedule = res.items.find((sch) => sch.number == slot.number)
         if (!schedule) {
             return
@@ -50,7 +50,7 @@ const useSetLessonForm = ({ slot, groupId, initialData, onSubmit, onCancel }: Us
         }
     })
     const { state: disciplinesState } = useHttpDataLoading<IGetGroupDisciplinesResponse>(
-        GetAllGroupDisciplinesRequest(groupId),
+        GetAllGroupDisciplinesRequest(groupId)
     )
     const { state: teachersState } = useHttpDataLoading<IGetTeachersResponse>(GetAllTeachersRequest)
     const { state: classroomsState } = useHttpDataLoading<IGetClassroomsResponse>(GetAllClassroomsRequest)
