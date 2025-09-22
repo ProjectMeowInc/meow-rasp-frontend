@@ -10,7 +10,8 @@ import ModalButtons from "../components/ModalButtons/ModalButtons"
 import { useGroupDashboard } from "./useGroupDashboard"
 import Preloader from "@/shared/ui/Preloader/Preloader"
 import ErrorReloadMessage from "@/shared/ui/ErrorReloadMessage/ErrorReloadMessage"
-import GroupItem from "./components/GroupItem"
+import GroupItem from "./components/GroupItem/GroupItem"
+import GroupDiscipline from "@/routes/dashboard/groups/components/GroupDiscipline/GroupDiscipline"
 
 const GroupDashboard = () => {
     const {
@@ -18,12 +19,14 @@ const GroupDashboard = () => {
         isModalOpen,
         formData,
         editingId,
+        selectedGroup,
         setFormData,
         cancelHandler,
         openUpdateHandler,
         openCreateHandler,
         deleteHandler,
         submitHandler,
+        setSelectedGroup,
     } = useGroupDashboard()
 
     if (state.isLoading) {
@@ -36,31 +39,44 @@ const GroupDashboard = () => {
 
     return (
         <div className={styles.page}>
-            <Header
-                caption={"Управление группами"}
-                buttonCaption={"Добавить группу"}
-                onButtonClick={openCreateHandler}
-            />
+            <div className={styles.leftSide}>
+                <Header
+                    caption={"Управление группами"}
+                    buttonCaption={"Добавить группу"}
+                    onButtonClick={openCreateHandler}
+                />
 
-            <EmptyItemsDisplay items={state.content.items}>
-                <EmptyItemsDisplay.Contains>
-                    <div className={styles.grid}>
-                        {state.content.items.map((group) => (
-                            <GroupItem
-                                key={group.id}
-                                id={group.id}
-                                title={group.title}
-                                onUpdate={openUpdateHandler}
-                                onDelete={deleteHandler}
-                            />
-                        ))}
-                    </div>
-                </EmptyItemsDisplay.Contains>
+                <EmptyItemsDisplay items={state.content.items}>
+                    <EmptyItemsDisplay.Contains>
+                        <div className={styles.grid}>
+                            {state.content.items.map((group) => (
+                                <GroupItem
+                                    key={group.id}
+                                    id={group.id}
+                                    title={group.title}
+                                    variant={group.id === selectedGroup?.id ? "selected" : "default"}
+                                    onUpdate={openUpdateHandler}
+                                    onDelete={deleteHandler}
+                                    onClick={(id) =>
+                                        setSelectedGroup({
+                                            id: id,
+                                            title: group.title,
+                                        })
+                                    }
+                                />
+                            ))}
+                        </div>
+                    </EmptyItemsDisplay.Contains>
 
-                <EmptyItemsDisplay.Empty>
-                    <EmptyResultMessage />
-                </EmptyItemsDisplay.Empty>
-            </EmptyItemsDisplay>
+                    <EmptyItemsDisplay.Empty>
+                        <EmptyResultMessage />
+                    </EmptyItemsDisplay.Empty>
+                </EmptyItemsDisplay>
+            </div>
+
+            <div className={styles.rightSide}>
+                {selectedGroup && <GroupDiscipline id={selectedGroup.id} title={selectedGroup.title} />}
+            </div>
 
             <Modal
                 title={editingId ? "Редактировать группу" : "Добавить группу"}

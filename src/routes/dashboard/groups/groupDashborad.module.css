@@ -1,8 +1,18 @@
 .page {
+    width: 100%;
     min-height: 100vh;
-    background: #f4f6f9;
-    padding: 30px;
     font-family: sans-serif;
+    display: flex;
+}
+
+.leftSide {
+    flex: 4;
+    padding: 20px;
+    background: #f4f6f9;
+}
+
+.rightSide {
+    flex: 10;
 }
 
 .grid {

@@ -6,6 +6,7 @@ import { IGetGroupDisciplinesResponse, GetAllGroupDisciplinesRequest } from "@/s
 import { IGetTeachersResponse, GetAllTeachersRequest } from "@/shared/requests/teachersRequests"
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
+import { useEffectAsync } from "@/shared/hooks/useEffectAsync"
 
 interface ICreateOrUpdateDisciplineRequest {
     title: string
@@ -15,7 +16,7 @@ interface ICreateOrUpdateDisciplineRequest {
     groupId: number
 }
 
-const useGroupDisciplineDashboard = (groupId: number) => {
+const useGroupDiscipline = (groupId: number) => {
     const EmptyFormData: ICreateOrUpdateDisciplineRequest = {
         title: "",
         disciplineType: "shared",
@@ -122,6 +123,10 @@ const useGroupDisciplineDashboard = (groupId: number) => {
         closeModal()
     }
 
+    useEffectAsync(async () => {
+        await reload()
+    }, [groupId])
+
     return {
         state,
         teachersState,
@@ -136,4 +141,4 @@ const useGroupDisciplineDashboard = (groupId: number) => {
     }
 }
 
-export default useGroupDisciplineDashboard
+export default useGroupDiscipline

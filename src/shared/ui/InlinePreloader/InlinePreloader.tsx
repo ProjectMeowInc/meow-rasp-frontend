@@ -2,7 +2,7 @@ import React from "react"
 import styles from "./inlinePreloader.module.css"
 
 interface IInlinePreloaderProps {
-    size?: "xs" | "sm" | "md"
+    size?: "xs" | "sm" | "md" | "lg"
 }
 
 const InlinePreloader: React.FC<IInlinePreloaderProps> = ({ size = "md" }) => {

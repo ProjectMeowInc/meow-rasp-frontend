@@ -12,7 +12,7 @@ interface IHeaderProps {
 const Header: React.FC<IHeaderProps> = ({ caption, buttonCaption, onButtonClick }) => {
     return (
         <div className={styles.header}>
-            <h1>{caption}</h1>
+            <h2>{caption}</h2>
             <button className={styles.addButton} onClick={() => onButtonClick?.call(null)}>
                 + {buttonCaption}
             </button>
