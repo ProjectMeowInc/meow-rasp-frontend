@@ -87,10 +87,8 @@ export const useGroupScheduleDashboard = (groupId: number, startDate: string, en
         editingSlot,
         editingLessonId,
         scheduleState,
-        isLoading: scheduleState.isLoading,
         openFormHandler,
         closeFormHandler,
         submitHandler,
-        refetchSchedule: reloadSchedule,
     }
 }
