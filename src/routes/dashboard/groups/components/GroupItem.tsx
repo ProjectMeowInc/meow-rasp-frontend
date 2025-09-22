@@ -18,6 +18,8 @@ const GroupItem: FC<IGroupItemProps> = ({ id, title, onUpdate, onDelete }) => {
                 Группа <b>{title}</b>
             </h2>
             <div onClick={() => (window.location.href = `/dashboard/groups/${id}/schedule`)}>Изменить расписание</div>
+            <div onClick={() => (window.location.href = `/dashboard/groups/${id}/discipline`)}>Изменить дисциплины</div>
+
             <CardActions id={id} onUpdate={onUpdate} onDelete={onDelete} />
         </div>
     )

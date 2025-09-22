@@ -3,6 +3,7 @@
 import React from "react"
 import { FC, ReactNode, useEffect, useRef, useState } from "react"
 import styles from "./select.module.css"
+import SelectItem from "./SelectItem"
 
 interface ISelectProps {
     value?: string
@@ -48,6 +49,11 @@ const Select: FC<ISelectProps> = ({ value, onChange, placeholder = "Выбери
             </div>
             {open && (
                 <div className={styles.dropdown}>
+                    {!React.Children.count(children) && (
+                        <SelectItem value="-1">
+                            <strong>Здесь ничего нет</strong>
+                        </SelectItem>
+                    )}
                     {
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         React.Children.map(children, (child: any) =>

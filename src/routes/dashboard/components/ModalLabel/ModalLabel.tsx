@@ -1,35 +1,60 @@
-import React, { ChangeEvent } from "react"
+import React from "react"
 import styles from "./modalLabel.module.css"
+import Select from "@/shared/ui/Select/Select"
+import SelectItem from "@/shared/ui/Select/SelectItem"
 
-interface IModalLabelProps {
+type IModalLabelProps = {
     label: string
-    type: AvailableType
-    value?: string
+    value?: string | number
     onChange?: (val: string) => void
     required: boolean
-}
+} & (
+    | {
+          type: "text"
+      }
+    | {
+          type: "select"
+          selectItems: {
+              value: string | number
+              placeholder: React.ReactNode | "string"
+          }[]
+      }
+)
 
-type AvailableType = "text"
+const ModalLabel: React.FC<IModalLabelProps> = (props) => {
+    const { label, type, value, onChange, required } = props
 
-const ModalLabel: React.FC<IModalLabelProps> = ({ label, type, value, onChange, required }) => {
-    const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        onChange?.call(null, event.target.value)
+    if (type === "select") {
+        return (
+            <div className={styles.wrapper}>
+                <label className={styles.label}>
+                    {label}
+                    <Select value={value?.toString()} onChange={(value) => onChange?.call(null, value)}>
+                        {props.selectItems.map((v) => (
+                            <SelectItem key={v.value} value={v.value.toString()}>
+                                {v.placeholder}
+                            </SelectItem>
+                        ))}
+                    </Select>
+                </label>
+            </div>
+        )
+    } else {
+        return (
+            <div className={styles.wrapper}>
+                <label className={styles.label}>
+                    {label}
+                    <input
+                        type={type}
+                        value={value}
+                        onChange={(ctx) => onChange?.call(null, ctx.target.value)}
+                        required={required}
+                        className={styles.input}
+                    />
+                </label>
+            </div>
+        )
     }
-
-    return (
-        <div className={styles.wrapper}>
-            <label className={styles.label}>
-                {label}
-                <input
-                    type={type}
-                    value={value}
-                    onChange={changeHandler}
-                    required={required}
-                    className={styles.input}
-                />
-            </label>
-        </div>
-    )
 }
 
 export default ModalLabel

@@ -129,6 +129,7 @@ export const useGroupDashboard = () => {
         state,
         isModalOpen,
         formData,
+        editingId,
         setFormData,
         cancelHandler,
         openUpdateHandler,

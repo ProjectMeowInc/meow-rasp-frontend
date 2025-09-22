@@ -12,11 +12,12 @@ import Preloader from "@/shared/ui/Preloader/Preloader"
 import ErrorReloadMessage from "@/shared/ui/ErrorReloadMessage/ErrorReloadMessage"
 import GroupItem from "./components/GroupItem"
 
-const GroupDashborad = () => {
+const GroupDashboard = () => {
     const {
         state,
         isModalOpen,
         formData,
+        editingId,
         setFormData,
         cancelHandler,
         openUpdateHandler,
@@ -61,7 +62,11 @@ const GroupDashborad = () => {
                 </EmptyItemsDisplay.Empty>
             </EmptyItemsDisplay>
 
-            <Modal title="Добавить группу" isOpen={isModalOpen} onClose={cancelHandler}>
+            <Modal
+                title={editingId ? "Редактировать группу" : "Добавить группу"}
+                isOpen={isModalOpen}
+                onClose={cancelHandler}
+            >
                 <ModalLabel
                     label="Название группы"
                     type="text"
@@ -86,4 +91,4 @@ const GroupDashborad = () => {
     )
 }
 
-export default GroupDashborad
+export default GroupDashboard
