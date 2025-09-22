@@ -1,6 +1,6 @@
 import { GROUPS_API } from "../consts"
 import { HttpClient } from "../helpers/HttpClient"
-import { DisciplineTypePayload, LessonWithRelated } from "../models/responses"
+import { DisciplineTypePayload, ILessonWithRelated } from "../models/responses"
 
 export interface IGetGroupDisciplinesResponse {
     items: {
@@ -21,7 +21,7 @@ export const GetAllGroupDisciplinesRequest = (groupId: number) =>
 export interface IGetDateScheduleWithNumberResponse {
     date: string
     number: number
-    items: LessonWithRelated[]
+    items: ILessonWithRelated[]
 }
 
 export const GetDateScheduleWithNumberRequest = (groupId: number, date: string, number: number) =>
@@ -31,7 +31,7 @@ export const GetDateScheduleWithNumberRequest = (groupId: number, date: string, 
         .withParam("number", number.toString())
 
 export interface IGetGroupScheduleResponse {
-    items: Record<string, LessonWithRelated[]>
+    items: Record<string, ILessonWithRelated[]>
 }
 
 export const GetGroupScheduleRequest = (groupId: number, startDate: string, endDate: string) =>

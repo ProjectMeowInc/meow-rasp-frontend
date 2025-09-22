@@ -5,7 +5,7 @@ import SlotCard from "../SlotCard/SlotCard"
 
 interface IDayColumnProps {
     date: string
-    onSlotCardEdit: (date: string, number: number) => void
+    onSlotCardEdit: (date: string, number: number, lessonId?: number) => void
     scheduleData: {
         id: number
         lessonType: LessonType
@@ -56,7 +56,7 @@ const DayColumn: FC<IDayColumnProps> = ({ date, onSlotCardEdit, scheduleData }) 
                     <SlotCard
                         key={slot}
                         slot={slot}
-                        onEditClick={(slot) => onSlotCardEdit(date, slot)}
+                        onEditClick={(slot, lessonId) => onSlotCardEdit(date, slot, lessonId)}
                         lessons={lessons}
                     />
                 )

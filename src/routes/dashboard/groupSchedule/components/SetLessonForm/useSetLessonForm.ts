@@ -8,6 +8,7 @@ import {
     IGetGroupDisciplinesResponse,
 } from "@/shared/requests/groupRequests"
 import { IGetTeachersResponse, GetAllTeachersRequest } from "@/shared/requests/teachersRequests"
+import { GetLessonByIdRequest, IGetLessonByIdResposne } from "@/shared/requests/lessonRequests"
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
 import { LessonType } from "../../useGroupScheduleDashboard"
@@ -27,30 +28,49 @@ export interface ISlot {
 interface UseSetLessonFormOptions {
     slot: ISlot
     groupId: number
+    lessonId?: number
     initialData?: Partial<LessonFormData>
     onSubmit: (data: LessonFormData) => void
     onCancel: () => void
 }
 
-const useSetLessonForm = ({ slot, groupId, initialData, onSubmit, onCancel }: UseSetLessonFormOptions) => {
+const useSetLessonForm = ({ slot, groupId, lessonId, initialData, onSubmit, onCancel }: UseSetLessonFormOptions) => {
+    // If lessonId is provided, we're editing an existing lesson - use GetLessonByIdRequest
+    // Otherwise, we're creating a new lesson - use GetDateScheduleWithNumberRequest
     const { state: slotState } = useHttpDataLoadingWithMap<
-        IGetDateScheduleWithNumberResponse,
+        IGetDateScheduleWithNumberResponse | IGetLessonByIdResposne,
         { teacherId: number; disciplineId: number; classroomId: number; lessonType: LessonType } | undefined
-    >(GetDateScheduleWithNumberRequest(groupId, slot.date, slot.number), (res) => {
-        const schedule = res.items.find((sch) => sch.number == slot.number)
-        if (!schedule) {
-            return
-        }
+    >(
+        lessonId ? GetLessonByIdRequest(lessonId) : GetDateScheduleWithNumberRequest(groupId, slot.date, slot.number),
+        (res) => {
+            if (lessonId) {
+                // Editing existing lesson - response is IGetLessonByIdResposne
+                const lesson = res as IGetLessonByIdResposne
+                return {
+                    teacherId: lesson.teacher.id,
+                    disciplineId: lesson.discipline.id,
+                    classroomId: lesson.classroom.id,
+                    lessonType: lesson.lessonType,
+                }
+            } else {
+                // Creating new lesson - response is IGetDateScheduleWithNumberResponse
+                const scheduleResponse = res as IGetDateScheduleWithNumberResponse
+                const schedule = scheduleResponse.items.find((sch) => sch.number == slot.number)
+                if (!schedule) {
+                    return
+                }
 
-        return {
-            teacherId: schedule.teacher.id,
-            disciplineId: schedule.discipline.id,
-            classroomId: schedule.classroom.id,
-            lessonType: schedule.lessonType,
-        }
-    })
+                return {
+                    teacherId: schedule.teacher.id,
+                    disciplineId: schedule.discipline.id,
+                    classroomId: schedule.classroom.id,
+                    lessonType: schedule.lessonType,
+                }
+            }
+        },
+    )
     const { state: disciplinesState } = useHttpDataLoading<IGetGroupDisciplinesResponse>(
-        GetAllGroupDisciplinesRequest(groupId)
+        GetAllGroupDisciplinesRequest(groupId),
     )
     const { state: teachersState } = useHttpDataLoading<IGetTeachersResponse>(GetAllTeachersRequest)
     const { state: classroomsState } = useHttpDataLoading<IGetClassroomsResponse>(GetAllClassroomsRequest)

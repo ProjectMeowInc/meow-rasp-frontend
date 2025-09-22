@@ -25,8 +25,15 @@ console.log(startDate, endDate)
 
 const GroupScheduleDashboard = () => {
     const { id: groupId } = useParams<{ id: string }>()
-    const { isFormOpen, editingSlot, openFormHandler, closeFormHandler, submitHandler, scheduleState } =
-        useGroupScheduleDashboard(parseInt(groupId), dateTimeToDateString(startDate), dateTimeToDateString(endDate))
+    const {
+        isFormOpen,
+        editingSlot,
+        editingLessonId,
+        openFormHandler,
+        closeFormHandler,
+        submitHandler,
+        scheduleState,
+    } = useGroupScheduleDashboard(parseInt(groupId), dateTimeToDateString(startDate), dateTimeToDateString(endDate))
 
     return (
         <div className={styles.page}>
@@ -42,7 +49,7 @@ const GroupScheduleDashboard = () => {
                         <DayColumn
                             key={day}
                             date={day}
-                            onSlotCardEdit={(date, number) => openFormHandler({ date, number })}
+                            onSlotCardEdit={(date, number, lessonId) => openFormHandler({ date, number }, lessonId)}
                             scheduleData={scheduleState.content.items[day] || []}
                         />
                     ))}
@@ -52,6 +59,7 @@ const GroupScheduleDashboard = () => {
                     onSubmit={submitHandler}
                     onCancel={closeFormHandler}
                     groupId={parseInt(groupId)}
+                    lessonId={editingLessonId || undefined}
                     slot={{
                         date: editingSlot.date,
                         number: editingSlot.number,

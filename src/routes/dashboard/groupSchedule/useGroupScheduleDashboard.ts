@@ -28,14 +28,16 @@ export type LessonType =
 export const useGroupScheduleDashboard = (groupId: number, startDate: string, endDate: string) => {
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [editingSlot, setEditingSlot] = useState<ISlot | null>(null)
+    const [editingLessonId, setEditingLessonId] = useState<number | null>(null)
 
     const { state: scheduleState, reload: reloadSchedule } = useHttpDataLoading<IGetGroupScheduleResponse>(
-        GetGroupScheduleRequest(groupId, startDate, endDate)
+        GetGroupScheduleRequest(groupId, startDate, endDate),
     )
 
-    const openFormHandler = (slot: ISlot) => {
+    const openFormHandler = (slot: ISlot, lessonId?: number) => {
         setEditingSlot(slot)
         setIsFormOpen(true)
+        setEditingLessonId(lessonId ?? null)
     }
 
     const closeFormHandler = () => {
@@ -73,6 +75,8 @@ export const useGroupScheduleDashboard = (groupId: number, startDate: string, en
             } else {
                 AlertService.success(`Занятие успешно установлено`)
             }
+
+            await reloadSchedule()
         } catch {
             AlertService.error(`Ошибка установки занятия: UNKNOWN`)
         }
@@ -81,6 +85,7 @@ export const useGroupScheduleDashboard = (groupId: number, startDate: string, en
     return {
         isFormOpen,
         editingSlot,
+        editingLessonId,
         scheduleState,
         isLoading: scheduleState.isLoading,
         openFormHandler,
