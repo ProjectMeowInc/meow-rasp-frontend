@@ -1,19 +1,19 @@
 "use client"
 
 import EmptyItemsDisplay from "@/shared/ui/EmptyItemsDisplay/EmptyItemsDisplay"
-import Header from "../../../routes/dashboard/components/Header/Header"
+import Header from "../../../components/Header/Header"
 import styles from "./groupDiscipline.module.css"
-import Modal from "../../../routes/dashboard/components/Modal/Modal"
-import ModalLabel from "../../../routes/dashboard/components/ModalLabel/ModalLabel"
-import ModalButtons from "../../../routes/dashboard/components/ModalButtons/ModalButtons"
+import Modal from "../../../components/Modal/Modal"
+import ModalLabel from "../../../components/ModalLabel/ModalLabel"
+import ModalButtons from "../../../components/ModalButtons/ModalButtons"
 import useGroupDiscipline from "./useGroupDiscipline"
 import ErrorReloadMessage from "@/shared/ui/ErrorReloadMessage/ErrorReloadMessage"
-import DisciplineItem from "./components/DisciplineItem "
 import EmptyResultMessage from "@/shared/ui/EmptyResultMessage/EmptyResultMessage"
 import { AvailableDisciplineTypePayload, DisciplineTypePayload } from "@/shared/models/responses"
 import React from "react"
 import InlinePreloader from "@/shared/ui/InlinePreloader/InlinePreloader"
 import BlockCentre from "@/shared/ui/BlockCentre/BlockCentre"
+import DisciplineItem from "@/routes/dashboard/groups/components/GroupDiscipline/components/DisciplineItem "
 
 interface IGroupDisciplineProps {
     id: number

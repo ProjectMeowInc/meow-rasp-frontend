@@ -10,8 +10,8 @@ import ModalButtons from "../components/ModalButtons/ModalButtons"
 import { useGroupDashboard } from "./useGroupDashboard"
 import Preloader from "@/shared/ui/Preloader/Preloader"
 import ErrorReloadMessage from "@/shared/ui/ErrorReloadMessage/ErrorReloadMessage"
-import GroupItem from "./components/GroupItem"
-import GroupDiscipline from "@/shared/ui/groupDiscipline/GroupDiscipline"
+import GroupItem from "./components/GroupItem/GroupItem"
+import GroupDiscipline from "@/routes/dashboard/groups/components/GroupDiscipline/GroupDiscipline"
 
 const GroupDashboard = () => {
     const {

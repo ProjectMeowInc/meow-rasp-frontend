@@ -2,7 +2,7 @@
 
 import { FC } from "react"
 import styles from "./groupItem.module.css"
-import CardActions from "../../components/CardActions/CardActions"
+import CardActions from "../../../components/CardActions/CardActions"
 
 interface IGroupItemProps {
     id: number
