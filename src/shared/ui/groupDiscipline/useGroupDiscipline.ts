@@ -16,7 +16,7 @@ interface ICreateOrUpdateDisciplineRequest {
     groupId: number
 }
 
-const useGroupDisciplineDashboard = (groupId: number) => {
+const useGroupDiscipline = (groupId: number) => {
     const EmptyFormData: ICreateOrUpdateDisciplineRequest = {
         title: "",
         disciplineType: "shared",
@@ -141,4 +141,4 @@ const useGroupDisciplineDashboard = (groupId: number) => {
     }
 }
 
-export default useGroupDisciplineDashboard
+export default useGroupDiscipline

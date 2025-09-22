@@ -16,6 +16,11 @@ interface ICreateOrUpdateGroupRequest {
     title: string
 }
 
+interface IGroup {
+    id: number
+    title: string
+}
+
 const GetAllCorpuses = new HttpClient().withMethodGet().withUrl(GROUPS_API)
 
 export const useGroupDashboard = () => {
@@ -23,7 +28,7 @@ export const useGroupDashboard = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [formData, setFormData] = useState<ICreateOrUpdateGroupRequest>({ title: "" })
     const [editingId, setEditingId] = useState<number | null>(null)
-    const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null)
+    const [selectedGroup, setSelectedGroup] = useState<IGroup | null>(null)
 
     const submitHandler = async () => {
         if (editingId) {
@@ -131,13 +136,13 @@ export const useGroupDashboard = () => {
         isModalOpen,
         formData,
         editingId,
-        selectedGroupId,
+        selectedGroup,
         setFormData,
         cancelHandler,
         openUpdateHandler,
         openCreateHandler,
         deleteHandler,
         submitHandler,
-        setSelectedGroupId,
+        setSelectedGroup,
     }
 }

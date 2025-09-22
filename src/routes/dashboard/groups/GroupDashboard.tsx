@@ -11,7 +11,7 @@ import { useGroupDashboard } from "./useGroupDashboard"
 import Preloader from "@/shared/ui/Preloader/Preloader"
 import ErrorReloadMessage from "@/shared/ui/ErrorReloadMessage/ErrorReloadMessage"
 import GroupItem from "./components/GroupItem"
-import GroupDisciplineDashboard from "@/routes/dashboard/groupDiscipline/GroupDisciplineDashboard"
+import GroupDiscipline from "@/shared/ui/groupDiscipline/GroupDiscipline"
 
 const GroupDashboard = () => {
     const {
@@ -19,14 +19,14 @@ const GroupDashboard = () => {
         isModalOpen,
         formData,
         editingId,
-        selectedGroupId,
+        selectedGroup,
         setFormData,
         cancelHandler,
         openUpdateHandler,
         openCreateHandler,
         deleteHandler,
         submitHandler,
-        setSelectedGroupId,
+        setSelectedGroup,
     } = useGroupDashboard()
 
     if (state.isLoading) {
@@ -54,9 +54,15 @@ const GroupDashboard = () => {
                                     key={group.id}
                                     id={group.id}
                                     title={group.title}
+                                    variant={group.id === selectedGroup?.id ? "selected" : "default"}
                                     onUpdate={openUpdateHandler}
                                     onDelete={deleteHandler}
-                                    onClick={(id) => setSelectedGroupId(id)}
+                                    onClick={(id) =>
+                                        setSelectedGroup({
+                                            id: id,
+                                            title: group.title,
+                                        })
+                                    }
                                 />
                             ))}
                         </div>
@@ -69,7 +75,7 @@ const GroupDashboard = () => {
             </div>
 
             <div className={styles.rightSide}>
-                {selectedGroupId && <GroupDisciplineDashboard id={selectedGroupId} />}
+                {selectedGroup && <GroupDiscipline id={selectedGroup.id} title={selectedGroup.title} />}
             </div>
 
             <Modal

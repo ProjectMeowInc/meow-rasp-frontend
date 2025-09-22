@@ -1,22 +1,3 @@
-.page {
-    gap: 20px;
-    padding: 20px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 10px;
-}
-
-.inlineLoader {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .item {
     border: 1px solid #ddd;
     border-radius: 8px;

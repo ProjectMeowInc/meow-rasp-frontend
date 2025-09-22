@@ -13,3 +13,7 @@
 .card p {
     max-width: 50%;
 }
+
+.card.selected {
+    background: #f7fbfb;
+}

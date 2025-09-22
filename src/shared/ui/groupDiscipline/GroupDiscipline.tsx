@@ -1,24 +1,26 @@
 "use client"
 
 import EmptyItemsDisplay from "@/shared/ui/EmptyItemsDisplay/EmptyItemsDisplay"
-import Header from "../components/Header/Header"
-import styles from "./groupDisciplineDashboard.module.css"
-import Modal from "../components/Modal/Modal"
-import ModalLabel from "../components/ModalLabel/ModalLabel"
-import ModalButtons from "../components/ModalButtons/ModalButtons"
-import useGroupDisciplineDashboard from "./useGroupDisciplineDashboard"
+import Header from "../../../routes/dashboard/components/Header/Header"
+import styles from "./groupDiscipline.module.css"
+import Modal from "../../../routes/dashboard/components/Modal/Modal"
+import ModalLabel from "../../../routes/dashboard/components/ModalLabel/ModalLabel"
+import ModalButtons from "../../../routes/dashboard/components/ModalButtons/ModalButtons"
+import useGroupDiscipline from "./useGroupDiscipline"
 import ErrorReloadMessage from "@/shared/ui/ErrorReloadMessage/ErrorReloadMessage"
 import DisciplineItem from "./components/DisciplineItem "
 import EmptyResultMessage from "@/shared/ui/EmptyResultMessage/EmptyResultMessage"
 import { AvailableDisciplineTypePayload, DisciplineTypePayload } from "@/shared/models/responses"
 import React from "react"
 import InlinePreloader from "@/shared/ui/InlinePreloader/InlinePreloader"
+import BlockCentre from "@/shared/ui/BlockCentre/BlockCentre"
 
-interface IGroupDisciplineDashboard {
+interface IGroupDisciplineProps {
     id: number
+    title: string
 }
 
-const GroupDisciplineDashboard: React.FC<IGroupDisciplineDashboard> = ({ id }) => {
+const GroupDiscipline: React.FC<IGroupDisciplineProps> = ({ id, title }) => {
     const {
         state,
         teachersState,
@@ -30,13 +32,13 @@ const GroupDisciplineDashboard: React.FC<IGroupDisciplineDashboard> = ({ id }) =
         openUpdateHandler,
         submitHandler,
         deleteHandler,
-    } = useGroupDisciplineDashboard(id)
+    } = useGroupDiscipline(id)
 
     if (state.isLoading) {
         return (
-            <div className={styles.inlineLoader}>
+            <BlockCentre>
                 <InlinePreloader size={"lg"} />
-            </div>
+            </BlockCentre>
         )
     }
 
@@ -45,7 +47,11 @@ const GroupDisciplineDashboard: React.FC<IGroupDisciplineDashboard> = ({ id }) =
     }
 
     if (teachersState.isLoading) {
-        return <InlinePreloader />
+        return (
+            <BlockCentre>
+                <InlinePreloader size={"lg"} />
+            </BlockCentre>
+        )
     }
 
     if (teachersState.isError) {
@@ -55,7 +61,7 @@ const GroupDisciplineDashboard: React.FC<IGroupDisciplineDashboard> = ({ id }) =
     return (
         <div className={styles.page}>
             <Header
-                caption={"Управление дисциплинами группы"}
+                caption={`Управление дисциплинами группы ${title}`}
                 buttonCaption={"Добавить дисциплину"}
                 onButtonClick={openCreateHandler}
             />
@@ -155,4 +161,4 @@ const GroupDisciplineDashboard: React.FC<IGroupDisciplineDashboard> = ({ id }) =
     )
 }
 
-export default GroupDisciplineDashboard
+export default GroupDiscipline

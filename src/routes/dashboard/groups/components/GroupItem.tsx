@@ -7,14 +7,15 @@ import CardActions from "../../components/CardActions/CardActions"
 interface IGroupItemProps {
     id: number
     title: string
+    variant?: "default" | "selected"
     onUpdate: (id: number) => Promise<void>
     onDelete: (id: number) => Promise<void>
     onClick: (id: number) => void
 }
 
-const GroupItem: FC<IGroupItemProps> = ({ id, title, onUpdate, onDelete, onClick }) => {
+const GroupItem: FC<IGroupItemProps> = ({ id, title, variant, onUpdate, onDelete, onClick }) => {
     return (
-        <div className={styles.card} onClick={() => onClick(id)}>
+        <div className={`${styles.card} ${styles[variant ?? "default"]}`} onClick={() => onClick(id)}>
             <h2>
                 Группа <b>{title}</b>
             </h2>
