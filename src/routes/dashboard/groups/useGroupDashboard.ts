@@ -9,6 +9,7 @@ interface IGetGroupsResponse {
     items: {
         id: number
         title: string
+        updatedAt: Date
     }[]
 }
 

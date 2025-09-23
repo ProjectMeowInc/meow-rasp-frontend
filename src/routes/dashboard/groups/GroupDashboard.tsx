@@ -54,6 +54,7 @@ const GroupDashboard = () => {
                                     key={group.id}
                                     id={group.id}
                                     title={group.title}
+                                    updatedAt={group.updatedAt}
                                     variant={group.id === selectedGroup?.id ? "selected" : "default"}
                                     onUpdate={openUpdateHandler}
                                     onDelete={deleteHandler}
