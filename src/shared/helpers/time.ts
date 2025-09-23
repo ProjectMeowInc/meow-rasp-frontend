@@ -29,3 +29,7 @@ export function getDateStringsRange(startDate: Date, endDate: Date): string[] {
 export function dateTimeToDateString(date: Date): string {
     return date.toISOString().split("T")[0]
 }
+export function formatDate(date: Date): string {
+    date = new Date(date)
+    return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")} ${date.getDate().toString().padStart(2, "0")}.${date.getMonth().toString().padStart(2, "0")}.${date.getFullYear()}`
+}
