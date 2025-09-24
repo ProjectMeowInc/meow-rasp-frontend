@@ -1,21 +1,25 @@
 "use client"
 
-import React from "react"
-import { FC, ReactNode, useEffect, useRef, useState } from "react"
+import React, { useEffect } from "react"
+import { FC, ReactNode, useRef, useState } from "react"
 import styles from "./select.module.css"
 import SelectItem from "./SelectItem"
+import Input from "@/shared/ui/Input/Input"
 
 interface ISelectProps {
     value?: string
     onChange?: (value: string) => void
     placeholder?: string
+    supportSearch?: boolean
     children: ReactNode
 }
 
-const Select: FC<ISelectProps> = ({ value, onChange, placeholder = "Выберите...", children }) => {
+const Select: FC<ISelectProps> = ({ value, onChange, placeholder = "Выберите...", supportSearch, children }) => {
     const [open, setOpen] = useState(false)
     const [selected, setSelected] = useState<string | undefined>(value)
     const ref = useRef<HTMLDivElement>(null)
+    const searchRef = useRef<HTMLInputElement>(null)
+    const [search, setSearch] = useState<string | undefined>(undefined)
 
     const handleSelect = (val: string) => {
         setSelected(val)
@@ -33,15 +37,35 @@ const Select: FC<ISelectProps> = ({ value, onChange, placeholder = "Выбери
         return () => document.removeEventListener("mousedown", handleClickOutside)
     }, [])
 
+    const clickHandler = () => {
+        setOpen((prev) => !prev)
+        setSelected(undefined)
+        setSearch(undefined)
+    }
+
+    useEffect(() => {
+        searchRef.current?.focus()
+    })
+
     return (
         <div className={styles.select} ref={ref}>
-            <div className={styles.trigger} onClick={() => setOpen((prev) => !prev)}>
+            <div className={styles.trigger} onClick={clickHandler}>
                 {selected ? (
                     React.Children.toArray(children).find(
                         // i know what i doing...
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         (child: any) => child.props.value === selected,
                     )
+                ) : supportSearch ? (
+                    <Input
+                        ref={searchRef}
+                        style={{ border: "none" }}
+                        defaultValue={selected}
+                        placeholder={placeholder}
+                        onChange={(value: string) => {
+                            setSearch(value)
+                        }}
+                    />
                 ) : (
                     <span style={{ color: "#9ca3af" }}>{placeholder}</span>
                 )}
@@ -56,12 +80,22 @@ const Select: FC<ISelectProps> = ({ value, onChange, placeholder = "Выбери
                     )}
                     {
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        React.Children.map(children, (child: any) =>
-                            React.cloneElement(child, {
-                                onClick: handleSelect,
-                                selected: selected === child.props.value,
-                            }),
-                        )
+                        React.Children.map(children, (child: any) => {
+                            if (
+                                child?.props?.children?.props?.children?.toString().includes(search ?? "") &&
+                                supportSearch
+                            ) {
+                                return React.cloneElement(child, {
+                                    onClick: handleSelect,
+                                    selected: selected === child.props.value,
+                                })
+                            } else {
+                                return React.cloneElement(child, {
+                                    onClick: handleSelect,
+                                    selected: selected === child.props.value,
+                                })
+                            }
+                        })
                     }
                 </div>
             )}

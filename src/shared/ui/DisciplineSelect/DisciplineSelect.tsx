@@ -22,7 +22,7 @@ const DisciplineSelect: React.FC<IDisciplineSelectProps> = ({ disciplinesState, 
     }
 
     return (
-        <Select placeholder="Выберите дисциплину" value={selectedDiscipline} onChange={onChange}>
+        <Select supportSearch placeholder="Выберите дисциплину" value={selectedDiscipline} onChange={onChange}>
             {disciplinesState.content.items.map((discipline) => (
                 <SelectItem key={discipline.id} value={discipline.id.toString()}>
                     <strong>{discipline.title}</strong>
