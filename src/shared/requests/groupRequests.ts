@@ -38,5 +38,5 @@ export const GetGroupScheduleRequest = (groupId: number, startDate: string, endD
     new HttpClient()
         .withMethodGet()
         .withUrl(`${GROUPS_API}${groupId}/schedule`)
-        .withParam("start_date", startDate)
-        .withParam("end_date", endDate)
+        .withParam("startDate", startDate)
+        .withParam("endDate", endDate)
