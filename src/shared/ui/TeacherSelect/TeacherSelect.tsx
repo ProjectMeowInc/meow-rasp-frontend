@@ -22,9 +22,13 @@ const TeacherSelect: React.FC<ITeacherSelectProps> = ({ selectedTeacher, teacher
     }
 
     return (
-        <Select value={selectedTeacher} placeholder="Выберите преподавателя" onChange={onChange}>
+        <Select supportSearch value={selectedTeacher} placeholder="Выберите преподавателя" onChange={onChange}>
             {teachersState.content.items.map((teacher: { id: number; name: string }) => (
-                <SelectItem key={teacher.id} value={teacher.id.toString()}>
+                <SelectItem
+                    searchValue={[teacher.id.toString(), teacher.name]}
+                    key={teacher.id}
+                    value={teacher.id.toString()}
+                >
                     <strong>{teacher.name}</strong>
                 </SelectItem>
             ))}
