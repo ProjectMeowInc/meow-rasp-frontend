@@ -34,6 +34,8 @@ const Select: FC<ISelectProps> = ({ value, onChange, placeholder = "Выбери
                 }
             }),
         )
+        // i know what i do
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filter])
 
     const handleSelect = (val: string) => {
