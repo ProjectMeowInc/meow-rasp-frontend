@@ -28,7 +28,6 @@ const Select: FC<ISelectProps> = ({ value, onChange, placeholder = "Выбери
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             React.Children.map(children, (child: any) => {
                 const searchValue: string[] = child.props.searchValue ?? []
-                console.log(searchValue)
                 if (searchValue.some((v) => v.toLowerCase().includes(normalizedFilter))) {
                     return child
                 }
