@@ -19,7 +19,22 @@ const Select: FC<ISelectProps> = ({ value, onChange, placeholder = "Выбери
     const [selected, setSelected] = useState<string | undefined>(value)
     const ref = useRef<HTMLDivElement>(null)
     const searchRef = useRef<HTMLInputElement>(null)
-    const [search, setSearch] = useState<string | undefined>(undefined)
+    const [filter, setFilter] = useState<string>("")
+    const [displayItems, setDisplayItems] = useState<ReactNode>(children)
+
+    useEffect(() => {
+        const normalizedFilter = filter.toLowerCase().trim()
+        setDisplayItems(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            React.Children.map(children, (child: any) => {
+                const searchValue: string[] = child.props.searchValue ?? []
+                console.log(searchValue)
+                if (searchValue.some((v) => v.toLowerCase().includes(normalizedFilter))) {
+                    return child
+                }
+            }),
+        )
+    }, [filter])
 
     const handleSelect = (val: string) => {
         setSelected(val)
@@ -40,7 +55,7 @@ const Select: FC<ISelectProps> = ({ value, onChange, placeholder = "Выбери
     const clickHandler = () => {
         setOpen((prev) => !prev)
         setSelected(undefined)
-        setSearch(undefined)
+        setFilter("")
     }
 
     useEffect(() => {
@@ -62,9 +77,7 @@ const Select: FC<ISelectProps> = ({ value, onChange, placeholder = "Выбери
                         style={{ border: "none" }}
                         defaultValue={selected}
                         placeholder={placeholder}
-                        onChange={(value: string) => {
-                            setSearch(value)
-                        }}
+                        onChange={(value: string) => setFilter(value)}
                     />
                 ) : (
                     <span style={{ color: "#9ca3af" }}>{placeholder}</span>
@@ -80,21 +93,11 @@ const Select: FC<ISelectProps> = ({ value, onChange, placeholder = "Выбери
                     )}
                     {
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        React.Children.map(children, (child: any) => {
-                            if (
-                                child?.props?.children?.props?.children?.toString().includes(search ?? "") &&
-                                supportSearch
-                            ) {
-                                return React.cloneElement(child, {
-                                    onClick: handleSelect,
-                                    selected: selected === child.props.value,
-                                })
-                            } else {
-                                return React.cloneElement(child, {
-                                    onClick: handleSelect,
-                                    selected: selected === child.props.value,
-                                })
-                            }
+                        React.Children.map(supportSearch ? displayItems : children, (child: any) => {
+                            return React.cloneElement(child, {
+                                onClick: handleSelect,
+                                selected: selected === child.props.value,
+                            })
                         })
                     }
                 </div>
