@@ -22,9 +22,13 @@ const ClassroomSelect: React.FC<IClassroomSelectProps> = ({ classroomsState, sel
     }
 
     return (
-        <Select placeholder="Выберите аудиторию" value={selectedClassroom} onChange={onChange}>
+        <Select supportSearch placeholder="Выберите аудиторию" value={selectedClassroom} onChange={onChange}>
             {classroomsState.content.items.map((classroom) => (
-                <SelectItem key={classroom.id} value={classroom.id.toString()}>
+                <SelectItem
+                    searchValue={[classroom.id.toString(), classroom.title]}
+                    key={classroom.id}
+                    value={classroom.id.toString()}
+                >
                     <strong>{classroom.title}</strong>
                 </SelectItem>
             ))}
