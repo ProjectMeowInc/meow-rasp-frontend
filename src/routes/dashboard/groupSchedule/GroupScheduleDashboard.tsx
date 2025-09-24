@@ -21,8 +21,6 @@ const getWeekDates = () => {
 const { startDate, endDate } = getWeekDates()
 const days = getDateStringsRange(startDate, endDate)
 
-console.log(startDate, endDate)
-
 const GroupScheduleDashboard = () => {
     const { id: groupId } = useParams<{ id: string }>()
     const {
