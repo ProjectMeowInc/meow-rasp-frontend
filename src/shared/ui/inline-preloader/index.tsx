@@ -1,0 +1,12 @@
+import React from "react"
+import styles from "./styles.module.css"
+
+interface IInlinePreloaderProps {
+    size?: "xs" | "sm" | "md" | "lg"
+}
+
+const InlinePreloader: React.FC<IInlinePreloaderProps> = ({ size = "md" }) => {
+    return <span className={`${styles.loader} ${styles[size]}`} />
+}
+
+export default InlinePreloader

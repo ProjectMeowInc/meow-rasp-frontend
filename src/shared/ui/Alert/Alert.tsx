@@ -1,5 +1,5 @@
 import React, { JSX } from "react"
-import styles from "./alert.module.css"
+import styles from "./styles.module.css"
 
 interface IAlertProps {
     variant: AlertVariant
