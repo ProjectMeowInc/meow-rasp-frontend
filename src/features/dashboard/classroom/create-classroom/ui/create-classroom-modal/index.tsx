@@ -1,7 +1,6 @@
 "use client"
 
 import Modal, { ModalButtons, ModalLabel } from "@/shared/ui/modal"
-import Select, { SelectItem } from "@/shared/ui/select"
 import { useCreateClassroomModal } from "./hook"
 import { CorpusSelect } from "@/entities/corpus/ui/corpus-select"
 
