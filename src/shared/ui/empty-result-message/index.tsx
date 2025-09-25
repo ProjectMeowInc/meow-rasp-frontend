@@ -1,4 +1,4 @@
-import Alert from "../alert/alert"
+import Alert from "../alert"
 
 const EmptyResultMessage = () => {
     return <Alert variant="warning">Запрос выполнен успешно, но данных не найдено</Alert>

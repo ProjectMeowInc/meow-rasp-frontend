@@ -1,6 +1,6 @@
 "use client"
 
-import Alert from "../alert/alert"
+import Alert from "../alert"
 
 const ErrorReloadMessage = () => {
     return (
