@@ -4,6 +4,7 @@ import { FC, ReactNode } from "react"
 import styles from "./styles.module.css"
 
 interface ISelectItemProps {
+    searchValue?: string[]
     value: string
     children: ReactNode
     onClick?: (val: string) => void
