@@ -4,6 +4,7 @@ import React from "react"
 import { FC, ReactNode, useEffect, useRef, useState } from "react"
 import styles from "./styles.module.css"
 import { SelectItem } from "./ui/select-item"
+import Input from "../input"
 
 interface ISelectProps {
     value?: string
