@@ -1,9 +1,12 @@
 import React from "react"
 import styles from "./styles.module.css"
 
+export { default as ModalLabel } from "./ui/modal-label"
+export { default as ModalButtons } from "./ui/modal-buttons"
+
 interface IModalProps {
     title: string
-    isOpen: boolean
+    isOpen?: boolean
     onClose: () => void
     children: React.ReactNode
 }

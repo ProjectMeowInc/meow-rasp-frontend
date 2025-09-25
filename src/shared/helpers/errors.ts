@@ -25,3 +25,7 @@ export class HttpError extends Error {
         this.status = status
     }
 }
+
+export function ErrorToMessage(err: HttpError | AppError | Error): string {
+    throw new Error("WIP")
+}

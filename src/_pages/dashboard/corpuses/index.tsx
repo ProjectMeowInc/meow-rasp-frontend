@@ -8,9 +8,9 @@ import useCorpusesPage from "./hook"
 import EmptyItemsDisplay from "@/shared/ui/empty-item-display"
 import EmptyResultMessage from "@/shared/ui/empty-result-message"
 import ErrorReloadMessage from "@/shared/ui/error-reload-message"
-import Modal from "../ui/modal"
-import ModalLabel from "../ui/modal-label"
-import ModalButtons from "../ui/modal-buttons"
+import Modal from "../../../shared/ui/modal"
+import ModalLabel from "../../../shared/ui/modal/ui/modal-label"
+import ModalButtons from "../../../shared/ui/modal/ui/modal-buttons"
 
 const CorpusesDashboardPage = () => {
     const {

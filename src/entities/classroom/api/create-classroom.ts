@@ -1,9 +1,12 @@
 import { CLASSROOMS_API } from "@/shared/consts"
 import { HttpClient } from "@/shared/helpers/HttpClient"
+import { CreatedResponse } from "@/shared/models/responses"
 
-interface IPayload {
+export interface Payload {
     title: string
 }
 
-export const request = (payload: IPayload) =>
+export type Response = CreatedResponse
+
+export const request = (payload: Payload) =>
     new HttpClient().withMethodPost().withUrl(CLASSROOMS_API).withJsonBody(payload)

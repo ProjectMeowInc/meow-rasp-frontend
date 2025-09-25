@@ -1,3 +1,4 @@
+import { CreateOrUpdateClassroomRequest } from "@/entities/classroom"
 import { CLASSROOMS_API, CORPUSES_API, NOT_SELECTED_ID } from "@/shared/consts"
 import { HttpClient } from "@/shared/helpers/HttpClient"
 import { getErrorMessage, LoadSuccessStateType, useHttpDataLoading } from "@/shared/hooks/useDataLoading"
@@ -13,11 +14,6 @@ interface IGetClassroomsResponse {
     }[]
 }
 
-interface ICreateOrUpdateClassroomRequest {
-    title: string
-    corpusId: number
-}
-
 const GetAllClassrooms = new HttpClient().withMethodGet().withUrl(CLASSROOMS_API)
 const GetAllCorpuses = new HttpClient().withMethodGet().withUrl(CORPUSES_API)
 
@@ -25,7 +21,7 @@ const useClassroomDashboard = () => {
     const { state, reload } = useHttpDataLoading<IGetClassroomsResponse>(GetAllClassrooms)
     const { state: corpusesState } = useHttpDataLoading<{ items: { id: number; title: string }[] }>(GetAllCorpuses)
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [formData, setFormData] = useState<ICreateOrUpdateClassroomRequest>({
+    const [formData, setFormData] = useState<CreateOrUpdateClassroomRequest>({
         title: "",
         corpusId: NOT_SELECTED_ID,
     })
@@ -150,6 +146,7 @@ const useClassroomDashboard = () => {
         formData,
         setFormData,
         cancelHandler,
+        setIsModalOpen,
         openUpdateHandler,
         openCreateHandler,
         deleteHandler,

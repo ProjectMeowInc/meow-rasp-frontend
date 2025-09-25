@@ -8,10 +8,12 @@ import Header from "../ui/header"
 import EmptyItemsDisplay from "@/shared/ui/empty-item-display"
 import ClassroomItem from "./ui/classroom-item/classroom-item"
 import EmptyResultMessage from "@/shared/ui/empty-result-message"
-import Modal from "../ui/modal"
-import ModalLabel from "../ui/modal-label"
-import ModalButtons from "../ui/modal-buttons"
+import Modal from "../../../shared/ui/modal"
+import ModalLabel from "../../../shared/ui/modal/ui/modal-label"
+import ModalButtons from "../../../shared/ui/modal/ui/modal-buttons"
 import Select, { SelectItem } from "@/shared/ui/select"
+import { CorpusSelect } from "@/entities/corpus"
+import { CreateClassroomModal } from "@/features/dashboard/classroom/create-classroom"
 
 const ClassroomDashboard = () => {
     const {
@@ -23,6 +25,7 @@ const ClassroomDashboard = () => {
         cancelHandler,
         openCreateHandler,
         openUpdateHandler,
+        setIsModalOpen,
         submitHandler,
         deleteHandler,
     } = useClassroomDashboard()
@@ -84,42 +87,7 @@ const ClassroomDashboard = () => {
                 </EmptyItemsDisplay.Empty>
             </EmptyItemsDisplay>
 
-            <Modal title="Добавить кабинет" isOpen={isModalOpen} onClose={cancelHandler}>
-                <ModalLabel
-                    label="Название кабинета"
-                    type="text"
-                    value={formData.title}
-                    required
-                    onChange={(val) =>
-                        setFormData((prev) => ({
-                            ...prev,
-                            title: val,
-                        }))
-                    }
-                />
-
-                <Select
-                    onChange={(val) =>
-                        setFormData((prev) => ({
-                            ...prev,
-                            corpusId: parseInt(val),
-                        }))
-                    }
-                >
-                    {corpusesState.content.items.map((c) => (
-                        <SelectItem key={c.id} value={c.id.toString()}>
-                            <div>Корпус - {c.title}</div>
-                        </SelectItem>
-                    ))}
-                </Select>
-
-                <ModalButtons
-                    submitVariant="success"
-                    cancelVariant="danger"
-                    onSubmit={submitHandler}
-                    onCancel={cancelHandler}
-                />
-            </Modal>
+            <CreateClassroomModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
     )
 }
