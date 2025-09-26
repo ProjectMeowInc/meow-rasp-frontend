@@ -4,25 +4,15 @@ import Preloader from "@/shared/ui/preloader"
 import Header from "../ui/header"
 import CorpusItem from "./ui/corpus-item/corpus-item"
 import styles from "./styles.module.css"
-import useCorpusesPage from "./hook"
+import useCorpusesDashboardPage from "./hook"
 import EmptyItemsDisplay from "@/shared/ui/empty-item-display"
 import EmptyResultMessage from "@/shared/ui/empty-result-message"
 import ErrorReloadMessage from "@/shared/ui/error-reload-message"
-import Modal from "../../../shared/ui/modal"
-import ModalLabel from "../../../shared/ui/modal/ui/modal-label"
+import { CreateOrEditCorpusModal } from "@/widgets/dashboard/create-or-edit-corpus-modal"
 
 const CorpusesDashboardPage = () => {
-    const {
-        state,
-        isModalOpen,
-        formData,
-        setFormData,
-        cancelHandler,
-        openCreateHandler,
-        openUpdateHandler,
-        submitHandler,
-        deleteHandler,
-    } = useCorpusesPage()
+    const { editingId, state, isModalOpen, openCreateHandler, openUpdateHandler, submitHandler, deleteHandler } =
+        useCorpusesDashboardPage()
 
     if (state.isLoading) {
         return <Preloader />
@@ -61,20 +51,7 @@ const CorpusesDashboardPage = () => {
                     <EmptyResultMessage />
                 </EmptyItemsDisplay.Empty>
             </EmptyItemsDisplay>
-            <Modal onSubmit={submitHandler} title="Добавить корпус" isOpen={isModalOpen} onClose={cancelHandler}>
-                <ModalLabel
-                    label="Название корпуса"
-                    type="text"
-                    value={formData.title}
-                    required
-                    onChange={(val) =>
-                        setFormData((prev) => ({
-                            ...prev,
-                            title: val,
-                        }))
-                    }
-                />
-            </Modal>
+            <CreateOrEditCorpusModal editingId={editingId} isOpen={isModalOpen} onClose={submitHandler} />
         </div>
     )
 }

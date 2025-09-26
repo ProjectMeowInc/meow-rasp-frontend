@@ -1,3 +1,5 @@
+"use client"
+
 import { CorpusSelect } from "@/entities/corpus"
 import { OnCloseFn } from "@/shared/types"
 import Modal, { ModalLabel } from "@/shared/ui/modal"
