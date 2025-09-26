@@ -7,7 +7,6 @@ import Header from "../ui/header"
 import EmptyItemsDisplay from "@/shared/ui/empty-item-display"
 import Modal from "../../../shared/ui/modal"
 import ModalLabel from "../../../shared/ui/modal/ui/modal-label"
-import ModalButtons from "../../../shared/ui/modal/ui/modal-buttons"
 import useTeacherDashboard from "./hook"
 import EmptyResultMessage from "@/shared/ui/empty-result-message"
 import ErrorReloadMessage from "@/shared/ui/error-reload-message"
@@ -64,7 +63,7 @@ const TeacherDashboard = () => {
                     </EmptyItemsDisplay.Empty>
                 </EmptyItemsDisplay>
             </main>
-            <Modal title="Добавить преподавателя" isOpen={isModalOpen} onClose={cancelHandler}>
+            <Modal title="Добавить преподавателя" isOpen={isModalOpen} onSubmit={submitHandler} onClose={cancelHandler}>
                 <ModalLabel
                     label={"ФИО преподавателя"}
                     type={"text"}
@@ -76,12 +75,6 @@ const TeacherDashboard = () => {
                             name: val,
                         }))
                     }
-                />
-                <ModalButtons
-                    submitVariant="success"
-                    cancelVariant="danger"
-                    onSubmit={submitHandler}
-                    onCancel={cancelHandler}
                 />
             </Modal>
         </div>

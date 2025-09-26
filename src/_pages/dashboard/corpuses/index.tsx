@@ -10,7 +10,6 @@ import EmptyResultMessage from "@/shared/ui/empty-result-message"
 import ErrorReloadMessage from "@/shared/ui/error-reload-message"
 import Modal from "../../../shared/ui/modal"
 import ModalLabel from "../../../shared/ui/modal/ui/modal-label"
-import ModalButtons from "../../../shared/ui/modal/ui/modal-buttons"
 
 const CorpusesDashboardPage = () => {
     const {
@@ -62,7 +61,7 @@ const CorpusesDashboardPage = () => {
                     <EmptyResultMessage />
                 </EmptyItemsDisplay.Empty>
             </EmptyItemsDisplay>
-            <Modal title="Добавить корпус" isOpen={isModalOpen} onClose={cancelHandler}>
+            <Modal onSubmit={submitHandler} title="Добавить корпус" isOpen={isModalOpen} onClose={cancelHandler}>
                 <ModalLabel
                     label="Название корпуса"
                     type="text"
@@ -74,12 +73,6 @@ const CorpusesDashboardPage = () => {
                             title: val,
                         }))
                     }
-                />
-                <ModalButtons
-                    submitVariant="success"
-                    cancelVariant="danger"
-                    onSubmit={submitHandler}
-                    onCancel={cancelHandler}
                 />
             </Modal>
         </div>

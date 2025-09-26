@@ -1,3 +1,3 @@
-import ClassroomDashboard from "@/_pages/dashboard/classroom"
+import ClassroomDashboardPage from "@/_pages/dashboard/classroom"
 
-export default ClassroomDashboard
+export default ClassroomDashboardPage

@@ -16,7 +16,7 @@ export const useCreateClassroomModal = (onClose: () => void) => {
     const submitHandler = async () => {
         setError(undefined)
 
-        if (formData.title || formData.corpusId) {
+        if (!formData.title || !formData.corpusId) {
             return setError("Все поля должны быть заполнены")
         }
 

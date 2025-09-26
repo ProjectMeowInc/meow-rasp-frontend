@@ -15,10 +15,15 @@ const GetAllClassrooms = new HttpClient().withMethodGet().withUrl(CLASSROOMS_API
 const GetAllCorpuses = new HttpClient().withMethodGet().withUrl(CORPUSES_API)
 
 const useClassroomDashboard = () => {
-    const { state } = useHttpDataLoading<IGetClassroomsResponse>(GetAllClassrooms)
+    const { state, reload } = useHttpDataLoading<IGetClassroomsResponse>(GetAllClassrooms)
     const { state: corpusesState } = useHttpDataLoading<{ items: { id: number; title: string }[] }>(GetAllCorpuses)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editingId, setEditingId] = useState<number | null>(null)
+
+    const submitHandler = async () => {
+        setIsModalOpen(false)
+        await reload()
+    }
 
     const openCreateHandler = () => {
         setEditingId(null)
@@ -45,6 +50,7 @@ const useClassroomDashboard = () => {
         editingId,
         corpusesState,
         isModalOpen,
+        submitHandler,
         setIsModalOpen,
         openUpdateHandler,
         openCreateHandler,

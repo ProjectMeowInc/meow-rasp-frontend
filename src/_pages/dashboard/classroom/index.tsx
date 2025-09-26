@@ -7,12 +7,11 @@ import ErrorReloadMessage from "@/shared/ui/error-reload-message"
 import Header from "../ui/header"
 import EmptyItemsDisplay from "@/shared/ui/empty-item-display"
 import EmptyResultMessage from "@/shared/ui/empty-result-message"
-import { CreateClassroomModal } from "@/features/dashboard/classroom/create-classroom"
-import { EditClassroomModal } from "@/features/dashboard/classroom/edit-classroom"
 import { ClassroomItem } from "@/features/dashboard/classroom/get-all-classrooms"
 import CardActions from "@/shared/ui/card-actions"
+import { CreateOrEditClassroomModal } from "@/widgets/dashboard"
 
-const ClassroomDashboard = () => {
+const ClassroomDashboardPage = () => {
     const {
         state,
         editingId,
@@ -20,7 +19,7 @@ const ClassroomDashboard = () => {
         isModalOpen,
         openCreateHandler,
         openUpdateHandler,
-        setIsModalOpen,
+        submitHandler,
         deleteHandler,
     } = useClassroomDashboard()
 
@@ -85,18 +84,9 @@ const ClassroomDashboard = () => {
                 </EmptyItemsDisplay.Empty>
             </EmptyItemsDisplay>
 
-            {isModalOpen &&
-                (editingId ? (
-                    <EditClassroomModal
-                        classroomId={editingId}
-                        isOpen={isModalOpen}
-                        onClose={() => setIsModalOpen(false)}
-                    />
-                ) : (
-                    <CreateClassroomModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-                ))}
+            <CreateOrEditClassroomModal editingId={editingId} isOpen={isModalOpen} onClose={submitHandler} />
         </div>
     )
 }
 
-export default ClassroomDashboard
+export default ClassroomDashboardPage

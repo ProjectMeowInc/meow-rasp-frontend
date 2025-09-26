@@ -6,7 +6,6 @@ import styles from "./styles.module.css"
 import EmptyResultMessage from "@/shared/ui/empty-result-message"
 import Modal from "../../../shared/ui/modal"
 import ModalLabel from "../../../shared/ui/modal/ui/modal-label"
-import ModalButtons from "../../../shared/ui/modal/ui/modal-buttons"
 import { useGroupDashboard } from "./hook"
 import Preloader from "@/shared/ui/preloader"
 import ErrorReloadMessage from "@/shared/ui/error-reload-message"
@@ -80,6 +79,7 @@ const GroupDashboardPage = () => {
             </div>
 
             <Modal
+                onSubmit={submitHandler}
                 title={editingId ? "Редактировать группу" : "Добавить группу"}
                 isOpen={isModalOpen}
                 onClose={cancelHandler}
@@ -95,13 +95,6 @@ const GroupDashboardPage = () => {
                             title: val,
                         }))
                     }
-                />
-
-                <ModalButtons
-                    submitVariant="success"
-                    cancelVariant="danger"
-                    onSubmit={submitHandler}
-                    onCancel={cancelHandler}
                 />
             </Modal>
         </div>
