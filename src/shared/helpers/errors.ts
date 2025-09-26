@@ -26,6 +26,8 @@ export class HttpError extends Error {
     }
 }
 
+// function are WIP
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function ErrorToMessage(err: HttpError | AppError | Error): string {
     throw new Error("WIP")
 }

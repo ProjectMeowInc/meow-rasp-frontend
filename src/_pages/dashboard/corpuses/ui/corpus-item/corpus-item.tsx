@@ -1,6 +1,6 @@
 "use client"
 
-import CardActions from "@/_pages/dashboard/ui/card-actions"
+import CardActions from "@/shared/ui/card-actions"
 import styles from "./styles.module.css"
 import { FC } from "react"
 

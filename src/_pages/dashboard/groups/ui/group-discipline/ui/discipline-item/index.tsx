@@ -1,6 +1,6 @@
 import React from "react"
 import styles from "./styles.module.css"
-import CardActions from "../../../../../ui/card-actions"
+import CardActions from "../../../../../../../shared/ui/card-actions"
 
 interface IDisciplineItemProps {
     id: number

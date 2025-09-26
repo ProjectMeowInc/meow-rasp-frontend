@@ -1,5 +1,6 @@
 import React from "react"
 import styles from "./styles.module.css"
+import ModalButtons from "./ui/modal-buttons"
 
 export { default as ModalLabel } from "./ui/modal-label"
 export { default as ModalButtons } from "./ui/modal-buttons"
@@ -7,11 +8,12 @@ export { default as ModalButtons } from "./ui/modal-buttons"
 interface IModalProps {
     title: string
     isOpen?: boolean
+    onSubmit: () => void
     onClose: () => void
     children: React.ReactNode
 }
 
-const Modal: React.FC<IModalProps> = ({ title, isOpen, onClose, children }) => {
+const Modal: React.FC<IModalProps> = ({ title, isOpen, onSubmit, onClose, children }) => {
     if (!isOpen) {
         return null
     }
@@ -25,7 +27,17 @@ const Modal: React.FC<IModalProps> = ({ title, isOpen, onClose, children }) => {
                         ×
                     </button>
                 </div>
-                <div className={styles.body}>{children}</div>
+                <div className={styles.body}>
+                    <>{children}</>
+                    <>
+                        <ModalButtons
+                            submitVariant="success"
+                            cancelVariant="danger"
+                            onSubmit={onSubmit}
+                            onCancel={onClose}
+                        />
+                    </>
+                </div>
             </div>
         </div>
     )

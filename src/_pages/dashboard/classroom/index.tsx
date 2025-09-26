@@ -6,27 +6,21 @@ import useClassroomDashboard from "./hook"
 import ErrorReloadMessage from "@/shared/ui/error-reload-message"
 import Header from "../ui/header"
 import EmptyItemsDisplay from "@/shared/ui/empty-item-display"
-import ClassroomItem from "./ui/classroom-item/classroom-item"
 import EmptyResultMessage from "@/shared/ui/empty-result-message"
-import Modal from "../../../shared/ui/modal"
-import ModalLabel from "../../../shared/ui/modal/ui/modal-label"
-import ModalButtons from "../../../shared/ui/modal/ui/modal-buttons"
-import Select, { SelectItem } from "@/shared/ui/select"
-import { CorpusSelect } from "@/entities/corpus"
 import { CreateClassroomModal } from "@/features/dashboard/classroom/create-classroom"
+import { EditClassroomModal } from "@/features/dashboard/classroom/edit-classroom"
+import { ClassroomItem } from "@/features/dashboard/classroom/get-all-classrooms"
+import CardActions from "@/shared/ui/card-actions"
 
 const ClassroomDashboard = () => {
     const {
         state,
+        editingId,
         corpusesState,
         isModalOpen,
-        formData,
-        setFormData,
-        cancelHandler,
         openCreateHandler,
         openUpdateHandler,
         setIsModalOpen,
-        submitHandler,
         deleteHandler,
     } = useClassroomDashboard()
 
@@ -72,11 +66,15 @@ const ClassroomDashboard = () => {
                         {state.content.items.map((classroom) => (
                             <ClassroomItem
                                 key={classroom.id}
-                                id={classroom.id}
                                 corpus={getCorpus(classroom.corpusId)}
                                 title={`Кабинет ${classroom.title}`}
-                                onUpdate={openUpdateHandler}
-                                onDelete={deleteHandler}
+                                cardActions={
+                                    <CardActions
+                                        id={classroom.id}
+                                        onUpdate={openUpdateHandler}
+                                        onDelete={deleteHandler}
+                                    />
+                                }
                             />
                         ))}
                     </div>
@@ -87,7 +85,16 @@ const ClassroomDashboard = () => {
                 </EmptyItemsDisplay.Empty>
             </EmptyItemsDisplay>
 
-            <CreateClassroomModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            {isModalOpen &&
+                (editingId ? (
+                    <EditClassroomModal
+                        classroomId={editingId}
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                    />
+                ) : (
+                    <CreateClassroomModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+                ))}
         </div>
     )
 }

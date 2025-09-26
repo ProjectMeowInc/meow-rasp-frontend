@@ -1,6 +1,6 @@
 import React from "react"
 import styles from "./styles.module.css"
-import CardActions from "@/_pages/dashboard/ui/card-actions"
+import CardActions from "@/shared/ui/card-actions"
 
 interface ITeacherItemProps {
     id: number

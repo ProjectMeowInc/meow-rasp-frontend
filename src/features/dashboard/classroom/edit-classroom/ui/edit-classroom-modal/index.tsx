@@ -1,17 +1,18 @@
-"use client"
-
+import { CorpusSelect } from "@/entities/corpus"
+import { OnCloseFn } from "@/shared/types"
 import Modal, { ModalLabel } from "@/shared/ui/modal"
-import { useCreateClassroomModal } from "./hook"
-import { CorpusSelect } from "@/entities/corpus/ui/corpus-select"
+import React from "react"
+import { useEditClassroomModal } from "./hook"
 
-export const CreateClassroomModal: React.FC<{
+export const EditClassroomModal: React.FC<{
+    classroomId: number
     isOpen?: boolean
-    onClose: () => void
-}> = ({ isOpen, onClose }) => {
-    const { formData, error, corpusesState, setFormData, submitHandler } = useCreateClassroomModal(onClose)
+    onClose: OnCloseFn
+}> = ({ classroomId, isOpen, onClose }) => {
+    const { error, formData, corpusesState, submitHandler, setFormData } = useEditClassroomModal(classroomId, onClose)
 
     return (
-        <Modal title="Добавить кабинет" isOpen={isOpen} onSubmit={submitHandler} onClose={onClose}>
+        <Modal title="Редактировать кабинет" onSubmit={submitHandler} isOpen={isOpen} onClose={onClose}>
             <ModalLabel
                 label="Название кабинета"
                 type="text"

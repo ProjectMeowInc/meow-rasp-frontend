@@ -1,10 +1,9 @@
 import { CLASSROOMS_API } from "@/shared/consts"
 import { HttpClient } from "@/shared/helpers/HttpClient"
 import { CreatedResponse } from "@/shared/models/responses"
+import { CreateOrUpdateClassroomRequest } from "."
 
-export interface Payload {
-    title: string
-}
+export type Payload = CreateOrUpdateClassroomRequest
 
 export type Response = CreatedResponse
 

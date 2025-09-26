@@ -35,7 +35,7 @@ const Select: FC<ISelectProps> = ({ value, onChange, placeholder = "Выбери
                 if (searchValue.some((v) => v.toLowerCase().includes(normalizedFilter))) {
                     return child
                 }
-            })
+            }),
         )
         // i know what i do
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,7 +74,7 @@ const Select: FC<ISelectProps> = ({ value, onChange, placeholder = "Выбери
                     React.Children.toArray(children).find(
                         // i know what i doing...
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        (child: any) => child.props.value === selected
+                        (child: any) => child.props.value === selected,
                     )
                 ) : supportSearch ? (
                     <Input

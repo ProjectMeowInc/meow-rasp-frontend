@@ -2,7 +2,7 @@
 
 import { FC } from "react"
 import styles from "./styles.module.css"
-import CardActions from "../../../ui/card-actions"
+import CardActions from "../../../../../shared/ui/card-actions"
 import { formatDate } from "@/shared/helpers/time"
 
 interface IGroupItemProps {

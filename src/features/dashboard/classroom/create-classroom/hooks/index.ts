@@ -4,7 +4,7 @@ import { Result } from "ts-result-meow"
 
 export const useCreateClassroom = () => {
     const createClassroom = async (
-        payload: CreateClassroomPayload
+        payload: CreateClassroomPayload,
     ): Promise<Result<CreateClassroomResponse, string>> => {
         return await CreateClassroomRequest(payload)
             .send<CreateClassroomResponse>()
