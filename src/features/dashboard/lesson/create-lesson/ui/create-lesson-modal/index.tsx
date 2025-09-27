@@ -3,10 +3,10 @@
 import Modal from "@/shared/ui/modal"
 import { useCreateLessonModal } from "./hook"
 import DisciplineSelect from "@/shared/ui/discipline-select"
-import { TeacherSelect } from "@/features/dashboard-teacher/ui"
-import ClassroomSelect from "@/features/dashboard-classroom/ui/classroom-select/classroom-select"
+import ClassroomSelect from "@/shared/ui/classroom-select"
 import SubgroupSelect from "@/shared/ui/subgroup-select"
 import { OnCloseFn } from "@/shared/types"
+import { TeacherSelect } from "@/shared/ui/teacher-select"
 
 export const CreateLessonModal: React.FC<{
     groupId: number
