@@ -5,7 +5,6 @@ import styles from "./styles.module.css"
 import { useParams } from "next/navigation"
 import Preloader from "@/shared/ui/preloader"
 import { dateTimeToDateString, getDateStringsRange, getISOWeekMonday } from "@/shared/helpers/time"
-import { CreateLessonModal } from "@/features/dashboard/lesson/create-lesson"
 import { CreateOrEditLessonModal } from "@/widgets/dashboard/create-or-edit-lesson-modal"
 
 const getWeekDates = () => {
