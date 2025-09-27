@@ -1,7 +1,7 @@
 "use client"
 
 import EmptyItemsDisplay from "@/shared/ui/empty-item-display"
-import Header from "../../../ui/header"
+import DashboardHeader from "../../../../../shared/ui/dashboard-header"
 import styles from "./styles.module.css"
 import Modal from "../../../../../shared/ui/modal"
 import ModalLabel from "../../../../../shared/ui/modal/ui/modal-label"
@@ -57,7 +57,7 @@ const GroupDiscipline: React.FC<{
 
     return (
         <div className={styles.page}>
-            <Header
+            <DashboardHeader
                 caption={`Управление дисциплинами группы ${title}`}
                 buttonCaption={"Добавить дисциплину"}
                 onButtonClick={openCreateHandler}

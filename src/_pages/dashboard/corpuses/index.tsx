@@ -1,7 +1,6 @@
 "use client"
 
 import Preloader from "@/shared/ui/preloader"
-import Header from "../ui/header"
 import CorpusItem from "./ui/corpus-item/corpus-item"
 import styles from "./styles.module.css"
 import useCorpusesDashboardPage from "./hook"
@@ -9,6 +8,7 @@ import EmptyItemsDisplay from "@/shared/ui/empty-item-display"
 import EmptyResultMessage from "@/shared/ui/empty-result-message"
 import ErrorReloadMessage from "@/shared/ui/error-reload-message"
 import { CreateOrEditCorpusModal } from "@/widgets/dashboard/create-or-edit-corpus-modal"
+import { DashboardHeaderLayout } from "@/shared/layout/header/dashboard"
 
 const CorpusesDashboardPage = () => {
     const { editingId, state, isModalOpen, openCreateHandler, openUpdateHandler, submitHandler, deleteHandler } =
@@ -27,12 +27,11 @@ const CorpusesDashboardPage = () => {
     }
 
     return (
-        <div className={styles.page}>
-            <Header
-                caption={"Управление корпусами"}
-                buttonCaption={"Добавить корпус"}
-                onButtonClick={openCreateHandler}
-            />
+        <DashboardHeaderLayout
+            caption={"Управление корпусами"}
+            buttonCaption={"Добавить корпус"}
+            onButtonClick={openCreateHandler}
+        >
             <EmptyItemsDisplay items={state.content.items}>
                 <EmptyItemsDisplay.Contains>
                     <div className={styles.grid}>
@@ -52,7 +51,7 @@ const CorpusesDashboardPage = () => {
                 </EmptyItemsDisplay.Empty>
             </EmptyItemsDisplay>
             <CreateOrEditCorpusModal editingId={editingId} isOpen={isModalOpen} onClose={submitHandler} />
-        </div>
+        </DashboardHeaderLayout>
     )
 }
 

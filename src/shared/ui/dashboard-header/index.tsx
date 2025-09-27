@@ -3,7 +3,7 @@
 import React from "react"
 import styles from "./styles.module.css"
 
-const Header: React.FC<{
+const DashboardHeader: React.FC<{
     caption: string
     buttonCaption: string
     onButtonClick?: () => Promise<void> | void
@@ -18,4 +18,4 @@ const Header: React.FC<{
     )
 }
 
-export default Header
+export default DashboardHeader

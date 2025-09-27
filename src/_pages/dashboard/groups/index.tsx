@@ -1,7 +1,6 @@
 "use client"
 
 import EmptyItemsDisplay from "@/shared/ui/empty-item-display"
-import Header from "../ui/header"
 import styles from "./styles.module.css"
 import EmptyResultMessage from "@/shared/ui/empty-result-message"
 import { useGroupDashboard } from "./hook"
@@ -10,6 +9,7 @@ import ErrorReloadMessage from "@/shared/ui/error-reload-message"
 import GroupDiscipline from "./ui/group-discipline"
 import GroupItem from "./ui/group-item"
 import { CreateOrEditGroupModal } from "@/widgets/dashboard/create-or-edit-group-modal"
+import { DashboardHeaderLayout } from "@/shared/layout/header/dashboard"
 
 const GroupDashboardPage = () => {
     const {
@@ -33,14 +33,12 @@ const GroupDashboardPage = () => {
     }
 
     return (
-        <div className={styles.page}>
-            <div className={styles.leftSide}>
-                <Header
-                    caption={"Управление группами"}
-                    buttonCaption={"Добавить группу"}
-                    onButtonClick={openCreateHandler}
-                />
-
+        <>
+            <DashboardHeaderLayout
+                caption={"Управление группами"}
+                buttonCaption={"Добавить группу"}
+                onButtonClick={openCreateHandler}
+            >
                 <EmptyItemsDisplay items={state.content.items}>
                     <EmptyItemsDisplay.Contains>
                         <div className={styles.grid}>
@@ -68,14 +66,13 @@ const GroupDashboardPage = () => {
                         <EmptyResultMessage />
                     </EmptyItemsDisplay.Empty>
                 </EmptyItemsDisplay>
-            </div>
-
+            </DashboardHeaderLayout>
             <div className={styles.rightSide}>
                 {selectedGroup && <GroupDiscipline id={selectedGroup.id} title={selectedGroup.title} />}
             </div>
 
             <CreateOrEditGroupModal isOpen={isModalOpen} onClose={submitHandler} groupId={editingId} />
-        </div>
+        </>
     )
 }
 
