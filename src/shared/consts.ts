@@ -1,6 +1,5 @@
 // Shared
 export const API_URL = "http://localhost:5525/api"
-export const NOT_SELECTED_ID = -1
 
 // Groups
 export const GROUPS_API = API_URL + "/v1/group/"

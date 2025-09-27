@@ -31,5 +31,33 @@ export function dateTimeToDateString(date: Date): string {
 }
 export function formatDate(date: Date): string {
     date = new Date(date)
-    return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")} ${date.getDate().toString().padStart(2, "0")}.${date.getMonth().toString().padStart(2, "0")}.${date.getFullYear()}`
+    return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")} ${date
+        .getDate()
+        .toString()
+        .padStart(2, "0")}.${date.getMonth().toString().padStart(2, "0")}.${date.getFullYear()}`
+}
+
+export function getDayNameByDateString(dateString: string): string {
+    const date = new Date(dateString)
+    const dayNames = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
+    return dayNames[date.getDay()]
+}
+
+export function formatDateString(dateString: string): string {
+    const date = new Date(dateString)
+    return date.toLocaleDateString("ru-RU", {
+        day: "2-digit",
+        month: "2-digit",
+    })
+}
+
+export function getWeekDates(): { startDate: Date; endDate: Date } {
+    const startDate = getISOWeekMonday()
+
+    const endDate = new Date(startDate)
+    endDate.setDate(startDate.getDate() + 13)
+    return {
+        startDate,
+        endDate,
+    }
 }
