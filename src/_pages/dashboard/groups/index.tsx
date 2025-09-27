@@ -4,23 +4,19 @@ import EmptyItemsDisplay from "@/shared/ui/empty-item-display"
 import Header from "../ui/header"
 import styles from "./styles.module.css"
 import EmptyResultMessage from "@/shared/ui/empty-result-message"
-import Modal from "../../../shared/ui/modal"
-import ModalLabel from "../../../shared/ui/modal/ui/modal-label"
 import { useGroupDashboard } from "./hook"
 import Preloader from "@/shared/ui/preloader"
 import ErrorReloadMessage from "@/shared/ui/error-reload-message"
 import GroupDiscipline from "./ui/group-discipline"
 import GroupItem from "./ui/group-item"
+import { CreateOrEditGroupModal } from "@/widgets/dashboard/create-or-edit-group-modal"
 
 const GroupDashboardPage = () => {
     const {
         state,
         isModalOpen,
-        formData,
         editingId,
         selectedGroup,
-        setFormData,
-        cancelHandler,
         openUpdateHandler,
         openCreateHandler,
         deleteHandler,
@@ -78,25 +74,7 @@ const GroupDashboardPage = () => {
                 {selectedGroup && <GroupDiscipline id={selectedGroup.id} title={selectedGroup.title} />}
             </div>
 
-            <Modal
-                onSubmit={submitHandler}
-                title={editingId ? "Редактировать группу" : "Добавить группу"}
-                isOpen={isModalOpen}
-                onClose={cancelHandler}
-            >
-                <ModalLabel
-                    label="Название группы"
-                    type="text"
-                    value={formData.title}
-                    required
-                    onChange={(val) =>
-                        setFormData((prev) => ({
-                            ...prev,
-                            title: val,
-                        }))
-                    }
-                />
-            </Modal>
+            <CreateOrEditGroupModal isOpen={isModalOpen} onClose={submitHandler} groupId={editingId} />
         </div>
     )
 }

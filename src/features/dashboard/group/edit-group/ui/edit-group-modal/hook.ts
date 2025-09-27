@@ -1,13 +1,15 @@
-import { CreateGroupPayload } from "@/entities/group"
-import { useState } from "react"
-import { useCreateGroup } from "../../hooks"
-import { OnCloseFn } from "@/shared/types"
+"use client"
 
-export const useCreateGroupModal = (onClose: OnCloseFn) => {
-    const [formData, setFormData] = useState<CreateGroupPayload>({
+import { UpdateGroupPayload } from "@/entities/group"
+import { OnCloseFn } from "@/shared/types"
+import { useState } from "react"
+import { useEditGroup } from "../../hooks"
+
+export const useEditGroupModal = (groupId: number, onClose: OnCloseFn) => {
+    const [formData, setFormData] = useState<UpdateGroupPayload>({
         title: "",
     })
-    const { createGroup } = useCreateGroup()
+    const { editGroup } = useEditGroup()
     const [error, setError] = useState<string>()
 
     const submitHandler = async () => {
@@ -17,7 +19,7 @@ export const useCreateGroupModal = (onClose: OnCloseFn) => {
             return setError("Все поля должны быть заполнены")
         }
 
-        const res = await createGroup(formData)
+        const res = await editGroup(groupId, formData)
         if (res.hasError()) {
             setError(res.getError())
         } else {

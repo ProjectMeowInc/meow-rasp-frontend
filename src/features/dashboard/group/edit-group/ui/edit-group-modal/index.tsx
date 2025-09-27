@@ -1,17 +1,16 @@
-"use client"
-
 import { OnCloseFn } from "@/shared/types"
+import { useEditGroupModal } from "./hook"
 import Modal, { ModalLabel } from "@/shared/ui/modal"
-import { useCreateGroupModal } from "./hook"
 
-export const CreateGroupModal: React.FC<{
+export const EditGroupModal: React.FC<{
     isOpen: boolean
+    groupId: number
     onClose: OnCloseFn
-}> = ({ isOpen, onClose }) => {
-    const { formData, error, setFormData, submitHandler } = useCreateGroupModal(onClose)
+}> = ({ isOpen, groupId, onClose }) => {
+    const { formData, error, setFormData, submitHandler } = useEditGroupModal(groupId, onClose)
 
     return (
-        <Modal onSubmit={submitHandler} title={"Добавить группу"} isOpen={isOpen} onClose={onClose}>
+        <Modal onSubmit={submitHandler} title={"Редактировать группу"} isOpen={isOpen} onClose={onClose}>
             <ModalLabel
                 label="Название группы"
                 type="text"
