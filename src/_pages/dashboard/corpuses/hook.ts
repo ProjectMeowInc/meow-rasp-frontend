@@ -1,9 +1,9 @@
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
-import { useGetAllCorpuses } from "@/features/dashboard/corpus/get-all-corpuses/hooks"
+import { useGetCorpuses } from "@/features/dashboard/corpus/get-corpuses"
 
 const useCorpusesDashboardPage = () => {
-    const { useGetAllCorpusesLoading } = useGetAllCorpuses()
+    const { useGetAllCorpusesLoading } = useGetCorpuses()
     const { state, reload } = useGetAllCorpusesLoading()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editingId, setEditingId] = useState<number | null>(null)

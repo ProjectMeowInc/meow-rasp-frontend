@@ -3,7 +3,7 @@ import { Result } from "ts-result-meow"
 import { ErrorToMessage } from "@/shared/helpers/errors"
 import { useHttpDataLoading } from "@/shared/hooks/useDataLoading"
 
-export const useGetAllCorpuses = () => {
+export const useGetCorpuses = () => {
     const useGetAllCorpusesLoading = () => {
         return useHttpDataLoading<GetAllCorpusesResponse>(GetAllCorpusesRequest())
     }

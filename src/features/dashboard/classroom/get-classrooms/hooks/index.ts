@@ -2,7 +2,7 @@ import { GetAllClassroomRequest, GetAllClassroomResponse } from "@/entities/clas
 import { ErrorToMessage } from "@/shared/helpers/errors"
 import { Result } from "ts-result-meow"
 
-export const useGetAllClassrooms = () => {
+export const useGetClassrooms = () => {
     const getAllClassrooms = async (): Promise<Result<GetAllClassroomResponse, string>> => {
         return await GetAllClassroomRequest()
             .send<GetAllClassroomResponse>()

@@ -1,26 +1,15 @@
-import { GROUPS_API } from "@/shared/consts"
-import { HttpClient } from "@/shared/helpers/HttpClient"
-import { useHttpDataLoading } from "@/shared/hooks/useDataLoading"
+import { useGetGroups } from "@/features/dashboard/group/get-groups"
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
-
-interface IGetGroupsResponse {
-    items: {
-        id: number
-        title: string
-        updatedAt: Date
-    }[]
-}
 
 interface IGroup {
     id: number
     title: string
 }
 
-const GetAllGroupsRequest = new HttpClient().withMethodGet().withUrl(GROUPS_API)
-
 export const useGroupDashboard = () => {
-    const { state, reload } = useHttpDataLoading<IGetGroupsResponse>(GetAllGroupsRequest)
+    const { useGetAllGroupsLoading } = useGetGroups()
+    const { state, reload } = useGetAllGroupsLoading()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editingId, setEditingId] = useState<number | null>(null)
     const [selectedGroup, setSelectedGroup] = useState<IGroup | null>(null)
