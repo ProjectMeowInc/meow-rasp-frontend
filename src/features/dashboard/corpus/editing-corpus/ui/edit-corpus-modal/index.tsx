@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import Modal, { ModalLabel } from "@/shared/ui/modal"
 import { useEditCorpusModal } from "./hook"

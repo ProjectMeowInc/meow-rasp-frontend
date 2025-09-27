@@ -1,3 +1,5 @@
+"use client"
+
 import { OnCloseFn } from "@/shared/types"
 import { useEditGroupModal } from "./hook"
 import Modal, { ModalLabel } from "@/shared/ui/modal"

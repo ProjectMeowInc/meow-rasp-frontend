@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import { useUpdateLessonModal } from "./hook"
 import { OnCloseFn } from "@/shared/types"
