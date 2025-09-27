@@ -4,19 +4,17 @@ import { getErrorMessage } from "@/shared/hooks/useDataLoading"
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
 import { Slot } from "../../../widgets/dashboard/set-lesson-form/hook"
-import { useHttpDataLoading } from "@/shared/hooks/useDataLoading"
 import { LessonType } from "@/entities/lesson"
-import { GetGroupScheduleRequest, GetGroupScheduleResponse } from "@/entities/group"
 import { CreateLessonPayload } from "@/entities/lesson"
+import { useGetSchedule } from "@/features/dashboard/group/get-schedule"
 
 export const useGroupScheduleDashboard = (groupId: number, startDate: string, endDate: string) => {
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [editingSlot, setEditingSlot] = useState<Slot | null>(null)
     const [editingLessonId, setEditingLessonId] = useState<number | null>(null)
 
-    const { state: scheduleState, reload: reloadSchedule } = useHttpDataLoading<GetGroupScheduleResponse>(
-        GetGroupScheduleRequest(groupId, startDate, endDate),
-    )
+    const { useGetGroupScheduleLoading } = useGetSchedule()
+    const { state: scheduleState, reload: reloadSchedule } = useGetGroupScheduleLoading(groupId, startDate, endDate)
 
     const openFormHandler = (slot: Slot, lessonId?: number) => {
         setEditingSlot(slot)
