@@ -9,7 +9,7 @@ import EmptyItemsDisplay from "@/shared/ui/empty-item-display"
 import EmptyResultMessage from "@/shared/ui/empty-result-message"
 import { ClassroomItem } from "@/features/dashboard/classroom/get-classrooms"
 import CardActions from "@/shared/ui/card-actions"
-import { CreateOrEditClassroomModal } from "@/widgets/dashboard"
+import { CreateOrEditClassroomModal } from "@/widgets/dashboard/create-or-edit-classroom-modal"
 
 const ClassroomDashboardPage = () => {
     const {
