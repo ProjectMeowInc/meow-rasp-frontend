@@ -5,13 +5,11 @@ import InlinePreloader from "@/shared/ui/inline-preloader"
 import Select, { SelectItem } from "@/shared/ui/select"
 import React from "react"
 
-interface ITeacherSelectProps {
+export const TeacherSelect: React.FC<{
     teachersState: DataLoadingState<GetAllTeachersResponse>
     selectedTeacher?: number
     onChange?: (id: number) => void
-}
-
-export const TeacherSelect: React.FC<ITeacherSelectProps> = ({ selectedTeacher, teachersState, onChange }) => {
+}> = ({ selectedTeacher, teachersState, onChange }) => {
     if (teachersState.isLoading) {
         return <InlinePreloader />
     }

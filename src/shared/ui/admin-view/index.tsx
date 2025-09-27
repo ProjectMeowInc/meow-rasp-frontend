@@ -3,11 +3,9 @@
 import React, { ReactNode, useState } from "react"
 import { useFirstLoading } from "@/shared/hooks/useFirstLoading"
 
-interface IAdminViewProps {
+const AdminView: React.FC<{
     children: ReactNode
-}
-
-const AdminView: React.FC<IAdminViewProps> = ({ children }) => {
+}> = ({ children }) => {
     const [isAdmin, setIsAdmin] = useState(false)
 
     useFirstLoading(() => {

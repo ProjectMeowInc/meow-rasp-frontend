@@ -2,15 +2,13 @@ import React from "react"
 import styles from "./styles.module.css"
 import CardActions from "../../../../../../../shared/ui/card-actions"
 
-interface IDisciplineItemProps {
+const DisciplineItem: React.FC<{
     id: number
     title: string
     teacher: { id: number; name: string }
     onUpdate: (id: number) => void
     onDelete: (id: number) => void
-}
-
-const DisciplineItem: React.FC<IDisciplineItemProps> = ({ id, title, teacher, onUpdate, onDelete }) => {
+}> = ({ id, title, teacher, onUpdate, onDelete }) => {
     return (
         <div className={styles.item}>
             <div className={styles.itemHeader}>{title}</div>

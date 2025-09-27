@@ -1,14 +1,12 @@
 import React, { JSX } from "react"
 import styles from "./styles.module.css"
 
-interface IAlertProps {
-    variant: AlertVariant
-    children: React.ReactNode
-}
-
 type AlertVariant = "error" | "warning" | "info" | "success"
 
-const Alert: React.FC<IAlertProps> = ({ variant, children }) => {
+const Alert: React.FC<{
+    variant: AlertVariant
+    children: React.ReactNode
+}> = ({ variant, children }) => {
     return (
         <div className={`${styles.alert} ${styles[variant]}`}>
             <div className={styles.icon}>{icons[variant]}</div>

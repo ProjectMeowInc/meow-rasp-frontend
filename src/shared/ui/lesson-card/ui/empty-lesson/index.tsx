@@ -1,11 +1,9 @@
 import React from "react"
 import styles from "./styles.module.css"
 
-interface IEmptyLessonProps {
+const EmptyLesson: React.FC<{
     number: number
-}
-
-const EmptyLesson: React.FC<IEmptyLessonProps> = ({ number }) => {
+}> = ({ number }) => {
     return (
         <div className={styles.lessonCardWrapper}>
             <p className={styles.lessonCardNumber}>{number}</p>

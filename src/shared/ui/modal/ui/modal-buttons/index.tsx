@@ -1,16 +1,14 @@
 import { FC } from "react"
 import styles from "./styles.module.css"
 
-interface IModalButtonsProps {
+type AvailableVariant = "default" | "danger" | "primary" | "success"
+
+const ModalButtons: FC<{
     submitVariant: AvailableVariant
     cancelVariant: AvailableVariant
     onSubmit?: () => Promise<void> | void
     onCancel?: () => Promise<void> | void
-}
-
-type AvailableVariant = "default" | "danger" | "primary" | "success"
-
-const ModalButtons: FC<IModalButtonsProps> = ({ submitVariant, cancelVariant, onSubmit, onCancel }) => {
+}> = ({ submitVariant, cancelVariant, onSubmit, onCancel }) => {
     const submitHandler = () => {
         onSubmit?.call(null)
     }

@@ -1,14 +1,12 @@
 import styles from "./styles.module.css"
 import React from "react"
 
-interface IFullGroupProps {
+const FullGroup: React.FC<{
     number: number
     caption: string
     teacher: string
     classroom: string
-}
-
-const FullGroup: React.FC<IFullGroupProps> = ({ number, teacher, classroom, caption }) => {
+}> = ({ number, teacher, classroom, caption }) => {
     return (
         <div className={styles.lessonCardWrapper}>
             <p className={styles.lessonCardNumber}>{number}</p>

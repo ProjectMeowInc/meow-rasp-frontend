@@ -1,13 +1,11 @@
 import { FC } from "react"
 import styles from "./styles.module.css"
 
-interface ICardActionsProps {
+const CardActions: FC<{
     id: number
     onUpdate?: (id: number) => Promise<void> | void
     onDelete?: (id: number) => Promise<void> | void
-}
-
-const CardActions: FC<ICardActionsProps> = ({ id, onUpdate, onDelete }) => {
+}> = ({ id, onUpdate, onDelete }) => {
     return (
         <div className={styles.actions}>
             <button className={styles.edit} onClick={() => onUpdate?.call(null, id)}>

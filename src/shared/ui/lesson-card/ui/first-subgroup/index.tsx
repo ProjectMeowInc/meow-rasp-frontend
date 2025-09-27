@@ -1,14 +1,12 @@
 import styles from "./styles.module.css"
 import React from "react"
 
-interface IFirstSubgroupProps {
+const FirstSubgroup: React.FC<{
     number: number
     caption: string
     teacher: string
     classroom: string
-}
-
-const FirstSubgroup: React.FC<IFirstSubgroupProps> = ({ number, teacher, classroom, caption }) => {
+}> = ({ number, teacher, classroom, caption }) => {
     return (
         <div className={styles.lessonCardWrapper}>
             <p className={styles.lessonCardNumber}>{number}</p>

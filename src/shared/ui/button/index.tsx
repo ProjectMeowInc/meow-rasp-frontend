@@ -3,13 +3,11 @@
 import React from "react"
 import styles from "./styles.module.css"
 
-interface IButtonProps {
+const Button: React.FC<{
     children?: React.ReactNode
     onClick?: () => void
     style?: React.CSSProperties
-}
-
-const Button: React.FC<IButtonProps> = ({ children, onClick, style }) => {
+}> = ({ children, onClick, style }) => {
     return (
         <button style={style} onClick={onClick} className={styles.button}>
             {children}

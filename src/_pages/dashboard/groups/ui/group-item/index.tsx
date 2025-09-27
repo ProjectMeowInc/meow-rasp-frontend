@@ -5,7 +5,7 @@ import styles from "./styles.module.css"
 import CardActions from "../../../../../shared/ui/card-actions"
 import { formatDate } from "@/shared/helpers/time"
 
-interface IGroupItemProps {
+const GroupItem: FC<{
     id: number
     title: string
     updatedAt: Date
@@ -13,9 +13,7 @@ interface IGroupItemProps {
     onUpdate: (id: number) => Promise<void>
     onDelete: (id: number) => Promise<void>
     onClick: (id: number) => void
-}
-
-const GroupItem: FC<IGroupItemProps> = ({ id, title, updatedAt, variant, onUpdate, onDelete, onClick }) => {
+}> = ({ id, title, updatedAt, variant, onUpdate, onDelete, onClick }) => {
     return (
         <div className={`${styles.card} ${styles[variant ?? "default"]}`} onClick={() => onClick(id)}>
             <h2>

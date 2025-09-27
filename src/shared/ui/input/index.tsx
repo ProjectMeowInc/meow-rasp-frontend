@@ -3,16 +3,14 @@
 import React from "react"
 import styles from "./styles.module.css"
 
-interface IInputProps {
+const Input: React.FC<{
     placeholder?: string
     type?: "text" | "password"
     ref?: React.RefObject<HTMLInputElement | null>
     onChange?: (value: string) => void
     style?: React.CSSProperties
     defaultValue?: string
-}
-
-const Input: React.FC<IInputProps> = ({ placeholder, type, ref, onChange, style, defaultValue }) => {
+}> = ({ placeholder, type, ref, onChange, style, defaultValue }) => {
     const changeHandler = (value: string) => {
         onChange?.call(null, value)
     }

@@ -1,14 +1,12 @@
 import styles from "./styles.module.css"
 import React from "react"
 
-export interface ISecondSubgroupProps {
+const SecondSubgroup: React.FC<{
     number: number
     caption: string
     teacher: string
     classroom: string
-}
-
-const SecondSubgroup: React.FC<ISecondSubgroupProps> = ({ number, teacher, classroom, caption }) => {
+}> = ({ number, teacher, classroom, caption }) => {
     return (
         <div className={styles.lessonCardWrapper}>
             <p className={styles.lessonCardNumber}>{number}</p>

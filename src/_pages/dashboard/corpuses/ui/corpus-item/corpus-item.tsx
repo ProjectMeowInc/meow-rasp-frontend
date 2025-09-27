@@ -4,14 +4,12 @@ import CardActions from "@/shared/ui/card-actions"
 import styles from "./styles.module.css"
 import { FC } from "react"
 
-interface ICorpisItemProps {
+const CorpusItem: FC<{
     id: number
     title: string
     onUpdate?: (id: number) => Promise<void>
     onDelete?: () => Promise<void>
-}
-
-const CorpusItem: FC<ICorpisItemProps> = ({ id, title, onUpdate, onDelete }) => {
+}> = ({ id, title, onUpdate, onDelete }) => {
     return (
         <div className={styles.card}>
             <h2>

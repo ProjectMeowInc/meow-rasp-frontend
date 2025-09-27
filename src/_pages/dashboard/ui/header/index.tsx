@@ -3,13 +3,11 @@
 import React from "react"
 import styles from "./styles.module.css"
 
-interface IHeaderProps {
+const Header: React.FC<{
     caption: string
     buttonCaption: string
     onButtonClick?: () => Promise<void> | void
-}
-
-const Header: React.FC<IHeaderProps> = ({ caption, buttonCaption, onButtonClick }) => {
+}> = ({ caption, buttonCaption, onButtonClick }) => {
     return (
         <div className={styles.header}>
             <h2>{caption}</h2>

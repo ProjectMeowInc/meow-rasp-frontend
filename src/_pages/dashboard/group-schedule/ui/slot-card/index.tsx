@@ -3,34 +3,34 @@ import { FC } from "react"
 import styles from "./styles.module.css"
 import { LessonType } from "@/entities/lesson"
 
-interface ISlotCardProps {
+interface LessonData {
+    id: number
+    lessonType: LessonType
+    number: number
+    classroom: {
+        corpus: {
+            id: number
+            title: string
+        }
+        id: number
+        title: string
+    }
+    discipline: {
+        id: number
+        title: string
+    }
+    teacher: {
+        id: number
+        name: string
+    }
+}
+
+const SlotCard: FC<{
     slot: number
     onEditClick: (slot: number, lessonId?: number) => void
     onDeleteClick: (lessonId: number) => void
-    lessons?: {
-        id: number
-        lessonType: LessonType
-        number: number
-        classroom: {
-            corpus: {
-                id: number
-                title: string
-            }
-            id: number
-            title: string
-        }
-        discipline: {
-            id: number
-            title: string
-        }
-        teacher: {
-            id: number
-            name: string
-        }
-    }[]
-}
-
-const SlotCard: FC<ISlotCardProps> = ({ slot, onEditClick, onDeleteClick, lessons }) => {
+    lessons?: LessonData[]
+}> = ({ slot, onEditClick, onDeleteClick, lessons }) => {
     // Determine if we can add another lesson to this slot
     const canAddLesson = () => {
         if (!lessons || lessons.length === 0) {

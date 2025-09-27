@@ -14,12 +14,10 @@ import BlockCentre from "@/shared/ui/block-centre"
 import { AvailableDisciplineTypePayload, DisciplineTypePayload } from "@/entities/discipline"
 import DisciplineItem from "./ui/discipline-item"
 
-interface IGroupDisciplineProps {
+const GroupDiscipline: React.FC<{
     id: number
     title: string
-}
-
-const GroupDiscipline: React.FC<IGroupDisciplineProps> = ({ id, title }) => {
+}> = ({ id, title }) => {
     const {
         state,
         teachersState,

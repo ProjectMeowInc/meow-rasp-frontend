@@ -1,16 +1,16 @@
 import styles from "./styles.module.css"
 import React from "react"
 
-interface IBothSubgroupProps {
-    lessons: {
-        number: number
-        caption: string
-        teacher: string
-        classroom: string
-    }[]
+interface LessonData {
+    number: number
+    caption: string
+    teacher: string
+    classroom: string
 }
 
-const BothSubgroups: React.FC<IBothSubgroupProps> = ({ lessons }) => {
+const BothSubgroups: React.FC<{
+    lessons: LessonData[]
+}> = ({ lessons }) => {
     const [firstGroup, secondGroup] = lessons
 
     return (

@@ -2,12 +2,10 @@ import { LessonType } from "@/entities/lesson"
 import Select, { SelectItem } from "@/shared/ui/select"
 import React from "react"
 
-interface ISubgroupSelectProps {
+const SubgroupSelect: React.FC<{
     onChange?: (value: LessonType) => void
     selectedSubgroup?: LessonType
-}
-
-const SubgroupSelect: React.FC<ISubgroupSelectProps> = ({ onChange, selectedSubgroup }) => {
+}> = ({ onChange, selectedSubgroup }) => {
     const changeHandler = (val: string) => {
         if (val.startsWith("shared")) {
             onChange?.({ type: "shared" })

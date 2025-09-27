@@ -7,17 +7,17 @@ import SecondSubgroup from "./ui/second-subgroup"
 
 type LessonType = "FULL_GROUP" | "FIRST_SUBGROUP" | "SECOND_SUBGROUP" | "BOTH_SUBGROUP" | "NONE"
 
-interface ILessonCardProps {
-    lessons: {
-        caption: string
-        teacher: string
-        classroom: string
-        number: number
-    }[]
-    type: LessonType
+interface LessonData {
+    caption: string
+    teacher: string
+    classroom: string
+    number: number
 }
 
-const LessonCard: React.FC<ILessonCardProps> = ({ lessons, type }) => {
+const LessonCard: React.FC<{
+    lessons: LessonData[]
+    type: LessonType
+}> = ({ lessons, type }) => {
     const [lesson] = lessons
 
     switch (type) {

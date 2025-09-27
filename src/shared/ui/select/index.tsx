@@ -10,15 +10,13 @@ export { SelectItem } from "./ui/select-item"
 export { default as SelectPreloader } from "./ui/select-preloader"
 export { default as SelectError } from "./ui/select-error"
 
-interface ISelectProps {
+const Select: FC<{
     value?: string
     onChange?: (value: string) => void
     placeholder?: string
     supportSearch?: boolean
     children: ReactNode
-}
-
-const Select: FC<ISelectProps> = ({ value, onChange, placeholder = "Выберите...", supportSearch, children }) => {
+}> = ({ value, onChange, placeholder = "Выберите...", supportSearch, children }) => {
     const [open, setOpen] = useState(false)
     const [selected, setSelected] = useState<string | undefined>(value)
     const ref = useRef<HTMLDivElement>(null)
