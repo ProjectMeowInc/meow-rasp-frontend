@@ -1,6 +1,6 @@
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
-import { useGetCorpuses } from "@/features/dashboard/corpus/get-corpuses"
+import { useGetCorpuses } from "@/features/corpus/get-corpuses"
 
 const useCorpusesDashboardPage = () => {
     const { useGetAllCorpusesLoading } = useGetCorpuses()

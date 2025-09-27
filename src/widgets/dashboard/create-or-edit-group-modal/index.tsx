@@ -1,5 +1,5 @@
-import { CreateGroupModal } from "@/features/dashboard/group/create-group"
-import { EditGroupModal } from "@/features/dashboard/group/edit-group"
+import { CreateGroupModal } from "@/features/group/create-group"
+import { EditGroupModal } from "@/features/group/edit-group"
 import { OnCloseFn } from "@/shared/types"
 import React from "react"
 

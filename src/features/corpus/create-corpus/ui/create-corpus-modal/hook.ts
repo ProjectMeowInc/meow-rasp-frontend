@@ -1,14 +1,14 @@
-import { UpdateCorpusPayload } from "@/entities/corpus"
+import { CreateCorpusPayload } from "@/entities/corpus"
 import { useState } from "react"
-import { useEditCorpus } from "@/features/dashboard/corpus/editing-corpus"
+import { useCreateCorpus } from "@/features/corpus/create-corpus"
 import { AlertService } from "@/shared/services/AlertService"
 
-export const useEditCorpusModal = (corpusId: number, onClose: () => void) => {
-    const [formData, setFormData] = useState<UpdateCorpusPayload>({
+export const useCreateCorpusModal = (onClose: () => void) => {
+    const [formData, setFormData] = useState<CreateCorpusPayload>({
         title: "",
     })
     const [error, setError] = useState<string>()
-    const { editCorpus } = useEditCorpus()
+    const { createCorpus } = useCreateCorpus()
 
     const submitHandler = async () => {
         setError(undefined)
@@ -17,11 +17,11 @@ export const useEditCorpusModal = (corpusId: number, onClose: () => void) => {
             return setError("Все поля должны быть заполнены")
         }
 
-        const res = await editCorpus(corpusId, formData)
+        const res = await createCorpus(formData)
         if (res.hasError()) {
             setError(res.getError())
         } else {
-            AlertService.success(`Корпус с id = ${corpusId} был успешно обновлён`)
+            AlertService.success("Корпус был успешно создан")
             onClose()
         }
     }

@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { useGetSchedule } from "@/features/dashboard/group/get-schedule"
-import { useDeleteLesson } from "@/features/dashboard/lesson/delete-lesson"
+import { useGetSchedule } from "@/features/group/get-schedule"
+import { useDeleteLesson } from "@/features/lesson/delete-lesson"
 import { AlertService } from "@/shared/services/AlertService"
 
 interface Slot {

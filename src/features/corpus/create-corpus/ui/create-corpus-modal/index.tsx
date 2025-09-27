@@ -2,7 +2,7 @@
 
 import React from "react"
 import Modal, { ModalLabel } from "@/shared/ui/modal"
-import { useCreateCorpusModal } from "@/features/dashboard/corpus/create-corpus/ui/create-corpus-modal/hook"
+import { useCreateCorpusModal } from "@/features/corpus/create-corpus/ui/create-corpus-modal/hook"
 
 export const CreateCorpusModal: React.FC<{
     onClose: () => void

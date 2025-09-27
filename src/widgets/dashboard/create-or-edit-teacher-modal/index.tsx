@@ -1,7 +1,7 @@
 import React from "react"
 import { OnCloseFn } from "@/shared/types"
-import EditTeacherModal from "@/features/dashboard/teacher/edit-teacher/ui/edit-teacher-module"
-import CreateTeacherModal from "@/features/dashboard/teacher/create-teacher/ui/create-teacher-modal"
+import EditTeacherModal from "@/features/teacher/edit-teacher/ui/edit-teacher-module"
+import CreateTeacherModal from "@/features/teacher/create-teacher/ui/create-teacher-modal"
 
 export const CreateOrEditTeacherModal: React.FC<{
     teacherId: number | null

@@ -1,15 +1,15 @@
-import { useCreateTeacher } from "@/features/dashboard/teacher/create-teacher"
 import { useState } from "react"
 import { AlertService } from "@/shared/services/AlertService"
 import { OnCloseFn } from "@/shared/types"
+import { useEditTeacher } from "@/features/teacher/edit-teacher"
 
-export const useCreateTeacherModal = (onClose: OnCloseFn) => {
-    const { createTeacher } = useCreateTeacher()
+export const useEditTeacherModal = (id: number, onClose: OnCloseFn) => {
+    const { editTeacher } = useEditTeacher()
     const [name, setName] = useState("")
     const [error, setError] = useState<string>("")
 
     const submitHandler = async () => {
-        const res = await createTeacher({ name: name })
+        const res = await editTeacher(id, { name: name })
 
         if (res.hasError()) {
             return setError(res.getError())

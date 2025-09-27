@@ -3,7 +3,7 @@
 import React from "react"
 import Modal, { ModalLabel } from "@/shared/ui/modal"
 import { OnCloseFn } from "@/shared/types"
-import { useEditTeacherModal } from "@/features/dashboard/teacher/edit-teacher/ui/edit-teacher-module/hook"
+import { useEditTeacherModal } from "@/features/teacher/edit-teacher/ui/edit-teacher-module/hook"
 
 const EditTeacherModal: React.FC<{
     teacherId: number

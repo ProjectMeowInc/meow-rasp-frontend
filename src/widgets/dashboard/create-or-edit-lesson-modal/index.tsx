@@ -1,5 +1,5 @@
-import { CreateLessonModal } from "@/features/dashboard/lesson/create-lesson"
-import { EditLessonModal } from "@/features/dashboard/lesson/edit-lesson"
+import { CreateLessonModal } from "@/features/lesson/create-lesson"
+import { EditLessonModal } from "@/features/lesson/edit-lesson"
 import { OnCloseFn } from "@/shared/types"
 import React from "react"
 

@@ -1,9 +1,9 @@
 import { UpdateLessonPayload } from "@/entities/lesson"
 import { useState } from "react"
 import { useUpdateLesson } from "../../hooks"
-import { useGetClassrooms } from "@/features/dashboard/classroom/get-classrooms"
-import { useGetGroupDisciplines } from "@/features/dashboard/group/get-disciplines"
-import { useGetTeachers } from "@/features/dashboard/teacher/get-teachers"
+import { useGetClassrooms } from "@/features/classroom/get-classrooms"
+import { useGetGroupDisciplines } from "@/features/group/get-disciplines"
+import { useGetTeachers } from "@/features/teacher/get-teachers"
 import { useGetLessons } from "../../../get-lessons"
 import { useFirstLoadingAsync } from "@/shared/hooks/useFirstLoading"
 

@@ -7,7 +7,7 @@ import ErrorReloadMessage from "@/shared/ui/error-reload-message"
 import Header from "../ui/header"
 import EmptyItemsDisplay from "@/shared/ui/empty-item-display"
 import EmptyResultMessage from "@/shared/ui/empty-result-message"
-import { ClassroomItem } from "@/features/dashboard/classroom/get-classrooms"
+import { ClassroomItem } from "@/features/classroom/get-classrooms"
 import CardActions from "@/shared/ui/card-actions"
 import { CreateOrEditClassroomModal } from "@/widgets/dashboard/create-or-edit-classroom-modal"
 

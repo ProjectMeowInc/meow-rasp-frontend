@@ -1,6 +1,6 @@
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
-import { useGetTeachers } from "@/features/dashboard/teacher/get-teachers"
+import { useGetTeachers } from "@/features/teacher/get-teachers"
 
 const useTeacherDashboard = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)

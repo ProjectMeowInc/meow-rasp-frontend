@@ -1,4 +1,4 @@
-import { useGetGroups } from "@/features/dashboard/group/get-groups"
+import { useGetGroups } from "@/features/group/get-groups"
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
 

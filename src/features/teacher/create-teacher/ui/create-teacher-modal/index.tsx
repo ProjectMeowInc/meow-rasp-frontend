@@ -3,7 +3,7 @@
 import React from "react"
 import Modal, { ModalLabel } from "@/shared/ui/modal"
 import { OnCloseFn } from "@/shared/types"
-import { useCreateTeacherModal } from "@/features/dashboard/teacher/create-teacher/ui/create-teacher-modal/hook"
+import { useCreateTeacherModal } from "@/features/teacher/create-teacher/ui/create-teacher-modal/hook"
 
 const CreateTeacherModal: React.FC<{
     isOpen: boolean
