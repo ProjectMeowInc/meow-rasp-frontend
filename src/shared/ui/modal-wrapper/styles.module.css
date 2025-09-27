@@ -27,6 +27,13 @@
     position: relative;
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
 .closeButton {
     position: absolute;
     top: 16px;

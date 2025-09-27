@@ -1,19 +1,22 @@
 "use client"
 
+import React from "react"
 import styles from "./styles.module.css"
 
-interface ModalWrapperProps {
+const ModalWrapper: React.FC<{
+    title: string
     children: React.ReactNode
     onClose: () => void
-}
-
-const ModalWrapper = ({ children, onClose }: ModalWrapperProps) => {
+}> = ({ title, children, onClose }) => {
     return (
         <div className={styles.modalOverlay} onClick={onClose}>
             <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-                <button className={styles.closeButton} onClick={onClose}>
-                    ×
-                </button>
+                <div className={styles.header}>
+                    <h2>{title}</h2>
+                    <button className={styles.closeButton} onClick={onClose}>
+                        ×
+                    </button>
+                </div>
                 {children}
             </div>
         </div>
