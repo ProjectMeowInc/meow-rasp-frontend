@@ -9,25 +9,35 @@ interface Slot {
 export const useGroupScheduleDashboard = (groupId: number, startDate: string, endDate: string) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editingSlot, setEditingSlot] = useState<Slot | null>(null)
-    const [editingLessonId, setEditingLessonId] = useState<number | null>(null)
+    const [editingLessonId, setEditingLessonId] = useState<number>()
 
     const { useGetGroupScheduleLoading } = useGetSchedule()
     const { state: scheduleState, reload: reloadSchedule } = useGetGroupScheduleLoading(groupId, startDate, endDate)
 
-    const openFormHandler = (slot: Slot, lessonId?: number) => {
-        setEditingSlot(slot)
-        setIsModalOpen(true)
-        setEditingLessonId(lessonId ?? null)
+    const openModalHandler = (date: string, number: number, lessonId?: number) => {
+        if (lessonId) {
+            openEditModalHandler({ date, number }, lessonId)
+        } else {
+            openCreateModalHandler({ date, number })
+        }
     }
 
-    const closeFormHandler = () => {
-        setIsModalOpen(false)
-        setEditingSlot(null)
+    const openCreateModalHandler = (slot: Slot) => {
+        setEditingSlot(slot)
+        setIsModalOpen(true)
+    }
+
+    const openEditModalHandler = (slot: Slot, lessonId: number) => {
+        setEditingSlot(slot)
+        setIsModalOpen(true)
+        setEditingLessonId(lessonId)
     }
 
     const submitHandler = async () => {
-        await reloadSchedule()
         setIsModalOpen(false)
+        setEditingSlot(null)
+        setEditingLessonId(undefined)
+        await reloadSchedule()
     }
 
     return {
@@ -35,8 +45,7 @@ export const useGroupScheduleDashboard = (groupId: number, startDate: string, en
         editingSlot,
         editingLessonId,
         scheduleState,
-        openFormHandler,
-        closeFormHandler,
+        openModalHandler,
         submitHandler,
     }
 }

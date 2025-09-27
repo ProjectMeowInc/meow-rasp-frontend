@@ -6,6 +6,7 @@ import { useParams } from "next/navigation"
 import Preloader from "@/shared/ui/preloader"
 import { dateTimeToDateString, getDateStringsRange, getISOWeekMonday } from "@/shared/helpers/time"
 import { CreateLessonModal } from "@/features/dashboard/lesson/create-lesson"
+import { CreateOrEditLessonModal } from "@/widgets/dashboard/create-or-edit-lesson-modal"
 
 const getWeekDates = () => {
     const startDate = getISOWeekMonday()
@@ -23,11 +24,8 @@ const days = getDateStringsRange(startDate, endDate)
 
 const GroupScheduleDashboardPage = () => {
     const { id: groupId } = useParams<{ id: string }>()
-    const { isModalOpen, editingSlot, openFormHandler, submitHandler, scheduleState } = useGroupScheduleDashboard(
-        parseInt(groupId),
-        dateTimeToDateString(startDate),
-        dateTimeToDateString(endDate),
-    )
+    const { isModalOpen, editingSlot, editingLessonId, scheduleState, openModalHandler, submitHandler } =
+        useGroupScheduleDashboard(parseInt(groupId), dateTimeToDateString(startDate), dateTimeToDateString(endDate))
 
     return (
         <div className={styles.page}>
@@ -43,18 +41,19 @@ const GroupScheduleDashboardPage = () => {
                         <DayColumn
                             key={day}
                             date={day}
-                            onSlotCardEdit={(date, number, lessonId) => openFormHandler({ date, number }, lessonId)}
+                            onSlotCardEdit={openModalHandler}
                             scheduleData={scheduleState.content.items[day] || []}
                         />
                     ))}
             </div>
             {editingSlot && (
-                <CreateLessonModal
+                <CreateOrEditLessonModal
+                    lessonId={editingLessonId}
+                    number={editingSlot.number}
                     isOpen={isModalOpen}
-                    onClose={submitHandler}
                     groupId={parseInt(groupId)}
-                    date={editingSlot?.date}
-                    number={editingSlot?.number}
+                    date={editingSlot.date}
+                    onClose={submitHandler}
                 />
             )}
         </div>

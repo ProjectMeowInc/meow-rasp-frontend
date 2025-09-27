@@ -12,7 +12,7 @@ export const CreateLessonModal: React.FC<{
     groupId: number
     date: string
     number: number
-    isOpen?: boolean
+    isOpen: boolean
     onClose: OnCloseFn
 }> = ({ groupId, date, number, isOpen, onClose }) => {
     const { formData, error, disciplinesState, teachersState, classroomsState, setFormData, submitHandler } =
