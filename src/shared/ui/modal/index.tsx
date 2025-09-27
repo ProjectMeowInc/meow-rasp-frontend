@@ -5,15 +5,13 @@ import ModalWrapper from "../modal-wrapper"
 export { default as ModalLabel } from "./ui/modal-label"
 export { default as ModalButtons } from "./ui/modal-buttons"
 
-interface IModalProps {
+const Modal: React.FC<{
     title: string
     isOpen?: boolean
     onSubmit: () => void
     onClose: () => void
     children: React.ReactNode
-}
-
-const Modal: React.FC<IModalProps> = ({ title, isOpen, onSubmit, onClose, children }) => {
+}> = ({ title, isOpen, onSubmit, onClose, children }) => {
     if (!isOpen) {
         return null
     }
