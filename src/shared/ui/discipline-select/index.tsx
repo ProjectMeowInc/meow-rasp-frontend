@@ -5,13 +5,11 @@ import InlinePreloader from "@/shared/ui/inline-preloader"
 import Select, { SelectItem } from "@/shared/ui/select"
 import React from "react"
 
-interface Props {
+const DisciplineSelect: React.FC<{
     disciplinesState: DataLoadingState<GetGroupDisciplinesResponse>
-    selectedDiscipline?: string
-    onChange?: (value: string) => void
-}
-
-const DisciplineSelect: React.FC<Props> = ({ disciplinesState, selectedDiscipline, onChange }) => {
+    selectedDiscipline?: number
+    onChange?: (id: number) => void
+}> = ({ disciplinesState, selectedDiscipline, onChange }) => {
     if (disciplinesState.isLoading) {
         return <InlinePreloader />
     }
@@ -21,7 +19,12 @@ const DisciplineSelect: React.FC<Props> = ({ disciplinesState, selectedDisciplin
     }
 
     return (
-        <Select supportSearch placeholder="Выберите дисциплину" value={selectedDiscipline} onChange={onChange}>
+        <Select
+            supportSearch
+            placeholder="Выберите дисциплину"
+            value={selectedDiscipline?.toString()}
+            onChange={(val) => onChange?.(parseInt(val))}
+        >
             {disciplinesState.content.items.map((discipline) => (
                 <SelectItem
                     searchValue={[discipline.id.toString(), discipline.title]}

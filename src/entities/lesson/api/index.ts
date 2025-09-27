@@ -1,5 +1,6 @@
 import { LESSONS_API } from "@/shared/consts"
 import { HttpClient } from "@/shared/helpers/HttpClient"
+import { LessonType } from "../models"
 
 export { request as CreateLessonRequest, type Payload as CreateLessonPayload } from "./create-lesson"
 export { request as GetLessonByIdRequest, type Response as GetLessonByIdResponse } from "./get-lesson-by-id"
@@ -13,8 +14,5 @@ export interface CreateOrUpdateLessonPayload {
     disciplineId: number
     teacherId: number
     classroomId: number
-    lessonType: {
-        type: "shared" | "devided"
-        subgroup?: number
-    }
+    lessonType: LessonType
 }

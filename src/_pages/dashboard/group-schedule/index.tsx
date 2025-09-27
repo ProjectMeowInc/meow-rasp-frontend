@@ -1,11 +1,11 @@
 "use client"
 import DayColumn from "./ui/day-column"
-import { SetLessonForm } from "../../../widgets/dashboard"
 import { useGroupScheduleDashboard } from "./hook"
 import styles from "./styles.module.css"
 import { useParams } from "next/navigation"
 import Preloader from "@/shared/ui/preloader"
 import { dateTimeToDateString, getDateStringsRange, getISOWeekMonday } from "@/shared/helpers/time"
+import { CreateLessonModal } from "@/features/dashboard/lesson/create-lesson"
 
 const getWeekDates = () => {
     const startDate = getISOWeekMonday()
@@ -23,15 +23,11 @@ const days = getDateStringsRange(startDate, endDate)
 
 const GroupScheduleDashboardPage = () => {
     const { id: groupId } = useParams<{ id: string }>()
-    const {
-        isFormOpen,
-        editingSlot,
-        editingLessonId,
-        openFormHandler,
-        closeFormHandler,
-        submitHandler,
-        scheduleState,
-    } = useGroupScheduleDashboard(parseInt(groupId), dateTimeToDateString(startDate), dateTimeToDateString(endDate))
+    const { isModalOpen, editingSlot, openFormHandler, submitHandler, scheduleState } = useGroupScheduleDashboard(
+        parseInt(groupId),
+        dateTimeToDateString(startDate),
+        dateTimeToDateString(endDate),
+    )
 
     return (
         <div className={styles.page}>
@@ -52,16 +48,13 @@ const GroupScheduleDashboardPage = () => {
                         />
                     ))}
             </div>
-            {isFormOpen && editingSlot && (
-                <SetLessonForm
-                    onSubmit={submitHandler}
-                    onCancel={closeFormHandler}
+            {editingSlot && (
+                <CreateLessonModal
+                    isOpen={isModalOpen}
+                    onClose={submitHandler}
                     groupId={parseInt(groupId)}
-                    lessonId={editingLessonId || undefined}
-                    slot={{
-                        date: editingSlot.date,
-                        number: editingSlot.number,
-                    }}
+                    date={editingSlot?.date}
+                    number={editingSlot?.number}
                 />
             )}
         </div>

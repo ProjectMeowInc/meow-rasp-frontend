@@ -7,8 +7,8 @@ import React from "react"
 
 interface IClassroomSelectProps {
     classroomsState: DataLoadingState<GetAllClassroomResponse>
-    selectedClassroom?: string
-    onChange?: (value: string) => void
+    selectedClassroom?: number
+    onChange?: (id: number) => void
 }
 
 const ClassroomSelect: React.FC<IClassroomSelectProps> = ({ classroomsState, selectedClassroom, onChange }) => {
@@ -21,7 +21,12 @@ const ClassroomSelect: React.FC<IClassroomSelectProps> = ({ classroomsState, sel
     }
 
     return (
-        <Select supportSearch placeholder="Выберите аудиторию" value={selectedClassroom} onChange={onChange}>
+        <Select
+            supportSearch
+            placeholder="Выберите аудиторию"
+            value={selectedClassroom?.toString()}
+            onChange={(val) => onChange?.(parseInt(val))}
+        >
             {classroomsState.content.items.map((classroom) => (
                 <SelectItem
                     searchValue={[classroom.id.toString(), classroom.title]}

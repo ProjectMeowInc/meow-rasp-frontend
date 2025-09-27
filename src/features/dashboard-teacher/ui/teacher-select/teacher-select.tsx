@@ -7,8 +7,8 @@ import React from "react"
 
 interface ITeacherSelectProps {
     teachersState: DataLoadingState<GetAllTeachersResponse>
-    selectedTeacher?: string
-    onChange?: (value: string) => void
+    selectedTeacher?: number
+    onChange?: (id: number) => void
 }
 
 export const TeacherSelect: React.FC<ITeacherSelectProps> = ({ selectedTeacher, teachersState, onChange }) => {
@@ -21,7 +21,12 @@ export const TeacherSelect: React.FC<ITeacherSelectProps> = ({ selectedTeacher, 
     }
 
     return (
-        <Select supportSearch value={selectedTeacher} placeholder="Выберите преподавателя" onChange={onChange}>
+        <Select
+            supportSearch
+            value={selectedTeacher?.toString()}
+            placeholder="Выберите преподавателя"
+            onChange={(val) => onChange?.(parseInt(val))}
+        >
             {teachersState.content.items.map((teacher: { id: number; name: string }) => (
                 <SelectItem
                     searchValue={[teacher.id.toString(), teacher.name]}
