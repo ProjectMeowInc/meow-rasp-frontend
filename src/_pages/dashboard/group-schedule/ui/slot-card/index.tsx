@@ -6,6 +6,7 @@ import { LessonType } from "@/entities/lesson"
 interface ISlotCardProps {
     slot: number
     onEditClick: (slot: number, lessonId?: number) => void
+    onDeleteClick: (lessonId: number) => void
     lessons?: {
         id: number
         lessonType: LessonType
@@ -29,7 +30,7 @@ interface ISlotCardProps {
     }[]
 }
 
-const SlotCard: FC<ISlotCardProps> = ({ slot, onEditClick, lessons }) => {
+const SlotCard: FC<ISlotCardProps> = ({ slot, onEditClick, onDeleteClick, lessons }) => {
     // Determine if we can add another lesson to this slot
     const canAddLesson = () => {
         if (!lessons || lessons.length === 0) {
@@ -81,6 +82,7 @@ const SlotCard: FC<ISlotCardProps> = ({ slot, onEditClick, lessons }) => {
                             )}
                             <div className={styles.lessonActions}>
                                 <Button onClick={() => onEditClick(slot, lesson.id)}>Редактировать</Button>
+                                <Button onClick={() => onDeleteClick(lesson.id)}>Удалить</Button>
                             </div>
                         </div>
                     ))

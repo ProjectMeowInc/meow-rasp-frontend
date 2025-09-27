@@ -4,27 +4,23 @@ import { useGroupScheduleDashboard } from "./hook"
 import styles from "./styles.module.css"
 import { useParams } from "next/navigation"
 import Preloader from "@/shared/ui/preloader"
-import { dateTimeToDateString, getDateStringsRange, getISOWeekMonday } from "@/shared/helpers/time"
+import { dateTimeToDateString, getDateStringsRange, getWeekDates } from "@/shared/helpers/time"
 import { CreateOrEditLessonModal } from "@/widgets/dashboard/create-or-edit-lesson-modal"
-
-const getWeekDates = () => {
-    const startDate = getISOWeekMonday()
-
-    const endDate = new Date(startDate)
-    endDate.setDate(startDate.getDate() + 13)
-    return {
-        startDate,
-        endDate,
-    }
-}
 
 const { startDate, endDate } = getWeekDates()
 const days = getDateStringsRange(startDate, endDate)
 
 const GroupScheduleDashboardPage = () => {
     const { id: groupId } = useParams<{ id: string }>()
-    const { isModalOpen, editingSlot, editingLessonId, scheduleState, openModalHandler, submitHandler } =
-        useGroupScheduleDashboard(parseInt(groupId), dateTimeToDateString(startDate), dateTimeToDateString(endDate))
+    const {
+        isModalOpen,
+        editingSlot,
+        editingLessonId,
+        scheduleState,
+        openModalHandler,
+        deleteLessonHandler,
+        submitHandler,
+    } = useGroupScheduleDashboard(parseInt(groupId), dateTimeToDateString(startDate), dateTimeToDateString(endDate))
 
     return (
         <div className={styles.page}>
@@ -41,6 +37,7 @@ const GroupScheduleDashboardPage = () => {
                             key={day}
                             date={day}
                             onSlotCardEdit={openModalHandler}
+                            onLessonDelete={deleteLessonHandler}
                             scheduleData={scheduleState.content.items[day] || []}
                         />
                     ))}
