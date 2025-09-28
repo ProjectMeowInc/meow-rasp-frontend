@@ -30,7 +30,7 @@ const ModalLabel: React.FC<IModalLabelProps> = (props) => {
                     {label}
                     <Select value={value?.toString()} onChange={(value) => onChange?.call(null, value)}>
                         {props.selectItems.map((v) => (
-                            <SelectItem key={v.value} value={v.value.toString()}>
+                            <SelectItem key={v.value} value={v.value}>
                                 {v.placeholder}
                             </SelectItem>
                         ))}

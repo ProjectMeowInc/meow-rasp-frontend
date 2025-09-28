@@ -6,20 +6,20 @@ import Select, { SelectError, SelectItem, SelectPreloader } from "@/shared/ui/se
 export const CorpusSelect: React.FC<{
     corpusesState: DataLoadingState<GetAllCorpusesResponse>
     onChange?: (corpusId: number) => void
-    onRentry?: () => void
-}> = ({ corpusesState, onChange, onRentry }) => {
+    onRetry?: () => void
+}> = ({ corpusesState, onChange, onRetry }) => {
     if (corpusesState.isLoading) {
         return <SelectPreloader />
     }
 
     if (corpusesState.isError) {
-        return <SelectError onRetry={onRentry} />
+        return <SelectError onRetry={onRetry} />
     }
 
     return (
         <Select onChange={(val) => onChange?.(parseInt(val))}>
             {corpusesState.content.items.map((c) => (
-                <SelectItem key={c.id} value={c.id.toString()}>
+                <SelectItem key={c.id} value={c.id}>
                     <div>Корпус - {c.title}</div>
                 </SelectItem>
             ))}

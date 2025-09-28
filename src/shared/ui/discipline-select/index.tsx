@@ -22,14 +22,14 @@ const DisciplineSelect: React.FC<{
         <Select
             supportSearch
             placeholder="Выберите дисциплину"
-            value={selectedDiscipline?.toString()}
+            value={selectedDiscipline}
             onChange={(val) => onChange?.(parseInt(val))}
         >
             {disciplinesState.content.items.map((discipline) => (
                 <SelectItem
                     searchValue={[discipline.id.toString(), discipline.title]}
                     key={discipline.id}
-                    value={discipline.id.toString()}
+                    value={discipline.id}
                 >
                     <strong>{discipline.title}</strong>
                 </SelectItem>
