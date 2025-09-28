@@ -1,6 +1,5 @@
 import { GetAllCorpusesResponse } from "@/entities/corpus"
 import { useGetClassrooms } from "@/features/classroom/get-classrooms"
-import { useGetCorpuses } from "@/features/corpus/get-corpuses"
 import { LoadSuccessStateType } from "@/shared/hooks/useDataLoading"
 import { CloseModalEvent } from "@/shared/types"
 import { useState } from "react"
@@ -8,9 +7,6 @@ import { useState } from "react"
 const useClassroomDashboard = () => {
     const { useGetAllClassroomsLoading } = useGetClassrooms()
     const { state, silentReload } = useGetAllClassroomsLoading()
-
-    const { useGetAllCorpusesLoading } = useGetCorpuses()
-    const { state: corpusesState } = useGetAllCorpusesLoading()
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editingId, setEditingId] = useState<number | null>(null)
@@ -45,12 +41,10 @@ const useClassroomDashboard = () => {
     return {
         state,
         editingId,
-        corpusesState,
         isModalOpen,
-        closeModalHandler,
-        setIsModalOpen,
-        openUpdateHandler,
         openCreateHandler,
+        openUpdateHandler,
+        closeModalHandler,
         deleteHandler,
     }
 }
