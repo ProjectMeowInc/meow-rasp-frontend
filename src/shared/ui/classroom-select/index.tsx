@@ -22,14 +22,14 @@ const ClassroomSelect: React.FC<{
         <Select
             supportSearch
             placeholder="Выберите аудиторию"
-            value={selectedClassroom?.toString()}
+            value={selectedClassroom}
             onChange={(val) => onChange?.(parseInt(val))}
         >
             {classroomsState.content.items.map((classroom) => (
                 <SelectItem
                     searchValue={[classroom.id.toString(), classroom.title]}
                     key={classroom.id}
-                    value={classroom.id.toString()}
+                    value={classroom.id}
                 >
                     <strong>{classroom.title}</strong>
                 </SelectItem>

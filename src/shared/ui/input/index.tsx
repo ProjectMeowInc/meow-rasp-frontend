@@ -9,7 +9,7 @@ const Input: React.FC<{
     ref?: React.RefObject<HTMLInputElement | null>
     onChange?: (value: string) => void
     style?: React.CSSProperties
-    defaultValue?: string
+    defaultValue?: string | number
 }> = ({ placeholder, type, ref, onChange, style, defaultValue }) => {
     const changeHandler = (value: string) => {
         onChange?.call(null, value)

@@ -26,11 +26,7 @@ export const TeacherSelect: React.FC<{
             onChange={(val) => onChange?.(parseInt(val))}
         >
             {teachersState.content.items.map((teacher: { id: number; name: string }) => (
-                <SelectItem
-                    searchValue={[teacher.id.toString(), teacher.name]}
-                    key={teacher.id}
-                    value={teacher.id.toString()}
-                >
+                <SelectItem searchValue={[teacher.id.toString(), teacher.name]} key={teacher.id} value={teacher.id}>
                     <strong>{teacher.name}</strong>
                 </SelectItem>
             ))}

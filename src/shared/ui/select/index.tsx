@@ -11,14 +11,14 @@ export { default as SelectPreloader } from "./ui/select-preloader"
 export { default as SelectError } from "./ui/select-error"
 
 const Select: FC<{
-    value?: string
+    value?: string | number
     onChange?: (value: string) => void
     placeholder?: string
     supportSearch?: boolean
     children: ReactNode
 }> = ({ value, onChange, placeholder = "Выберите...", supportSearch, children }) => {
     const [open, setOpen] = useState(false)
-    const [selected, setSelected] = useState<string | undefined>(value)
+    const [selected, setSelected] = useState<string | undefined>(value?.toString())
     const ref = useRef<HTMLDivElement>(null)
     const searchRef = useRef<HTMLInputElement>(null)
     const [filter, setFilter] = useState<string>("")
