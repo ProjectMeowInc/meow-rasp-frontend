@@ -12,16 +12,8 @@ import { CreateOrEditClassroomModal } from "@/widgets/dashboard/create-or-edit-c
 import { DashboardHeaderLayout } from "@/shared/layout/header/dashboard"
 
 const ClassroomDashboardPage = () => {
-    const {
-        state,
-        editingId,
-        corpusesState,
-        isModalOpen,
-        openCreateHandler,
-        openUpdateHandler,
-        closeModalHandler,
-        deleteHandler,
-    } = useClassroomDashboard()
+    const { state, editingId, isModalOpen, openCreateHandler, openUpdateHandler, closeModalHandler, deleteHandler } =
+        useClassroomDashboard()
 
     if (state.isLoading) {
         return <Preloader />
@@ -33,22 +25,6 @@ const ClassroomDashboardPage = () => {
                 <ErrorReloadMessage />
             </div>
         )
-    }
-
-    if (corpusesState.isLoading) {
-        return <Preloader />
-    }
-
-    if (corpusesState.isError) {
-        return <ErrorReloadMessage />
-    }
-
-    const getCorpus: (id: number) => { id: number; title: string } = (id: number) => {
-        const corpus = corpusesState.content.items.find((c) => c.id === id)
-        if (!corpus) {
-            throw new Error("Corpus not EXISTS")
-        }
-        return corpus
     }
 
     return (
@@ -63,7 +39,7 @@ const ClassroomDashboardPage = () => {
                         {state.content.items.map((classroom) => (
                             <ClassroomItem
                                 key={classroom.id}
-                                corpus={getCorpus(classroom.corpusId)}
+                                corpus={classroom.corpus}
                                 title={`Кабинет ${classroom.title}`}
                                 cardActions={
                                     <CardActions

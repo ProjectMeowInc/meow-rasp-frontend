@@ -5,7 +5,10 @@ export interface Response {
     items: {
         id: number
         title: string
-        corpusId: number
+        corpus: {
+            id: number
+            title: string
+        }
     }[]
 }
 
