@@ -5,6 +5,7 @@ export interface Response {
     items: {
         id: number
         title: string
+        corpusId: number
     }[]
 }
 

@@ -6,8 +6,9 @@ import { useGetGroupDisciplines } from "@/features/group/get-disciplines"
 import { useGetTeachers } from "@/features/teacher/get-teachers"
 import { useGetLessons } from "../../../get-lessons"
 import { useFirstLoadingAsync } from "@/shared/hooks/useFirstLoading"
+import { OnCloseFn } from "@/shared/types"
 
-export const useUpdateLessonModal = (groupId: number, lessonId: number, date: string, onClose: () => void) => {
+export const useUpdateLessonModal = (groupId: number, lessonId: number, date: string, onClose: OnCloseFn) => {
     const [formData, setFormData] = useState<UpdateLessonPayload | null>(null)
     const [error, setError] = useState<string>()
 
@@ -58,7 +59,7 @@ export const useUpdateLessonModal = (groupId: number, lessonId: number, date: st
         if (res.hasError()) {
             setError(res.getError())
         } else {
-            onClose()
+            onClose({ reason: "submit" })
         }
     }
 

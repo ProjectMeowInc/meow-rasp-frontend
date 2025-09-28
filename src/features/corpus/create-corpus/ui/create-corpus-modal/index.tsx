@@ -3,11 +3,12 @@
 import React from "react"
 import Modal, { ModalLabel } from "@/shared/ui/modal"
 import { useCreateCorpusModal } from "@/features/corpus/create-corpus/ui/create-corpus-modal/hook"
+import { OnCloseFn } from "@/shared/types"
 
 export const CreateCorpusModal: React.FC<{
-    onClose: () => void
     isOpen: boolean
-}> = ({ onClose, isOpen }) => {
+    onClose: OnCloseFn
+}> = ({ isOpen, onClose }) => {
     const { formData, setFormData, submitHandler, error } = useCreateCorpusModal(onClose)
 
     return (

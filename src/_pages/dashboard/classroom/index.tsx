@@ -19,7 +19,7 @@ const ClassroomDashboardPage = () => {
         isModalOpen,
         openCreateHandler,
         openUpdateHandler,
-        submitHandler,
+        closeModalHandler,
         deleteHandler,
     } = useClassroomDashboard()
 
@@ -82,7 +82,7 @@ const ClassroomDashboardPage = () => {
                 </EmptyItemsDisplay.Empty>
             </EmptyItemsDisplay>
 
-            <CreateOrEditClassroomModal editingId={editingId} isOpen={isModalOpen} onClose={submitHandler} />
+            <CreateOrEditClassroomModal editingId={editingId} isOpen={isModalOpen} onClose={closeModalHandler} />
         </DashboardHeaderLayout>
     )
 }

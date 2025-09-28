@@ -1,16 +1,19 @@
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
 import { useGetTeachers } from "@/features/teacher/get-teachers"
+import { CloseModalEvent } from "@/shared/types"
 
 const useTeacherDashboard = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editingId, setEditingId] = useState<number | null>(null)
     const { useGetAllTeachersLoading } = useGetTeachers()
-    const { state, reload } = useGetAllTeachersLoading()
+    const { state, silentReload } = useGetAllTeachersLoading()
 
-    const submitHandler = async () => {
+    const closeModalHandler = async (ctx: CloseModalEvent) => {
         setIsModalOpen(false)
-        await reload()
+        if (ctx.reason === "submit") {
+            await silentReload()
+        }
     }
 
     const openCreateHandler = () => {
@@ -34,7 +37,7 @@ const useTeacherDashboard = () => {
         deleteHandler,
         openCreateHandler,
         openUpdateHandler,
-        submitHandler,
+        closeModalHandler,
     }
 }
 

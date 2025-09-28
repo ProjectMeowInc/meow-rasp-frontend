@@ -1,16 +1,19 @@
 import { AlertService } from "@/shared/services/AlertService"
 import { useState } from "react"
 import { useGetCorpuses } from "@/features/corpus/get-corpuses"
+import { CloseModalEvent } from "@/shared/types"
 
 const useCorpusesDashboardPage = () => {
     const { useGetAllCorpusesLoading } = useGetCorpuses()
-    const { state, reload } = useGetAllCorpusesLoading()
+    const { state, silentReload } = useGetAllCorpusesLoading()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editingId, setEditingId] = useState<number | null>(null)
 
-    const submitHandler = async () => {
+    const closeModalHandler = async (ctx: CloseModalEvent) => {
         setIsModalOpen(false)
-        await reload()
+        if (ctx.reason === "submit") {
+            await silentReload()
+        }
     }
 
     const openCreateHandler = () => {
@@ -33,7 +36,7 @@ const useCorpusesDashboardPage = () => {
         isModalOpen,
         openCreateHandler,
         openUpdateHandler,
-        submitHandler,
+        closeModalHandler,
         deleteHandler,
     }
 }

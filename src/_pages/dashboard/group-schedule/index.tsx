@@ -19,7 +19,7 @@ const GroupScheduleDashboardPage = () => {
         scheduleState,
         openModalHandler,
         deleteLessonHandler,
-        submitHandler,
+        closeModalHandler,
     } = useGroupScheduleDashboard(parseInt(groupId), dateTimeToDateString(startDate), dateTimeToDateString(endDate))
 
     return (
@@ -49,7 +49,7 @@ const GroupScheduleDashboardPage = () => {
                     isOpen={isModalOpen}
                     groupId={parseInt(groupId)}
                     date={editingSlot.date}
-                    onClose={submitHandler}
+                    onClose={closeModalHandler}
                 />
             )}
         </div>

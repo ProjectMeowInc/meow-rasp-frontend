@@ -48,6 +48,10 @@ export function useHttpDataLoading<TRes>(req: HttpClient) {
             isLoading: true,
         })
 
+        await silentReload()
+    }
+
+    const silentReload = async () => {
         const result = await req.send<TRes>()
 
         if (result.hasError()) {
@@ -69,7 +73,7 @@ export function useHttpDataLoading<TRes>(req: HttpClient) {
         await reload()
     })
 
-    return { state, reload }
+    return { state, reload, silentReload }
 }
 
 export function useHttpDataLoadingWithMap<TReqRes, TRes>(req: HttpClient, mapFn: (val: TReqRes) => TRes) {

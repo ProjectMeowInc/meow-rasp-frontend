@@ -15,7 +15,7 @@ export const useCreateTeacherModal = (onClose: OnCloseFn) => {
             return setError(res.getError())
         } else {
             AlertService.success("Учитель был успешно создан")
-            onClose()
+            onClose({ reason: "submit" })
         }
     }
 

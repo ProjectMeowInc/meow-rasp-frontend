@@ -11,7 +11,7 @@ import { CreateOrEditCorpusModal } from "@/widgets/dashboard/create-or-edit-corp
 import { DashboardHeaderLayout } from "@/shared/layout/header/dashboard"
 
 const CorpusesDashboardPage = () => {
-    const { editingId, state, isModalOpen, openCreateHandler, openUpdateHandler, submitHandler, deleteHandler } =
+    const { editingId, state, isModalOpen, openCreateHandler, openUpdateHandler, closeModalHandler, deleteHandler } =
         useCorpusesDashboardPage()
 
     if (state.isLoading) {
@@ -50,7 +50,7 @@ const CorpusesDashboardPage = () => {
                     <EmptyResultMessage />
                 </EmptyItemsDisplay.Empty>
             </EmptyItemsDisplay>
-            <CreateOrEditCorpusModal editingId={editingId} isOpen={isModalOpen} onClose={submitHandler} />
+            <CreateOrEditCorpusModal editingId={editingId} isOpen={isModalOpen} onClose={closeModalHandler} />
         </DashboardHeaderLayout>
     )
 }

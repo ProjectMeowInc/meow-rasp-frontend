@@ -3,8 +3,9 @@ import { GetAllCorpusesRequest, GetAllCorpusesResponse } from "@/entities/corpus
 import { useHttpDataLoading } from "@/shared/hooks/useDataLoading"
 import { useState } from "react"
 import { useCreateClassroom } from "../../hooks"
+import { OnCloseFn } from "@/shared/types"
 
-export const useCreateClassroomModal = (onClose: () => void) => {
+export const useCreateClassroomModal = (onClose: OnCloseFn) => {
     const [formData, setFormData] = useState<CreateClassroomPayload>({
         title: "",
         corpusId: 0,
@@ -24,7 +25,7 @@ export const useCreateClassroomModal = (onClose: () => void) => {
         if (res.hasError()) {
             setError(res.getError())
         } else {
-            onClose()
+            onClose({ reason: "submit" })
         }
     }
 

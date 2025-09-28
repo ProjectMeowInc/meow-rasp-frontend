@@ -1,5 +1,6 @@
 import { useGetGroups } from "@/features/group/get-groups"
 import { AlertService } from "@/shared/services/AlertService"
+import { CloseModalEvent } from "@/shared/types"
 import { useState } from "react"
 
 interface IGroup {
@@ -9,15 +10,17 @@ interface IGroup {
 
 export const useGroupDashboard = () => {
     const { useGetAllGroupsLoading } = useGetGroups()
-    const { state, reload } = useGetAllGroupsLoading()
+    const { state, silentReload } = useGetAllGroupsLoading()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editingId, setEditingId] = useState<number | null>(null)
     const [selectedGroup, setSelectedGroup] = useState<IGroup | null>(null)
 
-    const submitHandler = async () => {
+    const closeModalHandler = async (ctx: CloseModalEvent) => {
         setEditingId(null)
         setIsModalOpen(false)
-        await reload()
+        if (ctx.reason === "submit") {
+            await silentReload()
+        }
     }
 
     const openCreateHandler = () => {
@@ -42,7 +45,7 @@ export const useGroupDashboard = () => {
         openUpdateHandler,
         openCreateHandler,
         deleteHandler,
-        submitHandler,
+        closeModalHandler,
         setSelectedGroup,
     }
 }

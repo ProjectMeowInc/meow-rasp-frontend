@@ -1,5 +1,6 @@
 import { FC } from "react"
 import styles from "./styles.module.css"
+import { OnCloseFn } from "@/shared/types"
 
 type AvailableVariant = "default" | "danger" | "primary" | "success"
 
@@ -7,14 +8,14 @@ const ModalButtons: FC<{
     submitVariant: AvailableVariant
     cancelVariant: AvailableVariant
     onSubmit?: () => Promise<void> | void
-    onCancel?: () => Promise<void> | void
+    onCancel?: OnCloseFn
 }> = ({ submitVariant, cancelVariant, onSubmit, onCancel }) => {
     const submitHandler = () => {
-        onSubmit?.call(null)
+        onSubmit?.()
     }
 
     const cancelHandler = () => {
-        onCancel?.call(null)
+        onCancel?.({ reason: "cancel" })
     }
 
     return (

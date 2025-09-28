@@ -5,8 +5,9 @@ import { useCreateLesson } from "../../hooks"
 import { GetAllTeachersRequest, GetAllTeachersResponse } from "@/entities/teacher"
 import { GetAllClassroomRequest, GetAllClassroomResponse } from "@/entities/classroom"
 import { GetGroupDisciplinesRequest, GetGroupDisciplinesResponse } from "@/entities/group"
+import { OnCloseFn } from "@/shared/types"
 
-export const useCreateLessonModal = (groupId: number, date: string, number: number, onClose: () => void) => {
+export const useCreateLessonModal = (groupId: number, date: string, number: number, onClose: OnCloseFn) => {
     const [formData, setFormData] = useState<CreateOrUpdateLessonPayload>({
         date,
         number,
@@ -42,7 +43,7 @@ export const useCreateLessonModal = (groupId: number, date: string, number: numb
         if (res.hasError()) {
             setError(res.getError())
         } else {
-            onClose()
+            onClose({ reason: "submit" })
         }
     }
 

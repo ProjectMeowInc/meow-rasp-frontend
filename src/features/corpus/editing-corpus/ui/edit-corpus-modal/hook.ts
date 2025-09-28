@@ -2,8 +2,9 @@ import { UpdateCorpusPayload } from "@/entities/corpus"
 import { useState } from "react"
 import { useEditCorpus } from "@/features/corpus/editing-corpus"
 import { AlertService } from "@/shared/services/AlertService"
+import { OnCloseFn } from "@/shared/types"
 
-export const useEditCorpusModal = (corpusId: number, onClose: () => void) => {
+export const useEditCorpusModal = (corpusId: number, onClose: OnCloseFn) => {
     const [formData, setFormData] = useState<UpdateCorpusPayload>({
         title: "",
     })
@@ -22,7 +23,7 @@ export const useEditCorpusModal = (corpusId: number, onClose: () => void) => {
             setError(res.getError())
         } else {
             AlertService.success(`Корпус с id = ${corpusId} был успешно обновлён`)
-            onClose()
+            onClose({ reason: "submit" })
         }
     }
 

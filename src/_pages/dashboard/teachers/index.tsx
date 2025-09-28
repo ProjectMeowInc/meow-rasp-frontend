@@ -11,7 +11,7 @@ import { CreateOrEditTeacherModal } from "@/widgets/dashboard/create-or-edit-tea
 import { DashboardHeaderLayout } from "@/shared/layout/header/dashboard"
 
 const TeacherDashboard = () => {
-    const { state, editingId, isModalOpen, openCreateHandler, openUpdateHandler, submitHandler, deleteHandler } =
+    const { state, editingId, isModalOpen, openCreateHandler, openUpdateHandler, closeModalHandler, deleteHandler } =
         useTeacherDashboard()
 
     if (state.isLoading) {
@@ -50,7 +50,7 @@ const TeacherDashboard = () => {
                     <EmptyResultMessage />
                 </EmptyItemsDisplay.Empty>
             </EmptyItemsDisplay>
-            <CreateOrEditTeacherModal teacherId={editingId} isOpen={isModalOpen} onClose={submitHandler} />
+            <CreateOrEditTeacherModal teacherId={editingId} isOpen={isModalOpen} onClose={closeModalHandler} />
         </DashboardHeaderLayout>
     )
 }
