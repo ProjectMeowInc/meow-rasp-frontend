@@ -3,11 +3,12 @@
 import React from "react"
 import Modal, { ModalLabel } from "@/shared/ui/modal"
 import { useEditCorpusModal } from "./hook"
+import { OnCloseFn } from "@/shared/types"
 
 export const EditCorpusModal: React.FC<{
     corpusId: number
-    onClose: () => void
     isOpen: boolean
+    onClose: OnCloseFn
 }> = ({ corpusId, onClose, isOpen }) => {
     const { formData, setFormData, submitHandler, error } = useEditCorpusModal(corpusId, onClose)
 

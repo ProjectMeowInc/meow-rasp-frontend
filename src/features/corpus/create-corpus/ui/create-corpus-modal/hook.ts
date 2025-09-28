@@ -2,8 +2,9 @@ import { CreateCorpusPayload } from "@/entities/corpus"
 import { useState } from "react"
 import { useCreateCorpus } from "@/features/corpus/create-corpus"
 import { AlertService } from "@/shared/services/AlertService"
+import { OnCloseFn } from "@/shared/types"
 
-export const useCreateCorpusModal = (onClose: () => void) => {
+export const useCreateCorpusModal = (onClose: OnCloseFn) => {
     const [formData, setFormData] = useState<CreateCorpusPayload>({
         title: "",
     })
@@ -22,7 +23,7 @@ export const useCreateCorpusModal = (onClose: () => void) => {
             setError(res.getError())
         } else {
             AlertService.success("Корпус был успешно создан")
-            onClose()
+            onClose({ reason: "submit" })
         }
     }
 

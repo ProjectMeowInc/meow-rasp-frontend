@@ -3,10 +3,11 @@
 import Modal, { ModalLabel } from "@/shared/ui/modal"
 import { useCreateClassroomModal } from "./hook"
 import { CorpusSelect } from "@/entities/corpus/ui/corpus-select"
+import { OnCloseFn } from "@/shared/types"
 
 export const CreateClassroomModal: React.FC<{
     isOpen?: boolean
-    onClose: () => void
+    onClose: OnCloseFn
 }> = ({ isOpen, onClose }) => {
     const { formData, error, corpusesState, setFormData, submitHandler } = useCreateClassroomModal(onClose)
 

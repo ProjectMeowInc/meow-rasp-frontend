@@ -23,7 +23,7 @@ export const useEditGroupModal = (groupId: number, onClose: OnCloseFn) => {
         if (res.hasError()) {
             setError(res.getError())
         } else {
-            onClose()
+            onClose({ reason: "submit" })
         }
     }
 

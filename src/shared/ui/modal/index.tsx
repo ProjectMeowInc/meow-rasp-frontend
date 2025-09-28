@@ -1,6 +1,7 @@
 import React from "react"
 import ModalButtons from "./ui/modal-buttons"
 import ModalWrapper from "../modal-wrapper"
+import { OnCloseFn } from "@/shared/types"
 
 export { default as ModalLabel } from "./ui/modal-label"
 export { default as ModalButtons } from "./ui/modal-buttons"
@@ -9,7 +10,7 @@ const Modal: React.FC<{
     title: string
     isOpen?: boolean
     onSubmit: () => void
-    onClose: () => void
+    onClose: OnCloseFn
     children: React.ReactNode
 }> = ({ title, isOpen, onSubmit, onClose, children }) => {
     if (!isOpen) {
