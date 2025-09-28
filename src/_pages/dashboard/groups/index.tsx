@@ -20,7 +20,7 @@ const GroupDashboardPage = () => {
         openUpdateHandler,
         openCreateHandler,
         deleteHandler,
-        submitHandler,
+        closeModalHandler,
         setSelectedGroup,
     } = useGroupDashboard()
 
@@ -71,7 +71,7 @@ const GroupDashboardPage = () => {
                 {selectedGroup && <GroupDiscipline id={selectedGroup.id} title={selectedGroup.title} />}
             </div>
 
-            <CreateOrEditGroupModal isOpen={isModalOpen} onClose={submitHandler} groupId={editingId} />
+            <CreateOrEditGroupModal isOpen={isModalOpen} onClose={closeModalHandler} groupId={editingId} />
         </>
     )
 }

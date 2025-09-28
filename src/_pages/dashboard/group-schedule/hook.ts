@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useGetSchedule } from "@/features/group/get-schedule"
 import { useDeleteLesson } from "@/features/lesson/delete-lesson"
 import { AlertService } from "@/shared/services/AlertService"
+import { CloseModalEvent } from "@/shared/types"
 
 interface Slot {
     date: string
@@ -15,7 +16,11 @@ export const useGroupScheduleDashboard = (groupId: number, startDate: string, en
     const { deleteLesson } = useDeleteLesson()
 
     const { useGetGroupScheduleLoading } = useGetSchedule()
-    const { state: scheduleState, reload: reloadSchedule } = useGetGroupScheduleLoading(groupId, startDate, endDate)
+    const { state: scheduleState, silentReload: reloadSchedule } = useGetGroupScheduleLoading(
+        groupId,
+        startDate,
+        endDate,
+    )
 
     const openModalHandler = (date: string, number: number, lessonId?: number) => {
         if (lessonId) {
@@ -46,11 +51,13 @@ export const useGroupScheduleDashboard = (groupId: number, startDate: string, en
         setEditingLessonId(lessonId)
     }
 
-    const submitHandler = async () => {
+    const closeModalHandler = async (ctx: CloseModalEvent) => {
         setIsModalOpen(false)
         setEditingSlot(null)
         setEditingLessonId(undefined)
-        await reloadSchedule()
+        if (ctx.reason === "submit") {
+            await reloadSchedule()
+        }
     }
 
     return {
@@ -59,7 +66,7 @@ export const useGroupScheduleDashboard = (groupId: number, startDate: string, en
         editingLessonId,
         scheduleState,
         openModalHandler,
-        submitHandler,
+        closeModalHandler,
         deleteLessonHandler,
     }
 }

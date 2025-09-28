@@ -1,7 +1,7 @@
 type CloseReason = "submit" | "cancel"
 
-interface OnCloseEvent {
+export interface CloseModalEvent {
     reason: CloseReason
 }
 
-export type OnCloseFn = (event: OnCloseEvent) => void
+export type OnCloseFn = (event: CloseModalEvent) => void

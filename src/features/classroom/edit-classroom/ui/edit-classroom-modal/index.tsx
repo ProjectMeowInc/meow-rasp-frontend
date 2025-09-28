@@ -28,7 +28,15 @@ export const EditClassroomModal: React.FC<{
                 }
             />
 
-            <CorpusSelect corpusesState={corpusesState} />
+            <CorpusSelect
+                onChange={(id) =>
+                    setFormData((prev) => ({
+                        ...prev,
+                        corpusId: id,
+                    }))
+                }
+                corpusesState={corpusesState}
+            />
             {error && <div>Ошибка: {error}</div>}
         </Modal>
     )
